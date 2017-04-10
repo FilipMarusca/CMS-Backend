@@ -8,8 +8,7 @@ import javax.persistence.Table;
 /**
  * Created by Alexandra Muresan on 4/10/2017.
  */
-@Entity
-@Table(name="conference")
+@Entity(name="conference")
 public class Conference {
     @Id
     @Column(name="id")
