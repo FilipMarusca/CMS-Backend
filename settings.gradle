@@ -1,4 +1,4 @@
-rootProject.name = 'TestHibernate'
+rootProject.name = 'CMS'
 include 'model'
 include 'client'
 include 'server'
