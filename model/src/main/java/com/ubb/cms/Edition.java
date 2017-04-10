@@ -13,11 +13,11 @@ import java.util.Date;
 @javax.persistence.Table(name="edition")
 public class Edition {
     @Id
-
     private int id;
-    @OneToOne
-    @JoinColumn(name="conference", referencedColumnName = "id")
-    private int idConference;
+
+    @ManyToOne
+    @JoinColumn(name="conference_id", referencedColumnName = "id")
+    private Conference conference;
 
     public int getId() {
         return id;
@@ -27,12 +27,12 @@ public class Edition {
         this.id = id;
     }
 
-    public int getIdConference() {
-        return idConference;
+    public Conference getConference() {
+        return conference;
     }
 
-    public void setIdConference(int idConference) {
-        this.idConference = idConference;
+    public void setConference(Conference conference) {
+        this.conference= conference;
     }
 
     public Date getBeginningDate() {
@@ -78,9 +78,9 @@ public class Edition {
     private Date beginningDate;
     private Date endingDate;
 
-    public Edition(int id, int idConference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) {
+    public Edition(int id, Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) {
         this.id = id;
-        this.idConference = idConference;
+        this.conference = conference;
         this.beginningDate = beginningDate;
         this.endingDate = endingDate;
         this.name = name;

@@ -18,7 +18,7 @@ public class Main {
 
 
         Edition e = new Edition();
-        Configuration con = new Configuration().configure("/hibernate.cfg.xml").addAnnotatedClass(Edition.class);
+        Configuration con = new Configuration().configure("/hibernate.cfg.xml").addAnnotatedClass(Conference.class).addAnnotatedClass(Edition.class);
         ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
         SessionFactory sf = con.buildSessionFactory(reg);
         Session session = sf.openSession();
