@@ -1,0 +1,6 @@
+rootProject.name = 'CMS'
+include 'model'
+include 'client'
+include 'server'
+include 'services'
+
