@@ -1,2 +1,6 @@
 rootProject.name = 'TestHibernate'
+include 'model'
+include 'client'
+include 'server'
+include 'services'
 
