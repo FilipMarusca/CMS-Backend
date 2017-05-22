@@ -10,3 +10,27 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+.DS_Store
+.idea/
+build/
+client/build/classes/
+client/src/test/
+model/build/libs/
+model/build/tmp/compileJava/
+model/src/main/resources/
+model/src/test/
+repository/build/classes/
+repository/build/libs/
+repository/build/tmp/compileJava/
+repository/src/test/
+server/build/classes/
+server/build/tmp/
+server/src/test/
+services/build/classes/main/service/
+services/build/classes/main/utils/
+services/build/libs/
+services/build/tmp/compileJava/
+services/src/main/resources/
+services/src/test/
+src/main/resources/
+src/test/
