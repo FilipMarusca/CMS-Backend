@@ -1,16 +1,13 @@
 package repository;
 
-import com.ubb.cms.*;
+import com.ubb.cms.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 import org.hibernate.service.spi.ServiceException;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -18,17 +15,14 @@ import java.util.List;
 /**
  * Created by Raul on 24/04/2017.
  */
-public class UserRepository implements IRepository<User>{
-    Configuration connection = null;
-    ServiceRegistry serviceRegistry;
-    SessionFactory sessionFactory;
+@Repository
+public class UserRepository extends AbstractRepository<User>{
+    private SessionFactory sessionFactory;
 
-    public UserRepository()
-    {
-
-        connection = new Configuration().configure("/hibernate.cfg.xml").addAnnotatedClass(Conference.class).addAnnotatedClass(Edition.class).addAnnotatedClass(ConferenceSession.class).addAnnotatedClass(User.class).addAnnotatedClass(SessionChair.class).addAnnotatedClass(Participation.class).addAnnotatedClass(Paper.class).addAnnotatedClass(Review.class);
-        serviceRegistry = new ServiceRegistryBuilder().applySettings(connection.getProperties()).buildServiceRegistry();
-        sessionFactory = connection.buildSessionFactory(serviceRegistry);
+    @Autowired
+    public UserRepository(SessionFactory sessionFactory, Class<User> managedEntity) {
+        super(sessionFactory, managedEntity);
+        this.sessionFactory = sessionFactory;
     }
 
     public void add(User user)
