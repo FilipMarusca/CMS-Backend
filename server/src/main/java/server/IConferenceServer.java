@@ -1,7 +1,6 @@
 package server;
 
 import client.IConferenceClient;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import com.ubb.cms.*;
 import exception.ServiceException;
 
