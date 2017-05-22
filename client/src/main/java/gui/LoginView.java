@@ -2,6 +2,7 @@ package gui;
 
 import client.ClientController;
 import client.StartClient;
+import com.ubb.cms.Conference;
 import com.ubb.cms.User;
 import exception.ServiceException;
 import javafx.collections.FXCollections;
@@ -37,11 +38,17 @@ public class LoginView  {
     {
         //System.out.println(username.getText());
         //System.out.println(password.getText());
+        for(Conference conference: controller.getAllConferences())
+        {
+            System.out.println(conference);
+        }
+
+        System.out.println("trece de getConferences");
         try {
             String tag = controller.login(username.getText(), password.getText());
             if(tag.equals("ADMIN"))
             {
-                System.out.println("intra in admin");
+                //System.out.println("intra in admin");
                 try {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(LoginView.class.getClassLoader().getResource("UserView.fxml"));

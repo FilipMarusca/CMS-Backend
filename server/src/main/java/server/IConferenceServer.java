@@ -22,4 +22,6 @@ public interface IConferenceServer {
 
     void updateUser(User newUser, int key) throws ServiceException;
 
+    List<Conference> getAllConferences();
+
 }

@@ -10,7 +10,6 @@
 
     <context:property-placeholder location="classpath*:database.properties"/>
     <context:component-scan base-package="repository"/>
-    /Users/Raul/Documents/ISS/TestHibernate/repository
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -27,14 +26,14 @@
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
             <list>
-                <value>com.ubb.cms.model.Conference</value>
-                <value>com.ubb.cms.model.ConferenceSession</value>
-                <value>com.ubb.cms.model.Edition</value>
-                <value>com.ubb.cms.model.Paper</value>
-                <value>com.ubb.cms.model.Participation</value>
-                <value>com.ubb.cms.model.Review</value>
-                <value>com.ubb.cms.model.SessionChair</value>
-                <value>com.ubb.cms.model.User</value>
+                <value>com.ubb.cms.Conference</value>
+                <value>com.ubb.cms.ConferenceSession</value>
+                <value>com.ubb.cms.Edition</value>
+                <value>com.ubb.cms.Paper</value>
+                <value>com.ubb.cms.Participation</value>
+                <value>com.ubb.cms.Review</value>
+                <value>com.ubb.cms.SessionChair</value>
+                <value>com.ubb.cms.User</value>
             </list>
         </property>
         <property name="hibernateProperties">

@@ -9,6 +9,9 @@ import java.util.concurrent.Executors;
 import client.IConferenceClient;
 import com.ubb.cms.*;
 import exception.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import service.ConferenceService;
 import service.UserService;
 
 
@@ -18,15 +21,17 @@ import service.UserService;
 
 
 
-
+@Component
 public class ConferenceServerImplementation implements IConferenceServer {
 
     private UserService userService;
+    @Autowired
+    private ConferenceService conferenceService;
     private Map<String, IConferenceClient> loggedClients;
 
     private static final int DEFAULTTHREADNUMBER = 5;
 
-
+    @Autowired
     public ConferenceServerImplementation(UserService userService)
     {
         this.userService = userService;
@@ -57,6 +62,15 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized void updateUser(User newUser, int key) {
         userService.updateUser(key, newUser);
         this.notifyAllViewers();
+    }
+
+    @Override
+    public List<Conference> getAllConferences() {
+        if(conferenceService == null)
+        {
+            System.out.println("e null");
+        }
+        return conferenceService.getAllConferences();
     }
 
     //@Override

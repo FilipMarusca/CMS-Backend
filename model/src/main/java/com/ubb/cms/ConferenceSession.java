@@ -26,6 +26,11 @@ public class ConferenceSession implements Serializable {
         this.location = location;
     }
 
+    public ConferenceSession()
+    {
+
+    }
+
     public int getId() {
         return id;
     }

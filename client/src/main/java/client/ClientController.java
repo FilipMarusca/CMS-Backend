@@ -1,8 +1,10 @@
 package client;
 
+import com.ubb.cms.Conference;
 import com.ubb.cms.User;
 import client.*;
 import exception.ServiceException;
+import org.springframework.stereotype.Component;
 import server.IConferenceServer;
 import utils.Observer;
 
@@ -39,6 +41,13 @@ public class ClientController extends UnicastRemoteObject implements IConference
         List<User> users = server.getAllUser();
         return users;
     }
+
+    public List<Conference> getAllConferences()
+    {
+        return server.getAllConferences();
+    }
+
+
 
     public void updateUser(User newUser, int key) throws ServiceException{
         server.updateUser(newUser, key);

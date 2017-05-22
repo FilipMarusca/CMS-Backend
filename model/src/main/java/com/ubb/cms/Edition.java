@@ -14,6 +14,8 @@ import java.util.Date;
 @javax.persistence.Table(name="edition")
 public class Edition implements Serializable {
     @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne

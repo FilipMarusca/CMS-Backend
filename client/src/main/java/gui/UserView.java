@@ -69,9 +69,9 @@ public class UserView implements Observer<User> {
         {
             User user = table.getSelectionModel().getSelectedItem();
             try {
-                System.out.println(tagComboBox.getSelectionModel().toString());
+                //System.out.println(tagComboBox.getSelectionModel().toString());
                 String newTag = tagComboBox.getSelectionModel().getSelectedItem();
-                System.out.println(newTag);
+                //System.out.println(newTag);
                 user.setTag(newTag);
                 controller.updateUser(user, user.getId());
 

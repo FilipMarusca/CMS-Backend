@@ -1,9 +1,6 @@
 package com.ubb.cms;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -12,6 +9,7 @@ import java.io.Serializable;
 @Entity(name="conference")
 public class Conference implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
     @Column(name="name")
@@ -37,5 +35,18 @@ public class Conference implements Serializable{
         this.id = id;
         this.name = name;
 
+    }
+
+    public Conference()
+    {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Conference{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

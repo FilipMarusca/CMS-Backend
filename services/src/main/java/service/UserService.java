@@ -1,13 +1,16 @@
 package service;
 
 import com.ubb.cms.User;
+import org.springframework.stereotype.Component;
 import repository.UserRepository;
+import repository.UserRepositorySpring;
 
 import java.util.List;
 
 /**
  * Created by Raul on 24/04/2017.
  */
+
 public class UserService {
 
     private UserRepository userRepository;

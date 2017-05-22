@@ -32,6 +32,7 @@ public class AbstractRepository<T> implements IRepository<T> {
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
+        System.out.println("intra in get all");
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         List<T> list = (List<T>) session.createCriteria(managedEntity).list();
