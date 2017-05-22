@@ -20,8 +20,8 @@ public class UserRepository extends AbstractRepository<User>{
     private SessionFactory sessionFactory;
 
     @Autowired
-    public UserRepository(SessionFactory sessionFactory, Class<User> managedEntity) {
-        super(sessionFactory, managedEntity);
+    public UserRepository(SessionFactory sessionFactory) {
+        super(sessionFactory, User.class);
         this.sessionFactory = sessionFactory;
     }
 

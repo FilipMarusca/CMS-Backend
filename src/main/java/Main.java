@@ -1,5 +1,3 @@
-import repository.UserRepository;
-
 /**
  * Created by Alexandra Muresan on 4/5/2017.
  */
@@ -7,7 +5,7 @@ public class Main {
 
     public static void main(String[] args){
 
-        UserRepository userRepository = new UserRepository();
+//        UserRepository userRepository = new UserRepository();
         //userRepository.addUser( new User(4,"raul","abc","raul","raul","muresan","abc"));
         //userRepository.deleteUser(3);
 
