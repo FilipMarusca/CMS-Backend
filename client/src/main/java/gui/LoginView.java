@@ -59,6 +59,7 @@ public class LoginView  {
                     Scene scene = new Scene(root);
                     //scene.getStylesheets().add(StartClient.class.getResource("/login.css").toString());
                     currentStage.setScene(scene);
+                    currentStage.setTitle("Admin");
                     currentStage.show();
                 }
                 catch (IOException exception)
@@ -70,6 +71,26 @@ public class LoginView  {
             if(tag.equals("PARTICIPANT"))
             {
 
+            }
+            if(tag.equals("AUTHOR")){
+                System.out.println("intra in autor");
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(LoginView.class.getClassLoader().getResource("author.fxml"));
+                    BorderPane root = loader.load();
+                    AuthorView authorView = loader.getController();
+                    authorView.setController(controller, currentStage);
+                    controller.addObserver(authorView);
+                    Scene scene = new Scene(root);
+                    scene.getStylesheets().add(LoginView.class.getResource("/author.css").toString());
+                    currentStage.setScene(scene);
+                    currentStage.setTitle("Author");
+                    currentStage.show();
+                }
+                catch (IOException exception)
+                {
+                    System.out.println(exception.getMessage());
+                }
             }
         }
         catch (ServiceException ex)

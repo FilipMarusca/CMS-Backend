@@ -37,8 +37,9 @@ public class UserRepository extends AbstractRepository<User>{
         }
         catch (HibernateException hibernteException)
         {
+            System.out.println(hibernteException.getMessage());
             throw new ServiceException("Error in adding an user");
-            //System.out.println(hibernteException.getMessage());
+
         }
     }
 
