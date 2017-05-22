@@ -14,5 +14,6 @@ dependencies {
     compile 'org.springframework:spring-context:4.3.7.RELEASE'
     compile project(':model');
     compile project(':services');
+    compile project(':client');
 
 }
