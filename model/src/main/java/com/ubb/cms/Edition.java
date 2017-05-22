@@ -1,8 +1,5 @@
 package com.ubb.cms;
 
-import org.hibernate.annotations.Table;
-
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,23 +8,39 @@ import java.util.Date;
  * Created by Alexandra Muresan on 4/10/2017.
  */
 @Entity
-@javax.persistence.Table(name="edition")
+@javax.persistence.Table(name = "edition")
 public class Edition implements Serializable {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="conference_id", referencedColumnName = "id")
+    @JoinColumn(name = "conference_id", referencedColumnName = "id")
     private Conference conference;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="paperSubmissionDeadline")
-    private Date paperSubmissionDeadline;
-    @Column(name="finalDeadline")
-    private Date finalDeadline;
+    @Column(name = "paperSubmissionDeadline")
+    private Date   paperSubmissionDeadline;
+    @Column(name = "finalDeadline")
+    private Date   finalDeadline;
+    private Date   beginningDate;
+    private Date   endingDate;
+
+    public Edition(int id, Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) {
+        this.id = id;
+        this.conference = conference;
+        this.beginningDate = beginningDate;
+        this.endingDate = endingDate;
+        this.name = name;
+        this.paperSubmissionDeadline = paperSubmissionDeadline;
+        this.finalDeadline = finalDeadline;
+    }
+
+    public Edition() {
+
+    }
 
     public int getId() {
         return id;
@@ -42,7 +55,7 @@ public class Edition implements Serializable {
     }
 
     public void setConference(Conference conference) {
-        this.conference= conference;
+        this.conference = conference;
     }
 
     public Date getBeginningDate() {
@@ -84,24 +97,6 @@ public class Edition implements Serializable {
     public void setFinalDeadline(Date finalDeadline) {
         this.finalDeadline = finalDeadline;
     }
-
-    private Date beginningDate;
-    private Date endingDate;
-
-    public Edition(int id, Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) {
-        this.id = id;
-        this.conference = conference;
-        this.beginningDate = beginningDate;
-        this.endingDate = endingDate;
-        this.name = name;
-        this.paperSubmissionDeadline = paperSubmissionDeadline;
-        this.finalDeadline = finalDeadline;
-    }
-
-    public Edition(){
-
-    }
-
 
 
 }

@@ -11,14 +11,17 @@ import java.io.Serializable;
  * Created by Alexandra Muresan on 4/11/2017.
  */
 @Entity
-@Table(name="sessionChair")
-public class SessionChair implements Serializable{
+@Table(name = "sessionChair")
+public class SessionChair implements Serializable {
 
     @EmbeddedId
     private UserEditionEmb chair;
 
     public SessionChair(UserEditionEmb chair) {
         this.chair = chair;
+    }
+
+    public SessionChair() {
     }
 
     public UserEditionEmb getChair() {

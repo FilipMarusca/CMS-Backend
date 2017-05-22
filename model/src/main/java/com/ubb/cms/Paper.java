@@ -8,33 +8,33 @@ import javax.persistence.*;
  * Created by Alexandra Muresan on 4/11/2017.
  */
 @Entity
-@Table(name="paper")
+@Table(name = "paper")
 public class Paper {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="session_id", referencedColumnName = "id")
+    @JoinColumn(name = "session_id", referencedColumnName = "id")
     private ConferenceSession session;
 
     @ManyToOne
-    @JoinColumn(name="author_id", referencedColumnName = "id")
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
 
     @ManyToOne
-    @JoinColumn(name="edition_id", referencedColumnName = "id")
+    @JoinColumn(name = "edition_id", referencedColumnName = "id")
     private Edition edition;
 
-    @Column(name="status")
+    @Column(name = "status")
     private PaperStatus status;
 
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
 
-    @Column(name="topic")
+    @Column(name = "topic")
     private String topic;
 
     public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic) {
@@ -45,6 +45,9 @@ public class Paper {
         this.status = status;
         this.title = title;
         this.topic = topic;
+    }
+
+    public Paper() {
     }
 
     public int getId() {

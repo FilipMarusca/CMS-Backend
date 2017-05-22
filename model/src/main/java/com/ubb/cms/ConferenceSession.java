@@ -8,16 +8,16 @@ import java.util.Date;
  * Created by Alexandra Muresan on 4/11/2017.
  */
 @Entity
-@Table(name="session")
+@Table(name = "session")
 public class ConferenceSession implements Serializable {
 
     @Id
-    private int id;
+    private int     id;
     @ManyToOne
-    @JoinColumn(name="edition_id", referencedColumnName = "id")
+    @JoinColumn(name = "edition_id", referencedColumnName = "id")
     private Edition edition;
-    private Date date;
-    private String location;
+    private Date    date;
+    private String  location;
 
     public ConferenceSession(int id, Edition edition, Date date, String location) {
         this.id = id;
@@ -26,8 +26,7 @@ public class ConferenceSession implements Serializable {
         this.location = location;
     }
 
-    public ConferenceSession()
-    {
+    public ConferenceSession() {
 
     }
 

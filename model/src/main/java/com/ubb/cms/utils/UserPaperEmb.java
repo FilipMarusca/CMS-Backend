@@ -15,11 +15,11 @@ import java.io.Serializable;
 public class UserPaperEmb implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name="user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="paper_id", referencedColumnName = "id")
+    @JoinColumn(name = "paper_id", referencedColumnName = "id")
     private Paper paper;
 
 }

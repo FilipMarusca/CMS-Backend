@@ -6,29 +6,25 @@ import java.io.Serializable;
 /**
  * Created by Alexandra Muresan on 4/11/2017.
  */
-
-
-
-
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private int id;
-    @Column(name="username")
+    @Column(name = "id")
+    private int    id;
+    @Column(name = "username")
     private String username;
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
-    @Column(name="surname")
+    @Column(name = "surname")
     private String surname;
-    @Column(name="tag")
+    @Column(name = "tag")
     private String tag;
 
     public User(int id, String username, String password, String email, String name, String surname, String tag) {
@@ -50,13 +46,11 @@ public class User implements Serializable {
         this.tag = tag;
     }
 
-    public User()
-    {
+    public User() {
 
     }
 
-    public User(String username, String password)
-    {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -121,14 +115,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", tag='" + tag + '\'' +
-                '}';
+        return "User{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", name='" + name + '\'' + ", surname='" + surname + '\'' + ", tag='" + tag + '\'' + '}';
     }
 }

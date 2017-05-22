@@ -13,22 +13,25 @@ import java.io.Serializable;
  * Created by Alexandra Muresan on 4/11/2017.
  */
 @Entity
-@Table(name="review")
+@Table(name = "review")
 public class Review implements Serializable {
 
     @EmbeddedId
     private UserPaperEmb user_paper;
 
-    @Column(name="status")
+    @Column(name = "status")
     private ReviewStatus status;
 
-    @Column(name="comment")
+    @Column(name = "comment")
     private String comment;
 
     public Review(UserPaperEmb user_paper, ReviewStatus status, String comment) {
         this.user_paper = user_paper;
         this.status = status;
         this.comment = comment;
+    }
+
+    public Review() {
     }
 
     public UserPaperEmb getUser_paper() {

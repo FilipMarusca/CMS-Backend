@@ -1,42 +1,41 @@
 package server;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import client.IConferenceClient;
-import com.ubb.cms.*;
+import com.ubb.cms.Conference;
+import com.ubb.cms.Edition;
+import com.ubb.cms.User;
 import exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import service.ConferenceService;
 import service.UserService;
 
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 /**
  * Created by Raul on 25/04/2017.
  */
-
-
-
 @Component
 public class ConferenceServerImplementation implements IConferenceServer {
 
-    private UserService userService;
-    @Autowired
-    private ConferenceService conferenceService;
-    private Map<String, IConferenceClient> loggedClients;
+    private       UserService                    userService;
+    private final ConferenceService              conferenceService;
+    private       Map<String, IConferenceClient> loggedClients;
 
     private static final int DEFAULTTHREADNUMBER = 5;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService)
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService)
     {
         this.userService = userService;
         loggedClients = new ConcurrentHashMap<>();
 
+        this.conferenceService = conferenceService;
     }
 
     @Override

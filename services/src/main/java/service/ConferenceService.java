@@ -13,19 +13,15 @@ import java.util.List;
 
 @Component
 public class ConferenceService {
-
-
     private ConferenceRepository conferenceRepository;
 
     @Autowired
-    public ConferenceService( ConferenceRepository conferenceRepository) {
+    public ConferenceService(ConferenceRepository conferenceRepository) {
         this.conferenceRepository = conferenceRepository;
 
     }
 
-    public List<Conference> getAllConferences()
-    {
+    public List<Conference> getAllConferences() {
         return conferenceRepository.getAll();
     }
-
 }
