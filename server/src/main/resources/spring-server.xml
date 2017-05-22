@@ -10,20 +10,20 @@
 
 
 
-
-
-    <bean id="userRepository" class="UserRepository">
+    <bean id="userRepository" class="repository.UserRepository">
 
     </bean>
 
 
-    <bean id="userService" class="UserService">
+
+
+    <bean id="userService" class="service.UserService">
         <constructor-arg ref="userRepository" />
     </bean>
 
 
 
-    <bean id="conferenceServer" class="ConferenceServerImplementation" >
+    <bean id="conferenceServer" class="server.ConferenceServerImplementation" >
         <constructor-arg ref="userService" />
     </bean>
 
@@ -32,7 +32,7 @@
     <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
         <property name="serviceName" value="Conference"/>
         <property name="service" ref="conferenceServer"/>
-        <property name="serviceInterface" value="IConferenceServer"/>
+        <property name="serviceInterface" value="server.IConferenceServer"/>
         <property name="servicePort" value="1099"/>
     </bean>
 

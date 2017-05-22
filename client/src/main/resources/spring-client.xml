@@ -8,7 +8,7 @@
 
 <bean id="conferenceService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
     <property name="serviceUrl" value="rmi://127.0.0.1:1099/Conference"/>
-    <property name="serviceInterface" value="IConferenceServer"/>
+    <property name="serviceInterface" value="server.IConferenceServer"/>
 </bean>
 
 </beans>

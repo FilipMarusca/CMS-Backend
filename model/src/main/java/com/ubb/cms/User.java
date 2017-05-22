@@ -6,6 +6,10 @@ import java.io.Serializable;
 /**
  * Created by Alexandra Muresan on 4/11/2017.
  */
+
+
+
+
 @Entity
 @Table(name="user")
 public class User implements Serializable {
@@ -36,10 +40,26 @@ public class User implements Serializable {
         this.tag = tag;
     }
 
+    public User(String username, String password, String email, String name, String surname, String tag) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.tag = tag;
+    }
+
     public User()
     {
 
     }
+
+    public User(String username, String password)
+    {
+        this.username = username;
+        this.password = password;
+    }
+
 
     public int getId() {
         return id;
@@ -95,5 +115,19 @@ public class User implements Serializable {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", tag='" + tag + '\'' +
+                '}';
     }
 }

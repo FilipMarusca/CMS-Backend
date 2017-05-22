@@ -1,11 +1,4 @@
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-import com.ubb.cms.Conference;
-import com.ubb.cms.Participation;
-import com.ubb.cms.User;
-import com.ubb.cms.utils.UserEditionEmb;
-
-import javax.jws.soap.SOAPBinding;
-import java.util.List;
+import repository.UserRepository;
 
 /**
  * Created by Alexandra Muresan on 4/5/2017.
