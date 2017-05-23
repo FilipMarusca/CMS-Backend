@@ -128,6 +128,7 @@ public class UserRepository extends AbstractRepository<User>{
         List<User> users = this.getAll();
         for(User user: users)
         {
+            System.out.println(user);
             if(user.getUsername().equals(username) && user.getPassword().equals(password))
             {
                 return user;

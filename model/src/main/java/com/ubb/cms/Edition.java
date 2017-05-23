@@ -25,7 +25,9 @@ public class Edition implements Serializable {
     private Date   paperSubmissionDeadline;
     @Column(name = "finalDeadline")
     private Date   finalDeadline;
+    @Column(name = "beginningDate")
     private Date   beginningDate;
+    @Column(name = "endingDate")
     private Date   endingDate;
 
     public Edition(int id, Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) {
@@ -99,4 +101,16 @@ public class Edition implements Serializable {
     }
 
 
+    @Override
+    public String toString() {
+        return "Edition{" +
+                "id=" + id +
+                ", conference=" + conference +
+                ", name='" + name + '\'' +
+                ", paperSubmissionDeadline=" + paperSubmissionDeadline +
+                ", finalDeadline=" + finalDeadline +
+                ", beginningDate=" + beginningDate +
+                ", endingDate=" + endingDate +
+                '}';
+    }
 }

@@ -3,13 +3,15 @@ package com.ubb.cms;
 import com.ubb.cms.utils.PaperStatus;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * Created by Alexandra Muresan on 4/11/2017.
  */
 @Entity
 @Table(name = "paper")
-public class Paper {
+public class Paper implements Serializable{
 
     @Id
     @Column(name = "id")
@@ -37,7 +39,10 @@ public class Paper {
     @Column(name = "topic")
     private String topic;
 
-    public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic) {
+    @Column(name = "pdf")
+    private Blob paperPDF;
+
+    public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic, Blob paperPDF) {
         this.id = id;
         this.session = session;
         this.author = author;
@@ -45,7 +50,18 @@ public class Paper {
         this.status = status;
         this.title = title;
         this.topic = topic;
+        this.paperPDF = paperPDF;
     }
+
+    public Paper(User author, Edition edition, PaperStatus status, String title, String topic, Blob paperPDF) {
+        this.author = author;
+        this.edition = edition;
+        this.status = status;
+        this.title = title;
+        this.topic = topic;
+        this.paperPDF = paperPDF;
+    }
+
 
     public Paper() {
     }

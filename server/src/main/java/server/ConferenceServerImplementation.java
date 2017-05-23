@@ -3,11 +3,14 @@ package server;
 import client.IConferenceClient;
 import com.ubb.cms.Conference;
 import com.ubb.cms.Edition;
+import com.ubb.cms.Paper;
 import com.ubb.cms.User;
 import exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import service.ConferenceService;
+import service.EditionService;
+import service.PaperService;
 import service.UserService;
 
 import java.util.List;
@@ -23,19 +26,24 @@ import java.util.concurrent.Executors;
 @Component
 public class ConferenceServerImplementation implements IConferenceServer {
 
-    private       UserService                    userService;
-    private final ConferenceService              conferenceService;
+    private final UserService userService;
+    private final ConferenceService conferenceService;
+    private final EditionService editionService;
+    private final PaperService paperService;
     private       Map<String, IConferenceClient> loggedClients;
 
     private static final int DEFAULTTHREADNUMBER = 5;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService)
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService,
+                                          EditionService editionService, PaperService paperService)
     {
         this.userService = userService;
-        loggedClients = new ConcurrentHashMap<>();
-
         this.conferenceService = conferenceService;
+        this.editionService = editionService;
+        this.paperService = paperService;
+
+        loggedClients = new ConcurrentHashMap<>();
     }
 
     @Override
@@ -45,16 +53,15 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     }
 
-
     @Override
-    public List<User> getAllUser() {
-        return userService.getAll();
+    public void addPaper(Paper paper) throws ServiceException {
+        paperService.addPaper(paper);
     }
 
 
     @Override
-    public List<Edition> getAllEditions() {
-        return null;
+    public List<User> getAllUser() {
+        return userService.getAll();
     }
 
     @Override
@@ -72,8 +79,13 @@ public class ConferenceServerImplementation implements IConferenceServer {
         return conferenceService.getAllConferences();
     }
 
+    @Override
+    public List<Paper> getAllPapers() {
+        return paperService.getAllPapers();
+    }
+
     //@Override
-    public synchronized String login(User user, IConferenceClient client) throws ServiceException{
+    public synchronized User login(User user, IConferenceClient client) throws ServiceException{
 
 
         User existsUser = userService.checkUser(user);
@@ -90,8 +102,26 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
         //we save the user in loggedClients HashMap
         loggedClients.put(user.getUsername(), client);
-        return existsUser.getTag();
+        return existsUser;
 
+    }
+
+    @Override
+    public synchronized User getUserById(int userId)
+    {
+        return userService.findById(userId);
+    }
+
+    @Override
+    public synchronized Edition getEditionById(int editionId)
+    {
+        return editionService.findById(editionId);
+    }
+
+    @Override
+    public synchronized List<Edition> getAllEditions()
+    {
+        return editionService.getAll();
     }
 
 

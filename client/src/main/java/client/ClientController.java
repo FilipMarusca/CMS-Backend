@@ -1,6 +1,8 @@
 package client;
 
 import com.ubb.cms.Conference;
+import com.ubb.cms.Edition;
+import com.ubb.cms.Paper;
 import com.ubb.cms.User;
 import client.*;
 import exception.ServiceException;
@@ -42,9 +44,38 @@ public class ClientController extends UnicastRemoteObject implements IConference
         return users;
     }
 
+    public User getUserById(int userId)
+    {
+        return server.getUserById(userId);
+    }
+
+
+    public Edition getEditionById(int editionId)
+    {
+        return server.getEditionById(editionId);
+    }
+
+    public void addPaper(Paper paper) throws ServiceException
+    {
+        server.addPaper(paper);
+    }
+
+
+
     public List<Conference> getAllConferences()
     {
         return server.getAllConferences();
+    }
+
+    public List<Edition> getAllEdition()
+    {
+        return server.getAllEditions();
+    }
+
+
+    public List<Paper> getAllPapers()
+    {
+        return server.getAllPapers();
     }
 
 
@@ -54,7 +85,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
 
 
-    public String login(String username, String password) throws ServiceException {
+    public User login(String username, String password) throws ServiceException {
         User user = new User(username, password);
         return server.login(user, this);
         /*try {

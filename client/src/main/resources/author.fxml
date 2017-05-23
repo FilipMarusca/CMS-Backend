@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AuthorView">
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AuthorView">
    <left>
-      <VBox prefHeight="464.0" prefWidth="348.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="464.0" prefWidth="532.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Available Editions: ">
                <VBox.margin>
@@ -24,9 +24,12 @@
                   <Font name="Myanmar Text Bold" size="12.0" />
                </font>
             </Label>
-            <TableView maxWidth="300.0" prefHeight="354.0" prefWidth="285.0">
+            <TableView fx:id="table" maxWidth="453.0" prefHeight="354.0" prefWidth="441.0">
               <columns>
-                <TableColumn prefWidth="270.0" text="Edition Name" />
+                <TableColumn fx:id="nameColumn" prefWidth="86.0" text="Name" />
+                  <TableColumn fx:id="submissionDeadlineColumn" prefWidth="141.0" text="SubmissionDeadline" />
+                  <TableColumn fx:id="beginingDateColumn" prefWidth="119.0" text="BegginingDate" />
+                  <TableColumn fx:id="endingDateColumn" prefWidth="105.0" text="EndingDate" />
               </columns>
                <VBox.margin>
                   <Insets left="30.0" right="50.0" top="10.0" />
@@ -56,7 +59,7 @@
                         <Font name="Myanmar Text Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox prefWidth="150.0" promptText="Select an item..">
+                  <ComboBox fx:id="topicComboBox" prefWidth="150.0" promptText="Select an item..">
                      <HBox.margin>
                         <Insets left="10.0" top="17.0" />
                      </HBox.margin>
@@ -73,7 +76,7 @@
                         <Font name="Myanmar Text Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField>
+                  <TextField fx:id="titleText">
                      <HBox.margin>
                         <Insets left="15.0" top="2.0" />
                      </HBox.margin>
@@ -82,22 +85,23 @@
             </HBox>
             <HBox prefHeight="88.0" prefWidth="314.0">
                <children>
-                  <Button id="uploadBtn" fx:id="uploadBtn" mnemonicParsing="false" onAction="#uploadHandler" prefHeight="50.0" prefWidth="190.0" text="Upload">
+                  <Button id="uploadBtn" fx:id="uploadBtn" mnemonicParsing="false" onAction="#uploadHandler" prefHeight="50.0" prefWidth="236.0" text="Upload Paper Document">
                      <HBox.margin>
-                        <Insets left="50.0" top="20.0" />
+                        <Insets left="30.0" top="20.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="77.0" prefWidth="314.0">
                <children>
-                  <Button id="papersBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="190.0" text="My Papers">
+                  <Button id="papersBtn" mnemonicParsing="false" prefHeight="50.0" prefWidth="236.0" text="Register">
                      <HBox.margin>
-                        <Insets left="50.0" top="10.0" />
+                        <Insets left="30.0" top="10.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
          </children>
          <BorderPane.margin>
             <Insets top="20.0" />

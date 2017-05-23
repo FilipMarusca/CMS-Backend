@@ -40,12 +40,14 @@ public class LoginView  {
         //System.out.println(password.getText());
         for(Conference conference: controller.getAllConferences())
         {
-            System.out.println(conference);
+            //System.out.println(conference);
         }
 
-        System.out.println("trece de getConferences");
+        //System.out.println("trece de getConferences");
         try {
-            String tag = controller.login(username.getText(), password.getText());
+            User currentUser = controller.login(username.getText(), password.getText());
+            String tag = currentUser.getTag();
+            System.out.println(tag);
             if(tag.equals("ADMIN"))
             {
                 //System.out.println("intra in admin");
@@ -73,18 +75,18 @@ public class LoginView  {
 
             }
             if(tag.equals("AUTHOR")){
-                System.out.println("intra in autor");
+                //System.out.println("intra in autor");
                 try {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(LoginView.class.getClassLoader().getResource("author.fxml"));
                     BorderPane root = loader.load();
                     AuthorView authorView = loader.getController();
-                    authorView.setController(controller, currentStage);
+                    authorView.setController(controller, currentStage, currentUser.getId());
                     controller.addObserver(authorView);
                     Scene scene = new Scene(root);
                     scene.getStylesheets().add(LoginView.class.getResource("/author.css").toString());
                     currentStage.setScene(scene);
-                    currentStage.setTitle("Author");
+                    currentStage.setTitle("Author: " + currentUser.getUsername());
                     currentStage.show();
                 }
                 catch (IOException exception)
@@ -104,7 +106,7 @@ public class LoginView  {
     public void changeToSignUp()
     {
         try {
-            System.out.println("intra la log in");
+            //System.out.println("intra la log in");
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(LoginView.class.getClassLoader().getResource("signup.fxml"));
             BorderPane root = loader.load();
