@@ -196,4 +196,21 @@ public class AuthorView implements Observer<User> {
             ShowAlert.showAlert("User not logged in!");
         }
     }
+
+    @FXML
+    public void myPapersBtnHandler(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AuthorView.class.getClassLoader().getResource("myPapers.fxml"));
+            BorderPane root = loader.load();
+            MyPapersView myPapersView = loader.getController();
+            myPapersView.setController(controller, currentStage,authorId);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(AuthorView.class.getResource("/myPapers.css").toString());
+            currentStage.setScene(scene);
+            currentStage.show();
+        }catch(Exception ex){
+            ShowAlert.showAlert(ex.getMessage());
+        }
+    }
 }

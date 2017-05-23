@@ -1,0 +1,47 @@
+#updateBtn{
+            -fx-background: #3498db;
+            -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+            -fx-border-radius: 28px;
+            -fx-text-fill: #ffffff;
+            -fx-font-size: 14px;
+            -fx-padding: 5px 8px 5px 8px;
+            -fx-font-family: "Lucida";
+            -fx-text-decoration: none;
+}
+
+
+#updateBtn:hover {
+  -fx-background: #3cb0fd;
+  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
+  -fx-text-decoration: none;
+}
+
+#pane{
+    -fx-background-color: white;
+}
+
+#logo{
+ -fx-background-image: url("logo.PNG");
+   -fx-background-repeat: no-repeat;
+   -fx-background-position: center;
+   -fx-padding-top:90px;
+
+}
+
+#logOutBtn{
+            -fx-background: #3498db;
+            -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+            -fx-border-radius: 28px;
+            -fx-text-fill: #ffffff;
+            -fx-font-size: 14px;
+            -fx-padding: 5px 8px 5px 8px;
+            -fx-font-family: "Lucida";
+            -fx-text-decoration: none;
+}
+
+
+#logOutBtn:hover {
+  -fx-background: #3cb0fd;
+  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
+  -fx-text-decoration: none;
+}

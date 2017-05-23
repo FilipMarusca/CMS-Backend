@@ -56,10 +56,10 @@ public class LoginView  {
                     loader.setLocation(LoginView.class.getClassLoader().getResource("UserView.fxml"));
                     BorderPane root = loader.load();
                     UserView userView = loader.getController();
-                    userView.setController(controller, currentStage);
+                    userView.setController(controller, currentStage,currentUser.getId());
                     controller.addObserver(userView);
                     Scene scene = new Scene(root);
-                    //scene.getStylesheets().add(StartClient.class.getResource("/login.css").toString());
+                    scene.getStylesheets().add(LoginView.class.getResource("/userView.css").toString());
                     currentStage.setScene(scene);
                     currentStage.setTitle("Admin");
                     currentStage.show();

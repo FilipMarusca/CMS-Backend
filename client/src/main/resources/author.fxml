@@ -116,7 +116,7 @@
                   <Insets left="10.0" top="15.0" />
                </HBox.margin>
             </Button>
-            <Button id="myPapersBtn" mnemonicParsing="false" text="My Papers">
+            <Button id="myPapersBtn" mnemonicParsing="false" onAction="#myPapersBtnHandler" text="My Papers">
                <HBox.margin>
                   <Insets left="680.0" top="15.0" />
                </HBox.margin>

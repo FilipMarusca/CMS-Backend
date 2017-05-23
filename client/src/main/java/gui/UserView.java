@@ -1,14 +1,18 @@
 package gui;
 
 import client.ClientController;
+import client.StartClient;
 import com.ubb.cms.User;
 import com.ubb.cms.utils.UserTags;
 import exception.ServiceException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import utils.Observer;
 
@@ -24,6 +28,8 @@ public class UserView implements Observer<User> {
     private ClientController controller;
 
     private Stage currentStage;
+
+    private int userId;
 
     @FXML
     private TableView<User> table;
@@ -88,10 +94,11 @@ public class UserView implements Observer<User> {
     }
 
 
-    public void setController(ClientController clientController, Stage currentStage)
+    public void setController(ClientController clientController, Stage currentStage,int userId)
     {
         this.controller = clientController;
         this.currentStage = currentStage;
+        this.userId = userId;
 
         model = FXCollections.observableArrayList(controller.getAllUsers());
         table.setItems(model);
@@ -104,5 +111,26 @@ public class UserView implements Observer<User> {
         model = FXCollections.observableArrayList(controller.getAllUsers());
         table.setItems(model);
 
+    }
+
+    @FXML
+    public void logOutBtnHandler(){
+        try{
+
+            User user = controller.getUserById(userId);
+            controller.logout(user.getUsername());
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(UserView.class.getClassLoader().getResource("login.fxml"));
+            BorderPane root = loader.load();
+            currentStage.setTitle("Conference Management System");
+            LoginView loginView = loader.getController();
+            loginView.setController(controller, currentStage);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(UserView.class.getResource("/login.css").toString());
+            currentStage.setScene(scene);
+            currentStage.show();
+        }catch(Exception ex){
+            ShowAlert.showAlert(ex.getMessage());
+        }
     }
 }
