@@ -107,6 +107,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
+    public void logout(String username) throws ServiceException {
+        loggedClients.remove(username);
+    }
+
+    @Override
     public synchronized User getUserById(int userId)
     {
         return userService.findById(userId);

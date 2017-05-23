@@ -1,18 +1,23 @@
 package gui;
 
 import client.ClientController;
+import client.StartClient;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
 import com.ubb.cms.utils.PaperStatus;
 import com.ubb.cms.utils.PaperTopics;
 import com.ubb.cms.utils.UserTags;
+import exception.ServiceException;
 import javafx.application.HostServices;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import utils.Observer;
@@ -55,6 +60,9 @@ public class AuthorView implements Observer<User> {
     Button uploadBtn;
     @FXML
     private ComboBox<String> topicComboBox;
+
+    @FXML
+    private Button logOutBtn;
 
 
     @FXML
@@ -168,5 +176,24 @@ public class AuthorView implements Observer<User> {
     @Override
     public void update() {
 
+    }
+    @FXML
+    public void logOutHandler(){
+        try{
+            User user = controller.getUserById(authorId);
+            controller.logout(user.getUsername());
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(AuthorView.class.getClassLoader().getResource("login.fxml"));
+            BorderPane root = loader.load();
+            currentStage.setTitle("Conference Management System");
+            LoginView loginView = loader.getController();
+            loginView.setController(controller, currentStage);
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(StartClient.class.getResource("/login.css").toString());
+            currentStage.setScene(scene);
+            currentStage.show();
+        }catch(Exception ex){
+            ShowAlert.showAlert("User not logged in!");
+        }
     }
 }

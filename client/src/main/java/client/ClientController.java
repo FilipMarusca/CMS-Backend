@@ -99,6 +99,14 @@ public class ClientController extends UnicastRemoteObject implements IConference
         //user = userL;
     }
 
+    public void logout(String username) throws ServiceException{
+        try{
+            server.logout(username);
+        }catch(ServiceException ex){
+            throw new ServiceException("Err");
+        }
+    }
+
 
     @Override
     public void showUpdated() throws RemoteException {

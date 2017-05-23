@@ -17,6 +17,8 @@ public interface IConferenceServer {
 
     User login(User user, IConferenceClient client) throws ServiceException;
 
+    void logout(String username) throws ServiceException;
+
     void addUser(User user) throws ServiceException;
 
     void addPaper(Paper paper) throws ServiceException;

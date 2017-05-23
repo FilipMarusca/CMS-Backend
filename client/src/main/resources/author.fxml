@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AuthorView">
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="848.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AuthorView">
    <left>
       <VBox prefHeight="464.0" prefWidth="532.0" BorderPane.alignment="CENTER">
          <children>
@@ -109,6 +109,19 @@
       </VBox>
    </right>
    <top>
-      <VBox id="logo" prefHeight="144.0" prefWidth="782.0" BorderPane.alignment="CENTER" />
+      <HBox id="logo" prefHeight="169.0" prefWidth="848.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="logOutBtn" fx:id="logOutBtn" mnemonicParsing="false" onAction="#logOutHandler" prefHeight="25.0" prefWidth="69.0" text="Log Out">
+               <HBox.margin>
+                  <Insets left="10.0" top="15.0" />
+               </HBox.margin>
+            </Button>
+            <Button id="myPapersBtn" mnemonicParsing="false" text="My Papers">
+               <HBox.margin>
+                  <Insets left="680.0" top="15.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </top>
 </BorderPane>
