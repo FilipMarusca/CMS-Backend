@@ -74,6 +74,7 @@ public abstract class BaseView implements Initializable, Observer
     protected void defaultLogoutHandler() {
         try {
             String title = "Conference Management System";
+            controller.logout(loggedUser.getUsername());
             switchToView("login.fxml", "login.css", title, null);
         } catch (Exception ex) {
             ShowAlert.showAlert("User not logged in!");

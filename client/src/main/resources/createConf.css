@@ -43,3 +43,20 @@
    -fx-background-position: center;
    -fx-padding-top:40px;
 }
+
+#logOutBtn {
+    -fx-background: #3498db;
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+    -fx-border-radius: 28px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-padding: 3px 6px 3px 6px;
+    -fx-font-family: "Lucida";
+    -fx-text-decoration: none;
+}
+
+#logOutBtn:hover {
+  -fx-background: #3cb0fd;
+  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
+  -fx-text-decoration: none;
+}

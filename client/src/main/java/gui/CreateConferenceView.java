@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URL;
@@ -17,5 +18,11 @@ public class CreateConferenceView extends BaseView {
 
     public void onGotoEdition_clicked(ActionEvent actionEvent) throws IOException {
         switchToView("createEdition.fxml", "createEdition.css", "Create edition");
+    }
+
+    @FXML
+    public void logOutHandler() throws Exception
+    {
+        defaultLogoutHandler();
     }
 }
