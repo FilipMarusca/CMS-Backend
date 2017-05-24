@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CreateEditionView">
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CreateEditionView">
    <left>
       <VBox prefHeight="400.0" prefWidth="358.0" BorderPane.alignment="CENTER">
          <children>
@@ -29,9 +29,9 @@
                   <Font name="Myanmar Text Bold" size="12.0" />
                </font>
             </Label>
-            <TableView prefHeight="338.0" prefWidth="310.0">
+            <TableView fx:id="conferencesTable" prefHeight="338.0" prefWidth="310.0">
               <columns>
-                <TableColumn maxWidth="500.0" prefWidth="285.0" text="Conference Name" />
+                <TableColumn fx:id="confNameColumn" maxWidth="500.0" prefWidth="285.0" text="Conference Name" />
               </columns>
                <VBox.margin>
                   <Insets left="30.0" right="50.0" top="10.0" />
@@ -55,7 +55,7 @@
                               <Font name="Myanmar Text Bold" size="12.0" />
                            </font>
                         </Label>
-                        <DatePicker>
+                        <DatePicker fx:id="submissionDeadlineField">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -72,7 +72,7 @@
                               <Font name="Myanmar Text Bold" size="12.0" />
                            </font>
                         </Label>
-                        <DatePicker>
+                        <DatePicker fx:id="finalDeadlineField">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -93,7 +93,7 @@
                               <Font name="Myanmar Text Bold" size="12.0" />
                            </font>
                         </Label>
-                        <DatePicker>
+                        <DatePicker fx:id="startDateField">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -110,7 +110,7 @@
                               <Font name="Myanmar Text Bold" size="12.0" />
                            </font>
                         </Label>
-                        <DatePicker>
+                        <DatePicker fx:id="endDateField">
                            <VBox.margin>
                               <Insets left="10.0" top="10.0" />
                            </VBox.margin>
@@ -129,7 +129,7 @@
                         <Font name="Myanmar Text Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField>
+                  <TextField fx:id="editionNameField">
                      <HBox.margin>
                         <Insets left="10.0" top="13.0" />
                      </HBox.margin>
@@ -143,7 +143,7 @@
                         <Insets left="20.0" top="20.0" />
                      </HBox.margin>
                   </Button>
-                  <Button id="createBtn" mnemonicParsing="false" prefHeight="60.0" prefWidth="150.0" text="Create">
+                  <Button id="createBtn" mnemonicParsing="false" onAction="#onCreateBtn_clicked" prefHeight="60.0" prefWidth="150.0" text="Create">
                      <HBox.margin>
                         <Insets left="40.0" top="20.0" />
                      </HBox.margin>
