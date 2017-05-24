@@ -34,5 +34,5 @@ public interface IConferenceServer {
     Edition getEditionById(int editionId);
 
 
-
+    void addConference(Conference conference);
 }

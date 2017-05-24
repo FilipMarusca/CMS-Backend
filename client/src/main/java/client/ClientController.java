@@ -4,12 +4,9 @@ import com.ubb.cms.Conference;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
-import client.*;
 import exception.ServiceException;
-import org.springframework.stereotype.Component;
 import server.IConferenceServer;
 import utils.Observer;
-
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -128,5 +125,9 @@ public class ClientController extends UnicastRemoteObject implements IConference
             observer.update();
         }
 
+    }
+
+    public void addConference(String conferenceName) {
+        server.addConference(new Conference(conferenceName));
     }
 }

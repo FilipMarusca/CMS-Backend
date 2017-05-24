@@ -33,7 +33,6 @@ public class UserView extends BaseView {
     @FXML
     private Button            updateButton;
 
-
     @FXML
     private ObservableList<User> model;
 
