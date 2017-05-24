@@ -13,14 +13,14 @@ public class Main {
         //Participation participation = new Participation(new UserEditionEmb(),true);
 
         /*ist<User> list = userRepository.getAll();
-        System.out.println("lista ID Useri");
+        logger.info("lista ID Useri");
         for(User user : list)
         {
-            System.out.println(user.getId());
+            logger.info(user.getId());
         }*/
 
         //User user = userRepository.findById(3);
-        //System.out.println(user.getName() + " " + user.getSurname() + " " + user.getUsername());
+        //logger.info(user.getName() + " " + user.getSurname() + " " + user.getUsername());
 
 
 
@@ -35,7 +35,7 @@ public class Main {
         session.save(user);
         t.commit();
         sf.close();
-        System.out.println("Done");*/
+        logger.info("Done");*/
 
 
 

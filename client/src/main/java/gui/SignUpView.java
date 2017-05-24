@@ -35,11 +35,11 @@ public class SignUpView extends BaseView {
     }
 
     public void addUser() {
-        System.out.println(username.getText());
-        System.out.println(password.getText());
-        System.out.println(name.getText());
-        System.out.println(surname.getText());
-        System.out.println(email.getText());
+        logger.info(username.getText());
+        logger.info(password.getText());
+        logger.info(name.getText());
+        logger.info(surname.getText());
+        logger.info(email.getText());
         try {
             controller.addUser(new User(
                     username.getText(),
@@ -53,7 +53,7 @@ public class SignUpView extends BaseView {
             try {
                 switchToView("login.fxml", "login.css", "Login", null);
             } catch (IOException exception) {
-                System.out.println(exception.getMessage());
+                logger.info(exception.getMessage());
             }
         } catch (ServiceException exception) {
             ShowAlert.showAlert(exception.getMessage());

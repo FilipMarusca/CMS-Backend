@@ -29,17 +29,17 @@ public class LoginView extends BaseView{
     }
 
     public void buttonHandler() {
-        //System.out.println(username.getText());
-        //System.out.println(password.getText());
+        //logger.info(username.getText());
+        //logger.info(password.getText());
         for (Conference conference : controller.getAllConferences()) {
-            System.out.println(conference);
+            logger.info(conference);
         }
 
-        //System.out.println("trece de getConferences");
+        //logger.info("trece de getConferences");
         try {
             User currentUser = controller.login(username.getText(), password.getText());
             UserTag tag = currentUser.getTag();
-            System.out.println(tag);
+            logger.info(tag);
             switch (tag) {
 
                 case Admin:

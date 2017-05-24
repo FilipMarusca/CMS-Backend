@@ -1,6 +1,7 @@
 package com.ubb.cms;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,18 +16,28 @@ public class Edition implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "conference_id", referencedColumnName = "id")
     private Conference conference;
 
+    @NotNull
     @Column(name = "name")
     private String name;
+
+    @NotNull
     @Column(name = "paperSubmissionDeadline")
     private Date   paperSubmissionDeadline;
+
+    @NotNull
     @Column(name = "finalDeadline")
     private Date   finalDeadline;
+
+    @NotNull
     @Column(name = "beginningDate")
     private Date   beginningDate;
+
+    @NotNull
     @Column(name = "endingDate")
     private Date   endingDate;
 

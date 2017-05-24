@@ -135,7 +135,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
         ExecutorService executor= Executors.newFixedThreadPool(DEFAULTTHREADNUMBER);
         for(String username :loggedClients.keySet()){
-            System.out.println("intra la notify");
+            logger.info("intra la notify");
             IConferenceClient client = loggedClients.get(username);
             {
                 executor.execute(() -> {

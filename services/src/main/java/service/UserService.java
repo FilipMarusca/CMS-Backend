@@ -2,7 +2,9 @@ package service;
 
 import com.ubb.cms.User;
 import com.ubb.cms.utils.UserTag;
+import org.springframework.beans.factory.annotation.Autowired;
 import repository.UserRepository;
+import service.validator.ValidatorInterface;
 
 import java.util.List;
 
@@ -10,11 +12,13 @@ import java.util.List;
  * Created by Raul on 24/04/2017.
  */
 
-public class UserService {
+public class UserService extends BaseService<User> {
 
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    public UserService(ValidatorInterface validator, UserRepository userRepository) {
+        super(validator);
         this.userRepository = userRepository;
     }
 
@@ -23,10 +27,11 @@ public class UserService {
     }
 
     public void addUser(int id, String username, String password, String email, String name, String surname, UserTag tag) {
-        userRepository.add(new User(id, username, password, email, name, surname, tag));
+        addUser(new User(id, username, password, email, name, surname, tag));
     }
 
     public void addUser(User user) {
+        validate(user);
         userRepository.add(user);
     }
 

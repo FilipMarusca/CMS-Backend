@@ -6,10 +6,12 @@ import com.ubb.cms.Paper;
 import com.ubb.cms.User;
 import exception.ServiceException;
 import server.IConferenceServer;
+import utils.DateUtils;
 import utils.Observer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +92,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
         }
         catch (ServiceException exception)
         {
-            System.out.println(exception.getStackTrace());
+            logger.info(exception.getStackTrace());
         }*/
 
         //user = userL;
@@ -107,7 +109,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
     @Override
     public void showUpdated() throws RemoteException {
-        //System.out.println(updateType);
+        //logger.info(updateType);
         this.notifyObservers();
     }
 
@@ -129,5 +131,22 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
     public void addConference(String conferenceName) {
         server.addConference(new Conference(conferenceName));
+    }
+
+    public void addEdition(
+            Conference conference,
+            LocalDate beginningDate,
+            LocalDate endingDate,
+            String name,
+            LocalDate paperSubmissionDeadline,
+            LocalDate finalDeadline) {
+        Edition edition = new Edition(
+                conference,
+                DateUtils.asDate(beginningDate),
+                DateUtils.asDate(endingDate),
+                name,
+                DateUtils.asDate(paperSubmissionDeadline),
+                DateUtils.asDate(finalDeadline)
+        );
     }
 }

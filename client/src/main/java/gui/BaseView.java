@@ -10,12 +10,13 @@ import javafx.stage.Stage;
 import utils.Observer;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * @author Marius Adam
  */
-public abstract class BaseView implements Initializable, Observer
-{
+public abstract class BaseView implements Initializable, Observer {
+    protected static final Logger logger = Logger.getLogger(BaseView.class.getName());
     protected ClientController controller;
     protected Stage            currentStage;
     protected User             loggedUser;
@@ -28,27 +29,22 @@ public abstract class BaseView implements Initializable, Observer
         this.controller = controller;
     }
 
-    public Stage getCurrentStage() {
-        return currentStage;
-    }
-
     public void setCurrentStage(Stage currentStage) {
         this.currentStage = currentStage;
-    }
-
-    public User getLoggedUser() {
-        return loggedUser;
     }
 
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
     }
 
-    protected void switchToView(String fxmlPath, String cssPath, String title) throws IOException {
+    @Override
+    public void update() {}
+
+    void switchToView(String fxmlPath, String cssPath, String title) throws IOException {
         switchToView(fxmlPath, cssPath, title, loggedUser);
     }
 
-    protected void switchToView(String fxmlPath, String cssPath, String title, User currentUser) throws IOException {
+    void switchToView(String fxmlPath, String cssPath, String title, User currentUser) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource(fxmlPath));
         BorderPane root = loader.load();
@@ -59,23 +55,18 @@ public abstract class BaseView implements Initializable, Observer
         controller.addObserver(baseView);
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toString());
-        System.out.println("trece de css " + title);
+        logger.info("trece de css " + title);
         currentStage.setScene(scene);
         currentStage.setTitle(title);
         currentStage.show();
         currentStage.sizeToScene();
-        System.out.println("trece de show " + title);
+        logger.info("trece de show " + title);
 
-        System.out.println("Calling update on the controller");
+        logger.info("Calling update on the controller");
         baseView.update();
     }
 
-    @Override
-    public void update() {
-
-    }
-
-    protected void defaultLogoutHandler() {
+    void defaultLogoutHandler() {
         try {
             String title = "Conference Management System";
             controller.logout(loggedUser.getUsername());

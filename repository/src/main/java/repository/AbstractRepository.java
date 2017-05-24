@@ -6,8 +6,10 @@ import org.hibernate.Transaction;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AbstractRepository<T> implements IRepository<T> {
+    protected static final Logger logger = Logger.getLogger(AbstractRepository.class.getName());
     protected SessionFactory sessionFactory;
     private final Class<T> managedEntity;
 
@@ -32,7 +34,7 @@ public class AbstractRepository<T> implements IRepository<T> {
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
-        System.out.println("intra in get all");
+        logger.info("intra in get all");
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         List<T> list = (List<T>) session.createCriteria(managedEntity).list();

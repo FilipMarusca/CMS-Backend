@@ -40,7 +40,17 @@ public class CreateEditionView extends BaseView {
 
     public void onCreateBtn_clicked(ActionEvent actionEvent) {
         try {
-//            controller.addEdition();
+            Conference selectedConference = conferencesTable
+                    .getSelectionModel()
+                    .getSelectedItem();
+            controller.addEdition(
+                    selectedConference,
+                    startDateField.getValue(),
+                    endDateField.getValue(),
+                    editionNameField.getText(),
+                    submissionDeadlineField.getValue(),
+                    finalDeadlineField.getValue()
+            );
         } catch (Exception e) {
             ShowAlert.showAlert(e.getMessage());
         }

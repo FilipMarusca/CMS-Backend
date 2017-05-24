@@ -51,7 +51,7 @@ public class UserView extends BaseView {
         if (userSelected && tagSelected) {
             User user = table.getSelectionModel().getSelectedItem();
             try {
-                //System.out.println(tagComboBox.getSelectionModel().toString());
+                //logger.info(tagComboBox.getSelectionModel().toString());
                 user.setTag(tagComboBox.getSelectionModel().getSelectedItem());
                 controller.updateUser(user, user.getId());
 
