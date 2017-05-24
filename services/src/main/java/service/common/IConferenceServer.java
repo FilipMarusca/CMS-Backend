@@ -25,7 +25,7 @@ public interface IConferenceServer {
 
     void addPaper(Paper paper) throws ServiceException;
 
-    void updateUser(User newUser, int key) throws ServiceException;
+    void updateUser(User newUser) throws ServiceException;
 
     List<Conference> getAllConferences();
 
@@ -34,7 +34,6 @@ public interface IConferenceServer {
     User getUserById(int userId);
 
     Edition getEditionById(int editionId);
-
 
     void addConference(Conference conference) throws ServiceException;
 

@@ -1,6 +1,5 @@
 package gui;
 
-import client.ClientController;
 import com.ubb.cms.User;
 import com.ubb.cms.utils.UserTag;
 import javafx.collections.FXCollections;
@@ -42,6 +41,8 @@ public class UserView extends BaseView {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tag"));
         tagComboBox.getItems().addAll(UserTag.values());
+        model = FXCollections.observableArrayList();
+        table.setItems(model);
     }
 
 
@@ -53,8 +54,7 @@ public class UserView extends BaseView {
             try {
                 //logger.info(tagComboBox.getSelectionModel().toString());
                 user.setTag(tagComboBox.getSelectionModel().getSelectedItem());
-                controller.updateUser(user, user.getId());
-
+                controller.updateUser(user);
             }
             catch (Exception exception) {
                 ShowAlert.showAlert(exception.getMessage());
@@ -63,21 +63,12 @@ public class UserView extends BaseView {
         } else {
             ShowAlert.showAlert("There is no User or no Tag selected");
         }
-
-    }
-
-
-    @Override
-    public void setController(ClientController controller) {
-        super.setController(controller);
-        model = FXCollections.observableArrayList(controller.getAllUsers());
-        table.setItems(model);
     }
 
     @Override
     public void update() {
-        model = FXCollections.observableArrayList(controller.getAllUsers());
-        table.setItems(model);
+        model.clear();
+        model.addAll(controller.getAllUsers());
     }
 
     @FXML

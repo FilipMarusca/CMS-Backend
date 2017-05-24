@@ -22,12 +22,12 @@ public class User implements Serializable {
     private int     id;
 
     @NotEmpty(message = "Username cannot be empty")
-    @Size(max = 5)
+    @Size(min = 5)
     @Column(name = "username")
     private String  username;
 
     @NotEmpty
-    @Size(max = 5)
+    @Size(min = 5)
     @Column(name = "password")
     private String  password;
 

@@ -83,29 +83,29 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public void addUser(User user) throws ServiceException {
-        userService.addUser(user);
+        userService.add(user);
 
     }
 
     @Override
     public void addPaper(Paper paper) throws ServiceException {
-        paperService.addPaper(paper);
+        paperService.add(paper);
     }
 
     @Override
-    public synchronized void updateUser(User newUser, int key) {
-        userService.updateUser(key, newUser);
+    public synchronized void updateUser(User newUser) {
+        userService.update(newUser);
         this.notifyAllViewers();
     }
 
     @Override
     public List<Conference> getAllConferences() {
-        return conferenceService.getAllConferences();
+        return conferenceService.getAll();
     }
 
     @Override
     public List<Paper> getAllPapers() {
-        return paperService.getAllPapers();
+        return paperService.getAll();
     }
 
     @Override
@@ -125,18 +125,19 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public void addEdition(Edition edition) throws ServiceException {
-        editionService.addEdition(edition);
+        editionService.add(edition);
     }
 
     private void notifyAllViewers() {
-
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);
+        logger.info("Started executor on " + THREADS_NUMBER + " threads");
         for (String username : loggedClients.keySet()) {
             logger.info("intra la notify");
             IConferenceClient client = loggedClients.get(username);
             {
                 executor.execute(() -> {
                     try {
+                        logger.info("Updating client " + username);
                         client.showUpdated();
                     } catch (Exception e) {
                         logger.warning("Error at notifying clients " + e);

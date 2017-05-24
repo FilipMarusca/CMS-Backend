@@ -35,8 +35,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
 
     public List<User> getAllUsers() {
-        List<User> users = server.getAllUser();
-        return users;
+        return server.getAllUser();
     }
 
     public User getUserById(int userId) {
@@ -67,8 +66,8 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
 
 
-    public void updateUser(User newUser, int key) throws ServiceException {
-        server.updateUser(newUser, key);
+    public void updateUser(User newUser) throws ServiceException {
+        server.updateUser(newUser);
     }
 
 
@@ -113,7 +112,6 @@ public class ClientController extends UnicastRemoteObject implements IConference
         for (Observer observer : observers) {
             observer.update();
         }
-
     }
 
     public void addConference(String conferenceName) throws ServiceException {
