@@ -63,7 +63,11 @@ public abstract class BaseView implements Initializable, Observer
         currentStage.setScene(scene);
         currentStage.setTitle(title);
         currentStage.show();
+        currentStage.sizeToScene();
         System.out.println("trece de show " + title);
+
+        System.out.println("Calling update on the controller");
+        baseView.update();
     }
 
     @Override

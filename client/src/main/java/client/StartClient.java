@@ -1,6 +1,5 @@
 package client;
 
-import com.ubb.cms.utils.UserTag;
 import gui.LoginView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -43,8 +42,6 @@ public class StartClient extends Application{
         scene.getStylesheets().add(StartClient.class.getResource("/login.css").toString());
         primaryStage.setScene(scene);
         primaryStage.show();
-        System.out.println(UserTag.Admin.hashCode());
-        System.out.println(UserTag.valueOf("Admin"));
 
         /*FXMLLoader loader = new FXMLLoader();
         loader.setLocation(StartClient.class.getResource("/UserView.fxml")); //URL

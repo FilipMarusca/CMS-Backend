@@ -40,6 +40,15 @@ public class Edition implements Serializable {
         this.finalDeadline = finalDeadline;
     }
 
+    public Edition(Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) {
+        this.conference = conference;
+        this.beginningDate = beginningDate;
+        this.endingDate = endingDate;
+        this.name = name;
+        this.paperSubmissionDeadline = paperSubmissionDeadline;
+        this.finalDeadline = finalDeadline;
+    }
+
     public Edition() {
 
     }

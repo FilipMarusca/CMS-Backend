@@ -21,6 +21,10 @@ public class ConferenceService {
 
     }
 
+    public void add(Conference conference) {
+        conferenceRepository.add(conference);
+    }
+
     public List<Conference> getAllConferences() {
         return conferenceRepository.getAll();
     }

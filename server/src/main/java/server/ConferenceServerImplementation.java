@@ -72,10 +72,6 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public List<Conference> getAllConferences() {
-        if(conferenceService == null)
-        {
-            System.out.println("e null");
-        }
         return conferenceService.getAllConferences();
     }
 
@@ -115,6 +111,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized User getUserById(int userId)
     {
         return userService.findById(userId);
+    }
+
+    @Override
+    public void addConference(Conference conference) {
+        conferenceService.add(conference);
     }
 
     @Override
