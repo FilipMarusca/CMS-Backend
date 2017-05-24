@@ -4,10 +4,11 @@ import com.ubb.cms.Conference;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
-import exception.ServiceException;
-import server.IConferenceServer;
+import service.common.IConferenceClient;
+import service.common.IConferenceServer;
+import service.common.Observer;
+import service.exception.ServiceException;
 import utils.DateUtils;
-import utils.Observer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -19,67 +20,54 @@ import java.util.List;
  * Created by Raul on 26/04/2017.
  */
 public class ClientController extends UnicastRemoteObject implements IConferenceClient {
-
     private IConferenceServer server;
-    //private List<Observer<User>> userObservers = new ArrayList<>();
     private List<Observer<?>> observers = new ArrayList<>();
 
-    public ClientController(IConferenceServer server) throws RemoteException
-    {
+    public ClientController(IConferenceServer server) throws RemoteException {
         this.server = server;
 
 
     }
 
-    public void addUser(User user) throws ServiceException
-    {
+    public void addUser(User user) throws ServiceException {
         server.addUser(user);
     }
 
 
-    public List<User> getAllUsers()
-    {
+    public List<User> getAllUsers() {
         List<User> users = server.getAllUser();
         return users;
     }
 
-    public User getUserById(int userId)
-    {
+    public User getUserById(int userId) {
         return server.getUserById(userId);
     }
 
 
-    public Edition getEditionById(int editionId)
-    {
+    public Edition getEditionById(int editionId) {
         return server.getEditionById(editionId);
     }
 
-    public void addPaper(Paper paper) throws ServiceException
-    {
+    public void addPaper(Paper paper) throws ServiceException {
         server.addPaper(paper);
     }
 
 
-
-    public List<Conference> getAllConferences()
-    {
+    public List<Conference> getAllConferences() {
         return server.getAllConferences();
     }
 
-    public List<Edition> getAllEdition()
-    {
+    public List<Edition> getAllEdition() {
         return server.getAllEditions();
     }
 
 
-    public List<Paper> getAllPapers()
-    {
+    public List<Paper> getAllPapers() {
         return server.getAllPapers();
     }
 
 
-
-    public void updateUser(User newUser, int key) throws ServiceException{
+    public void updateUser(User newUser, int key) throws ServiceException {
         server.updateUser(newUser, key);
     }
 
@@ -98,10 +86,10 @@ public class ClientController extends UnicastRemoteObject implements IConference
         //user = userL;
     }
 
-    public void logout(String username) throws ServiceException{
-        try{
+    public void logout(String username) throws ServiceException {
+        try {
             server.logout(username);
-        }catch(ServiceException ex){
+        } catch (ServiceException ex) {
             throw new ServiceException("Err");
         }
     }
@@ -122,24 +110,17 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
 
     public void notifyObservers() {
-        for(Observer observer: observers)
-        {
+        for (Observer observer : observers) {
             observer.update();
         }
 
     }
 
-    public void addConference(String conferenceName) {
+    public void addConference(String conferenceName) throws ServiceException {
         server.addConference(new Conference(conferenceName));
     }
 
-    public void addEdition(
-            Conference conference,
-            LocalDate beginningDate,
-            LocalDate endingDate,
-            String name,
-            LocalDate paperSubmissionDeadline,
-            LocalDate finalDeadline) {
+    public void addEdition(Conference conference, LocalDate beginningDate, LocalDate endingDate, String name, LocalDate paperSubmissionDeadline, LocalDate finalDeadline) throws ServiceException {
         Edition edition = new Edition(
                 conference,
                 DateUtils.asDate(beginningDate),
@@ -148,5 +129,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
                 DateUtils.asDate(paperSubmissionDeadline),
                 DateUtils.asDate(finalDeadline)
         );
+
+        server.addEdition(edition);
     }
 }

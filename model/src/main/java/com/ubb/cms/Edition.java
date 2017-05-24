@@ -133,4 +133,23 @@ public class Edition implements Serializable {
                 ", endingDate=" + endingDate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Edition edition = (Edition) o;
+
+        return getId() == edition.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
+    }
 }

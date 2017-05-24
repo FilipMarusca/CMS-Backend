@@ -12,33 +12,12 @@
 
     <context:component-scan base-package="server"/>
     <import resource="spring-services.xml" />
-
-
-
-
-    <bean id="userRepository" class="repository.UserRepository">
-
-    </bean>
-
-
-
-
-    <bean id="userService" class="service.UserService">
-        <constructor-arg ref="userRepository" />
-    </bean>
-
-
-
-    <bean id="conferenceServer" class="server.ConferenceServerImplementation" >
-        <constructor-arg ref="userService" />
-    </bean>
-
-
+    <import resource="spring-repository.xml" />
 
     <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
         <property name="serviceName" value="Conference"/>
-        <property name="service" ref="conferenceServer"/>
-        <property name="serviceInterface" value="server.IConferenceServer"/>
+        <property name="service" ref="conferenceServerImplementation"/>
+        <property name="serviceInterface" value="service.common.IConferenceServer"/>
         <property name="servicePort" value="1099"/>
     </bean>
 

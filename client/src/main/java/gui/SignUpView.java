@@ -2,7 +2,7 @@ package gui;
 
 import com.ubb.cms.User;
 import com.ubb.cms.utils.UserTag;
-import exception.ServiceException;
+import service.exception.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;

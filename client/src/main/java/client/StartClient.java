@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import server.IConferenceServer;
+import service.common.IConferenceServer;
 
 /**
  * Created by Raul on 26/04/2017.

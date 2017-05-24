@@ -1,8 +1,12 @@
 package com.ubb.cms;
 
 import com.ubb.cms.utils.UserTag;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -11,21 +15,36 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
-
+    //TODO proper validation messages for all of the entities
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int     id;
+
+    @NotEmpty(message = "Username cannot be empty")
+    @Size(max = 5)
     @Column(name = "username")
     private String  username;
+
+    @NotEmpty
+    @Size(max = 5)
     @Column(name = "password")
     private String  password;
+
+    @NotEmpty
+    @Email
     @Column(name = "email")
     private String  email;
+
+    @NotEmpty
     @Column(name = "name")
     private String  name;
+
+    @NotEmpty
     @Column(name = "surname")
     private String  surname;
+
+    @NotNull
     @Column(name = "tag")
     private UserTag tag;
 
@@ -118,5 +137,24 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", email='" + email + '\'' + ", name='" + name + '\'' + ", surname='" + surname + '\'' + ", tag='" + tag + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        return getId() == user.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
     }
 }

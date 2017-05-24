@@ -44,4 +44,23 @@ public class Participation implements Serializable {
     public void setPaid(boolean paid) {
         this.paid = paid;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Participation that = (Participation) o;
+
+        return getParticipant() != null ? getParticipant().equals(that.getParticipant()) : that.getParticipant() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getParticipant() != null ? getParticipant().hashCode() : 0;
+    }
 }

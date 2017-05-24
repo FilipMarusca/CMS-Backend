@@ -31,4 +31,23 @@ public class SessionChair implements Serializable {
     public void setChair(UserEditionEmb chair) {
         this.chair = chair;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        SessionChair that = (SessionChair) o;
+
+        return getChair() != null ? getChair().equals(that.getChair()) : that.getChair() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getChair() != null ? getChair().hashCode() : 0;
+    }
 }

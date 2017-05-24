@@ -29,4 +29,28 @@ public class UserEditionEmb implements Serializable {
 
     public UserEditionEmb() {
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        UserEditionEmb that = (UserEditionEmb) o;
+
+        if (!user.equals(that.user)) {
+            return false;
+        }
+        return edition.equals(that.edition);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = user.hashCode();
+        result = 31 * result + edition.hashCode();
+        return result;
+    }
 }

@@ -1,4 +1,4 @@
-package utils;
+package service.common;
 
 public interface Observer<T> {
     void update();

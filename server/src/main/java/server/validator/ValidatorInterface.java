@@ -1,4 +1,4 @@
-package service.validator;
+package server.validator;
 
 /**
  * @author Marius Adam

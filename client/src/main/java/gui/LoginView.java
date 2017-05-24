@@ -3,7 +3,7 @@ package gui;
 import com.ubb.cms.Conference;
 import com.ubb.cms.User;
 import com.ubb.cms.utils.UserTag;
-import exception.ServiceException;
+import service.exception.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -32,14 +32,14 @@ public class LoginView extends BaseView{
         //logger.info(username.getText());
         //logger.info(password.getText());
         for (Conference conference : controller.getAllConferences()) {
-            logger.info(conference);
+            logger.info(conference.toString());
         }
 
         //logger.info("trece de getConferences");
         try {
             User currentUser = controller.login(username.getText(), password.getText());
             UserTag tag = currentUser.getTag();
-            logger.info(tag);
+            logger.info(tag.toString());
             switch (tag) {
 
                 case Admin:

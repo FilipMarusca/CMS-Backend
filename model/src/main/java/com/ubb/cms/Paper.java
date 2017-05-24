@@ -121,4 +121,23 @@ public class Paper implements Serializable{
     public void setTopic(String topic) {
         this.topic = topic;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Paper paper = (Paper) o;
+
+        return getId() == paper.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
+    }
 }

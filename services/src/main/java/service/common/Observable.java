@@ -1,4 +1,4 @@
-package utils;
+package service.common;
 
 
 public interface Observable<E> {

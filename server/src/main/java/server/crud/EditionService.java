@@ -1,11 +1,12 @@
-package service;
+package server.crud;
 
 import com.ubb.cms.Conference;
 import com.ubb.cms.Edition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.EditionRepository;
-import service.validator.ValidatorInterface;
+import server.validator.ValidatorInterface;
+import service.exception.ServiceException;
 
 import java.util.Date;
 import java.util.List;
@@ -29,9 +30,13 @@ public class EditionService extends BaseService<Edition> {
 
     }
 
-    public void addEdition(int id, Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline)
-    {
+    public void addEdition(int id, Conference conference, Date beginningDate, Date endingDate, String name, Date paperSubmissionDeadline, Date finalDeadline) throws ServiceException {
         Edition edition = new Edition(id, conference, beginningDate, endingDate, name, paperSubmissionDeadline, finalDeadline);
+        validate(edition);
+        editionRepository.add(edition);
+    }
+
+    public void addEdition(Edition edition) throws ServiceException {
         validate(edition);
         editionRepository.add(edition);
     }

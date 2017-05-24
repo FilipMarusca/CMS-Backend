@@ -61,4 +61,23 @@ public class ConferenceSession implements Serializable {
     public void setLocation(String location) {
         this.location = location;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ConferenceSession that = (ConferenceSession) o;
+
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return getId();
+    }
 }

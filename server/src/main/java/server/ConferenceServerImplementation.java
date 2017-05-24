@@ -1,23 +1,25 @@
 package server;
 
-import client.IConferenceClient;
 import com.ubb.cms.Conference;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
-import exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import service.ConferenceService;
-import service.EditionService;
-import service.PaperService;
-import service.UserService;
+import server.crud.ConferenceService;
+import server.crud.EditionService;
+import server.crud.PaperService;
+import server.crud.UserService;
+import service.common.IConferenceClient;
+import service.common.IConferenceServer;
+import service.exception.ServiceException;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 
 /**
@@ -25,19 +27,16 @@ import java.util.concurrent.Executors;
  */
 @Component
 public class ConferenceServerImplementation implements IConferenceServer {
-
-    private final UserService userService;
-    private final ConferenceService conferenceService;
-    private final EditionService editionService;
-    private final PaperService paperService;
+    private final static Logger logger = Logger.getLogger(ConferenceServerImplementation.class.getName());
+    private static final int THREADS_NUMBER = Runtime.getRuntime().availableProcessors();
+    private final UserService                    userService;
+    private final ConferenceService              conferenceService;
+    private final EditionService                 editionService;
+    private final PaperService                   paperService;
     private       Map<String, IConferenceClient> loggedClients;
 
-    private static final int DEFAULTTHREADNUMBER = 5;
-
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService,
-                                          EditionService editionService, PaperService paperService)
-    {
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService) {
         this.userService = userService;
         this.conferenceService = conferenceService;
         this.editionService = editionService;
@@ -47,8 +46,43 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public void addUser(User user)
-    {
+    public List<User> getAllUser() {
+        return userService.getAll();
+    }
+
+    @Override
+    public synchronized List<Edition> getAllEditions() {
+        return editionService.getAll();
+    }
+
+    //@Override
+    public synchronized User login(User user, IConferenceClient client) throws ServiceException {
+        User existsUser = userService.checkUser(user);
+        logger.info(user.toString());
+
+        //invalid user
+        if (existsUser == null) {
+            throw new ServiceException("Invalid username/password");
+        }
+
+        //already logged in
+        if (loggedClients.get(user.getUsername()) != null) {
+            throw new ServiceException("User is already logged in");
+        }
+
+        //we save the user in loggedClients HashMap
+        loggedClients.put(user.getUsername(), client);
+        return existsUser;
+
+    }
+
+    @Override
+    public void logout(String username) throws ServiceException {
+        loggedClients.remove(username);
+    }
+
+    @Override
+    public void addUser(User user) throws ServiceException {
         userService.addUser(user);
 
     }
@@ -56,12 +90,6 @@ public class ConferenceServerImplementation implements IConferenceServer {
     @Override
     public void addPaper(Paper paper) throws ServiceException {
         paperService.addPaper(paper);
-    }
-
-
-    @Override
-    public List<User> getAllUser() {
-        return userService.getAll();
     }
 
     @Override
@@ -80,61 +108,30 @@ public class ConferenceServerImplementation implements IConferenceServer {
         return paperService.getAllPapers();
     }
 
-    //@Override
-    public synchronized User login(User user, IConferenceClient client) throws ServiceException{
-
-
-        User existsUser = userService.checkUser(user);
-
-        //invalid user
-        if (existsUser == null){
-            throw new ServiceException("Invalid username/password");
-        }
-
-        //already logged in
-        if (loggedClients.get(user.getUsername()) != null){
-            throw new ServiceException("User is already logged in");
-        }
-
-        //we save the user in loggedClients HashMap
-        loggedClients.put(user.getUsername(), client);
-        return existsUser;
-
-    }
-
     @Override
-    public void logout(String username) throws ServiceException {
-        loggedClients.remove(username);
-    }
-
-    @Override
-    public synchronized User getUserById(int userId)
-    {
+    public synchronized User getUserById(int userId) {
         return userService.findById(userId);
     }
 
     @Override
-    public void addConference(Conference conference) {
-        conferenceService.add(conference);
-    }
-
-    @Override
-    public synchronized Edition getEditionById(int editionId)
-    {
+    public synchronized Edition getEditionById(int editionId) {
         return editionService.findById(editionId);
     }
 
     @Override
-    public synchronized List<Edition> getAllEditions()
-    {
-        return editionService.getAll();
+    public void addConference(Conference conference) throws ServiceException {
+        conferenceService.add(conference);
     }
 
+    @Override
+    public void addEdition(Edition edition) throws ServiceException {
+        editionService.addEdition(edition);
+    }
 
-    private void notifyAllViewers(){
+    private void notifyAllViewers() {
 
-        ExecutorService executor= Executors.newFixedThreadPool(DEFAULTTHREADNUMBER);
-        for(String username :loggedClients.keySet()){
+        ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);
+        for (String username : loggedClients.keySet()) {
             logger.info("intra la notify");
             IConferenceClient client = loggedClients.get(username);
             {
@@ -142,8 +139,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
                     try {
                         client.showUpdated();
                     } catch (Exception e) {
-
-                        System.err.println("Error at notifyng clints " + e);
+                        logger.warning("Error at notifying clients " + e);
                     }
                 });
             }

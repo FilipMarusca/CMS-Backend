@@ -9,7 +9,4 @@
 
 
     <context:component-scan base-package="service"/>
-
-    <import resource="spring-repository.xml" />
-
 </beans>

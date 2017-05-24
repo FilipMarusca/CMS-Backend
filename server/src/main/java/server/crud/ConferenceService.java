@@ -1,10 +1,11 @@
-package service;
+package server.crud;
 
 import com.ubb.cms.Conference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.ConferenceRepository;
-import service.validator.ValidatorInterface;
+import server.validator.ValidatorInterface;
+import service.exception.ServiceException;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ConferenceService extends BaseService<Conference>{
         this.conferenceRepository = conferenceRepository;
     }
 
-    public void add(Conference conference) {
+    public void add(Conference conference) throws ServiceException {
         validate(conference);
         conferenceRepository.add(conference);
     }

@@ -1,10 +1,11 @@
-package service;
+package server.crud;
 
 import com.ubb.cms.Paper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.PaperRepository;
-import service.validator.ValidatorInterface;
+import server.validator.ValidatorInterface;
+import service.exception.ServiceException;
 
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class PaperService extends BaseService<Paper> {
     }
 
 
-    public void addPaper(Paper paper) {
-        validator.validate(paper);
+    public void addPaper(Paper paper) throws ServiceException {
+        validate(paper);
         paperRepository.add(paper);
     }
 

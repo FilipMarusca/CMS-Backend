@@ -1,8 +1,10 @@
-package server;
+package service.common;
 
-import client.IConferenceClient;
-import com.ubb.cms.*;
-import exception.ServiceException;
+import com.ubb.cms.Conference;
+import com.ubb.cms.Edition;
+import com.ubb.cms.Paper;
+import com.ubb.cms.User;
+import service.exception.ServiceException;
 
 import java.util.List;
 
@@ -34,5 +36,7 @@ public interface IConferenceServer {
     Edition getEditionById(int editionId);
 
 
-    void addConference(Conference conference);
+    void addConference(Conference conference) throws ServiceException;
+
+    void addEdition(Edition edition) throws ServiceException;
 }

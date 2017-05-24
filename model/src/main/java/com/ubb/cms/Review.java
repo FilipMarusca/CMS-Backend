@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class Review implements Serializable {
 
     @EmbeddedId
-    private UserPaperEmb user_paper;
+    private UserPaperEmb userPaper;
 
     @Column(name = "status")
     private ReviewStatus status;
@@ -26,7 +26,7 @@ public class Review implements Serializable {
     private String comment;
 
     public Review(UserPaperEmb user_paper, ReviewStatus status, String comment) {
-        this.user_paper = user_paper;
+        this.userPaper = user_paper;
         this.status = status;
         this.comment = comment;
     }
@@ -34,12 +34,12 @@ public class Review implements Serializable {
     public Review() {
     }
 
-    public UserPaperEmb getUser_paper() {
-        return user_paper;
+    public UserPaperEmb getUserPaper() {
+        return userPaper;
     }
 
-    public void setUser_paper(UserPaperEmb user_paper) {
-        this.user_paper = user_paper;
+    public void setUserPaper(UserPaperEmb user_paper) {
+        this.userPaper = user_paper;
     }
 
     public ReviewStatus getStatus() {
@@ -56,5 +56,24 @@ public class Review implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Review review = (Review) o;
+
+        return getUserPaper() != null ? getUserPaper().equals(review.getUserPaper()) : review.getUserPaper() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getUserPaper() != null ? getUserPaper().hashCode() : 0;
     }
 }
