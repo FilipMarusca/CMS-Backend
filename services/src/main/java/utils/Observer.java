@@ -1,5 +1,5 @@
 package utils;
 
-public interface Observer<E> {
+public interface Observer<T> {
     void update();
 }

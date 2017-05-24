@@ -1,5 +1,7 @@
 package com.ubb.cms;
 
+import com.ubb.cms.utils.UserTag;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -13,21 +15,21 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int    id;
+    private int     id;
     @Column(name = "username")
-    private String username;
+    private String  username;
     @Column(name = "password")
-    private String password;
+    private String  password;
     @Column(name = "email")
-    private String email;
+    private String  email;
     @Column(name = "name")
-    private String name;
+    private String  name;
     @Column(name = "surname")
-    private String surname;
+    private String  surname;
     @Column(name = "tag")
-    private String tag;
+    private UserTag tag;
 
-    public User(int id, String username, String password, String email, String name, String surname, String tag) {
+    public User(int id, String username, String password, String email, String name, String surname, UserTag tag) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -37,7 +39,7 @@ public class User implements Serializable {
         this.tag = tag;
     }
 
-    public User(String username, String password, String email, String name, String surname, String tag) {
+    public User(String username, String password, String email, String name, String surname, UserTag tag) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -104,11 +106,11 @@ public class User implements Serializable {
         this.surname = surname;
     }
 
-    public String getTag() {
+    public UserTag getTag() {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(UserTag tag) {
         this.tag = tag;
     }
 

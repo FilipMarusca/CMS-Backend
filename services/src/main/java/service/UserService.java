@@ -1,9 +1,8 @@
 package service;
 
 import com.ubb.cms.User;
-import org.springframework.stereotype.Component;
+import com.ubb.cms.utils.UserTag;
 import repository.UserRepository;
-import repository.UserRepositorySpring;
 
 import java.util.List;
 
@@ -15,46 +14,37 @@ public class UserService {
 
     private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository)
-    {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAll()
-    {
-       return userRepository.getAll();
+    public List<User> getAll() {
+        return userRepository.getAll();
     }
 
-    public void addUser(int id, String username, String password, String email, String name, String surname, String tag)
-    {
+    public void addUser(int id, String username, String password, String email, String name, String surname, UserTag tag) {
         userRepository.add(new User(id, username, password, email, name, surname, tag));
     }
 
-    public void addUser(User user)
-    {
+    public void addUser(User user) {
         userRepository.add(user);
     }
 
 
-
-    public void deleteUser(int key)
-    {
+    public void deleteUser(int key) {
         userRepository.delete(key);
     }
 
-    public User findById(int key)
-    {
+    public User findById(int key) {
         return userRepository.findById(key);
     }
 
 
-    public void updateUser(int key, User newUser)
-    {
+    public void updateUser(int key, User newUser) {
         userRepository.update(key, newUser);
     }
 
-    public User checkUser(User user)
-    {
+    public User checkUser(User user) {
         return userRepository.checkUser(user.getUsername(), user.getPassword());
     }
 

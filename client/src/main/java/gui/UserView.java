@@ -1,36 +1,25 @@
 package gui;
 
 import client.ClientController;
-import client.StartClient;
 import com.ubb.cms.User;
-import com.ubb.cms.utils.UserTags;
-import exception.ServiceException;
+import com.ubb.cms.utils.UserTag;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import utils.Observer;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 /**
  * Created by Raul on 02/05/2017.
  */
-
-
-
-
-public class UserView implements Observer<User> {
-    private ClientController controller;
-
-    private Stage currentStage;
-
-    private int userId;
-
+public class UserView extends BaseView {
     @FXML
     private TableView<User> table;
 
@@ -40,97 +29,60 @@ public class UserView implements Observer<User> {
     private TableColumn<User, String> tagColumn;
 
     @FXML
-    private ComboBox<String> tagComboBox;
+    private ComboBox<UserTag> tagComboBox;
     @FXML
-    private Button updateButton;
-
+    private Button            updateButton;
 
 
     @FXML
     private ObservableList<User> model;
 
 
-    @FXML
-    public void initialize() {
-
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
-        tagColumn.setCellValueFactory(new PropertyValueFactory<User, String>("tag"));
-
-        for(UserTags userTags: UserTags.values())
-        {
-            tagComboBox.getItems().add(userTags.toString());
-        }
-
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        tagColumn.setCellValueFactory(new PropertyValueFactory<>("tag"));
+        tagComboBox.getItems().addAll(UserTag.values());
     }
 
-    public void updateButtonHandler()
-    {
-        if(table.getSelectionModel().getSelectedItem() == null || tagComboBox.getSelectionModel().getSelectedItem() == null)
-        {
-            ShowAlert.showAlert("There is no User or no Tag selected");
-            return;
-        }
-        else
-        {
+
+    public void updateButtonHandler() {
+        boolean userSelected = table.getSelectionModel().getSelectedItem() != null;
+        boolean tagSelected = tagComboBox.getSelectionModel().getSelectedItem() != null;
+        if (userSelected && tagSelected) {
             User user = table.getSelectionModel().getSelectedItem();
             try {
                 //System.out.println(tagComboBox.getSelectionModel().toString());
-                String newTag = tagComboBox.getSelectionModel().getSelectedItem();
-                //System.out.println(newTag);
-                user.setTag(newTag);
+                user.setTag(tagComboBox.getSelectionModel().getSelectedItem());
                 controller.updateUser(user, user.getId());
 
             }
-            //catch (ServiceException exception)
-                    catch (Exception exception)
-            {
+            catch (Exception exception) {
                 ShowAlert.showAlert(exception.getMessage());
 
             }
-
+        } else {
+            ShowAlert.showAlert("There is no User or no Tag selected");
         }
-
-    }
-
-
-    public void setController(ClientController clientController, Stage currentStage,int userId)
-    {
-        this.controller = clientController;
-        this.currentStage = currentStage;
-        this.userId = userId;
-
-        model = FXCollections.observableArrayList(controller.getAllUsers());
-        table.setItems(model);
 
     }
 
 
     @Override
+    public void setController(ClientController controller) {
+        super.setController(controller);
+        model = FXCollections.observableArrayList(controller.getAllUsers());
+        table.setItems(model);
+    }
+
+    @Override
     public void update() {
         model = FXCollections.observableArrayList(controller.getAllUsers());
         table.setItems(model);
-
     }
 
     @FXML
-    public void logOutBtnHandler(){
-        try{
-
-            User user = controller.getUserById(userId);
-            controller.logout(user.getUsername());
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(UserView.class.getClassLoader().getResource("login.fxml"));
-            BorderPane root = loader.load();
-            currentStage.setTitle("Conference Management System");
-            LoginView loginView = loader.getController();
-            loginView.setController(controller, currentStage);
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(UserView.class.getResource("/login.css").toString());
-            currentStage.setScene(scene);
-            currentStage.show();
-        }catch(Exception ex){
-            ShowAlert.showAlert(ex.getMessage());
-        }
+    public void logOutBtnHandler() {
+        defaultLogoutHandler();
     }
 }

@@ -1,137 +1,75 @@
 package gui;
 
-import client.ClientController;
-import client.StartClient;
 import com.ubb.cms.Conference;
 import com.ubb.cms.User;
+import com.ubb.cms.utils.UserTag;
 import exception.ServiceException;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Observable;
-import java.util.Observer;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by Raul on 22/05/2017.
  */
-public class LoginView  {
-
-    private ClientController controller;
-    private Stage currentStage;
-
+public class LoginView extends BaseView{
     @FXML
     private TextField username;
     @FXML
     private TextField password;
     @FXML
-    private Button logInButton;
+    private Button    logInButton;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-    public void buttonHandler()
-    {
+    }
+
+    public void buttonHandler() {
         //System.out.println(username.getText());
         //System.out.println(password.getText());
-        for(Conference conference: controller.getAllConferences())
-        {
-            //System.out.println(conference);
+        for (Conference conference : controller.getAllConferences()) {
+            System.out.println(conference);
         }
 
         //System.out.println("trece de getConferences");
         try {
             User currentUser = controller.login(username.getText(), password.getText());
-            String tag = currentUser.getTag();
+            UserTag tag = currentUser.getTag();
             System.out.println(tag);
-            if(tag.equals("ADMIN"))
-            {
-                //System.out.println("intra in admin");
-                try {
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(LoginView.class.getClassLoader().getResource("UserView.fxml"));
-                    BorderPane root = loader.load();
-                    UserView userView = loader.getController();
-                    userView.setController(controller, currentStage,currentUser.getId());
-                    controller.addObserver(userView);
-                    Scene scene = new Scene(root);
-                    scene.getStylesheets().add(LoginView.class.getResource("/userView.css").toString());
-                    currentStage.setScene(scene);
-                    currentStage.setTitle("Admin");
-                    currentStage.show();
-                }
-                catch (IOException exception)
-                {
-                    System.out.println(exception.getMessage());
-                }
+            switch (tag) {
 
+                case Admin:
+                    switchToView("UserView.fxml", "userView.css", "Admin", currentUser);
+                    break;
+                case Reviewer:
+                    break;
+                case Author:
+                    String title = "Author: " + currentUser.getUsername();
+                    switchToView("author.fxml", "author.css", title, currentUser);
+                    break;
+                case SessionChair:
+                    String chairTitle = "Session chair:" + currentUser.getUsername();
+                    switchToView("create.fxml", "create.css", chairTitle, currentUser);
+                    break;
+                case Participant:
+                    break;
             }
-            if(tag.equals("PARTICIPANT"))
-            {
-
-            }
-            if(tag.equals("AUTHOR")){
-                //System.out.println("intra in autor");
-                try {
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(LoginView.class.getClassLoader().getResource("author.fxml"));
-                    BorderPane root = loader.load();
-                    AuthorView authorView = loader.getController();
-                    authorView.setController(controller, currentStage, currentUser.getId());
-                    controller.addObserver(authorView);
-                    Scene scene = new Scene(root);
-                    scene.getStylesheets().add(LoginView.class.getResource("/author.css").toString());
-                    currentStage.setScene(scene);
-                    currentStage.setTitle("Author: " + currentUser.getUsername());
-                    currentStage.show();
-                }
-                catch (IOException exception)
-                {
-                    System.out.println(exception.getMessage());
-                }
-            }
-        }
-        catch (ServiceException ex)
-        {
+        } catch (ServiceException ex) {
             ShowAlert.showAlert(ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-
     }
 
-    public void changeToSignUp()
-    {
+    public void changeToSignUp() {
         try {
-            //System.out.println("intra la log in");
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(LoginView.class.getClassLoader().getResource("signup.fxml"));
-            BorderPane root = loader.load();
-            SignUpView signUpView = loader.getController();
-            signUpView.setController(controller, currentStage);
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(LoginView.class.getResource("/signup.css").toString());
-            System.out.println("trece de css");
-            currentStage.setScene(scene);
-            currentStage.show();
-            System.out.println("trece de show");
-        }
-        catch (IOException exception)
-        {
-            System.out.println(exception.getMessage());
+            switchToView("signup.fxml", "signup.css", "Sign up");
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
-
-    public void setController(ClientController clientController, Stage currentStage)
-    {
-        this.controller = clientController;
-        this.currentStage = currentStage;
-
-        //model = FXCollections.observableArrayList(controller.getAllUsers());
-        //table.setItems(model);
-    }
-
 }
