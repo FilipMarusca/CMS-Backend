@@ -147,11 +147,12 @@ public class AuthorView extends BaseView {
 
     @FXML
     public void logOutHandler() {
-
+        defaultLogoutHandler();
     }
 
     @FXML
-    public void myPapersBtnHandler() {
-        defaultLogoutHandler();
+    public void myPapersBtnHandler() throws IOException {
+        switchToView("myPapers.fxml", "create.css", "Author");
+
     }
 }
