@@ -8,7 +8,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.format.datetime.DateFormatterRegistrar;
 import service.common.IConferenceServer;
+
+import java.util.Date;
 
 /**
  * Created by Raul on 26/04/2017.
@@ -23,7 +26,6 @@ public class StartClient extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
 
         ApplicationContext factory = new ClassPathXmlApplicationContext("classpath:spring-client.xml");
         IConferenceServer server = (IConferenceServer)factory.getBean("conferenceService");

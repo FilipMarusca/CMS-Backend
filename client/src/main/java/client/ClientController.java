@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,6 +41,10 @@ public class ClientController extends UnicastRemoteObject implements IConference
         return server.getUserById(userId);
     }
 
+    public Conference getConferenceById(int userId) {
+        return server.getConferenceById(userId);
+    }
+
 
     public Edition getEditionById(int editionId) {
         return server.getEditionById(editionId);
@@ -66,6 +71,11 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
     public void updateUser(User newUser) throws ServiceException {
         server.updateUser(newUser);
+    }
+
+    public List<Edition> getEditionAfterDate(Date date)
+    {
+        return server.getEditionAfterDate(date);
     }
 
 

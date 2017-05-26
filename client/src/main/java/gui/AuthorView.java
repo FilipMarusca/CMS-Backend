@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 /**
@@ -133,17 +134,9 @@ public class AuthorView extends BaseView {
     public void update() {
         try
         {
-            if(controller == null)
-            {
-                System.out.println("controller is null");
-            }
-            else
-            {
-                System.out.println("controller is not null");
-            }
-            System.out.println("nr editii" + controller.getAllEdition().size());
+            //System.out.println("nr editii" + controller.getAllEdition().size());
             model.clear();
-            model.addAll(controller.getAllEdition());
+            model.addAll(controller.getEditionAfterDate(new Date()));
 
         }
         catch (Exception exception)
