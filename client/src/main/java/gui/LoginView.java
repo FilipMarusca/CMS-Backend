@@ -48,11 +48,11 @@ public class LoginView extends BaseView{
                     switchToView("UserView.fxml", "userView.css", "Admin", currentUser);
                     break;
                 case Reviewer:
-                    /*for (Review r:
+                    for (Review r:
                     controller.getReviewByReviewerAndStatus(currentUser, ReviewStatus.ConfirmedToBeReviewed)
                     ) {
                         System.out.println(r.toString());
-                    }*/
+                    }
                     break;
                 case Author:
                     String title = "Author: " + currentUser.getUsername();
