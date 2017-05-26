@@ -14,6 +14,7 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,6 +55,13 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized List<Edition> getAllEditions() {
         return editionService.getAll();
     }
+
+    @Override
+    public List<Edition> getEditionAfterDate(Date date)
+    {
+        return editionService.getEditionAfterDate(date);
+    }
+
 
     //@Override
     public synchronized User login(User user, IConferenceClient client) throws ServiceException {

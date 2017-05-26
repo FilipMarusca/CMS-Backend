@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,6 +69,11 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
     public void updateUser(User newUser) throws ServiceException {
         server.updateUser(newUser);
+    }
+
+    public List<Edition> getEditionAfterDate(Date date)
+    {
+        return server.getEditionAfterDate(date);
     }
 
 

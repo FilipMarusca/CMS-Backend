@@ -6,5 +6,6 @@ package com.ubb.cms.utils;
 
 public enum ReviewStatus {
 
-    StrongAccept, Accept, WeakAccept, BorderlinePaper, WeakReject, Reject, StrongReject
+    StrongAccept, Accept, WeakAccept, BorderlinePaper, WeakReject, Reject, StrongReject, WaitingForConfirmation,
+    ConfirmedToBeReviewed
 }

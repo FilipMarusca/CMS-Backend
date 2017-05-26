@@ -7,6 +7,9 @@ import repository.EditionRepository;
 import repository.IRepository;
 import server.validator.ValidatorInterface;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by Raul on 26/04/2017.
  */
@@ -23,5 +26,12 @@ public class EditionService extends BaseService<Edition> {
     @Override
     IRepository<Edition> getRepository() {
         return editionRepository;
+    }
+
+
+
+    public List<Edition> getEditionAfterDate(Date date)
+    {
+        return editionRepository.getEditionAfterDate(date);
     }
 }

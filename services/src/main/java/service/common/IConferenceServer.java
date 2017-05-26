@@ -6,6 +6,7 @@ import com.ubb.cms.Paper;
 import com.ubb.cms.User;
 import service.exception.ServiceException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,4 +39,8 @@ public interface IConferenceServer {
     void addConference(Conference conference) throws ServiceException;
 
     void addEdition(Edition edition) throws ServiceException;
+
+    List<Edition> getEditionAfterDate(Date date);
+
+
 }
