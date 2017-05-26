@@ -1,7 +1,9 @@
 package gui;
 
 import com.ubb.cms.Conference;
+import com.ubb.cms.Review;
 import com.ubb.cms.User;
+import com.ubb.cms.utils.ReviewStatus;
 import com.ubb.cms.utils.UserTag;
 import service.exception.ServiceException;
 import javafx.fxml.FXML;
@@ -46,6 +48,11 @@ public class LoginView extends BaseView{
                     switchToView("UserView.fxml", "userView.css", "Admin", currentUser);
                     break;
                 case Reviewer:
+                    /*for (Review r:
+                    controller.getReviewByReviewerAndStatus(currentUser, ReviewStatus.ConfirmedToBeReviewed)
+                    ) {
+                        System.out.println(r.toString());
+                    }*/
                     break;
                 case Author:
                     String title = "Author: " + currentUser.getUsername();

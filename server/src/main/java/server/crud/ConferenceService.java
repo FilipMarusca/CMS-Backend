@@ -25,4 +25,5 @@ public class ConferenceService extends BaseService<Conference>{
     IRepository<Conference> getRepository() {
         return conferenceRepository;
     }
+
 }

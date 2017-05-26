@@ -1,9 +1,7 @@
 package service.common;
 
-import com.ubb.cms.Conference;
-import com.ubb.cms.Edition;
-import com.ubb.cms.Paper;
-import com.ubb.cms.User;
+import com.ubb.cms.*;
+import com.ubb.cms.utils.ReviewStatus;
 import service.exception.ServiceException;
 
 import java.util.List;
@@ -16,6 +14,8 @@ public interface IConferenceServer {
     List<User> getAllUser();
 
     List<Edition> getAllEditions();
+
+    List<Review> getAllReviews();
 
     User login(User user, IConferenceClient client) throws ServiceException;
 
@@ -38,4 +38,5 @@ public interface IConferenceServer {
     void addConference(Conference conference) throws ServiceException;
 
     void addEdition(Edition edition) throws ServiceException;
+    List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status);
 }

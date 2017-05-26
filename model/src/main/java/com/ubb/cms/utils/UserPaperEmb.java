@@ -22,4 +22,35 @@ public class UserPaperEmb implements Serializable {
     @JoinColumn(name = "paper_id", referencedColumnName = "id")
     private Paper paper;
 
+    public UserPaperEmb(User user, Paper paper) {
+        this.user = user;
+        this.paper = paper;
+    }
+    public UserPaperEmb(){
+
+    }
+
+    @Override
+    public String toString() {
+        return "UserPaperEmb{" +
+                "user=" + user +
+                ", paper=" + paper +
+                '}';
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Paper getPaper() {
+        return paper;
+    }
+
+    public void setPaper(Paper paper) {
+        this.paper = paper;
+    }
 }

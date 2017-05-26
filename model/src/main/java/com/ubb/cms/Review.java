@@ -34,6 +34,15 @@ public class Review implements Serializable {
     public Review() {
     }
 
+    @Override
+    public String toString() {
+        return "Review{" +
+                "userPaper=" + userPaper +
+                ", status=" + status +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
+
     public UserPaperEmb getUserPaper() {
         return userPaper;
     }

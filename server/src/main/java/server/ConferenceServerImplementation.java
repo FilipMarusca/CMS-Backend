@@ -1,15 +1,10 @@
 package server;
 
-import com.ubb.cms.Conference;
-import com.ubb.cms.Edition;
-import com.ubb.cms.Paper;
-import com.ubb.cms.User;
+import com.ubb.cms.*;
+import com.ubb.cms.utils.ReviewStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import server.crud.ConferenceService;
-import server.crud.EditionService;
-import server.crud.PaperService;
-import server.crud.UserService;
+import server.crud.*;
 import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
@@ -33,14 +28,16 @@ public class ConferenceServerImplementation implements IConferenceServer {
     private final ConferenceService              conferenceService;
     private final EditionService                 editionService;
     private final PaperService                   paperService;
+    private final ReviewService                  reviewService;
     private       Map<String, IConferenceClient> loggedClients;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService) {
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService) {
         this.userService = userService;
         this.conferenceService = conferenceService;
         this.editionService = editionService;
         this.paperService = paperService;
+        this.reviewService=reviewService;
 
         loggedClients = new ConcurrentHashMap<>();
     }
@@ -54,6 +51,9 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized List<Edition> getAllEditions() {
         return editionService.getAll();
     }
+
+    @Override
+    public synchronized  List<Review> getAllReviews(){ return reviewService.getAll();}
 
     //@Override
     public synchronized User login(User user, IConferenceClient client) throws ServiceException {
@@ -75,7 +75,12 @@ public class ConferenceServerImplementation implements IConferenceServer {
         return existsUser;
 
     }
-
+    @Override
+    public synchronized List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status){
+        //get papers(status=ConfirmedToBeReviewed) to be reviewed for a reviewer,
+        // after the reviewer gets the accept to review a paper
+        return reviewService.getReviewByReviewerAndStatus(user,status);
+    }
     @Override
     public void logout(String username) throws ServiceException {
         loggedClients.remove(username);

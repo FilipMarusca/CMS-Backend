@@ -1,9 +1,7 @@
 package client;
 
-import com.ubb.cms.Conference;
-import com.ubb.cms.Edition;
-import com.ubb.cms.Paper;
-import com.ubb.cms.User;
+import com.ubb.cms.*;
+import com.ubb.cms.utils.ReviewStatus;
 import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.common.Observer;
@@ -112,6 +110,9 @@ public class ClientController extends UnicastRemoteObject implements IConference
         for (Observer observer : observers) {
             observer.update();
         }
+    }
+    public List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status){
+        return server.getReviewByReviewerAndStatus(user,status);
     }
 
     public void addConference(String conferenceName) throws ServiceException {
