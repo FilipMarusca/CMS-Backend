@@ -3,6 +3,7 @@ package gui;
 import client.ClientController;
 import com.ubb.cms.Edition;
 import com.ubb.cms.utils.PaperTopics;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -41,7 +42,7 @@ public class AuthorView extends BaseView {
     @FXML
     private Button                               logOutBtn;
 
-    private ClientController controller;
+    //private ClientController controller;
     private Stage            currentStage;
 
 
@@ -52,6 +53,7 @@ public class AuthorView extends BaseView {
         submissionDeadlineColumn.setCellValueFactory(new PropertyValueFactory<>("paperSubmissionDeadline"));
         beginingDateColumn.setCellValueFactory(new PropertyValueFactory<>("beginningDate"));
         endingDateColumn.setCellValueFactory(new PropertyValueFactory<>("endingDate"));
+        model = FXCollections.observableArrayList();
         table.setItems(model);
 
         for (PaperTopics topic : PaperTopics.values()) {
@@ -129,8 +131,28 @@ public class AuthorView extends BaseView {
 
     @Override
     public void update() {
-        model.clear();
-        model.addAll(controller.getAllEdition());
+        try
+        {
+            if(controller == null)
+            {
+                System.out.println("controller is null");
+            }
+            else
+            {
+                System.out.println("controller is not null");
+            }
+            System.out.println("nr editii" + controller.getAllEdition().size());
+            model.clear();
+            model.addAll(controller.getAllEdition());
+
+        }
+        catch (Exception exception)
+        {
+            ShowAlert.showAlert("Failed to load editions");
+            ShowAlert.showAlert(exception.getMessage());
+
+        }
+
     }
 
     @FXML
