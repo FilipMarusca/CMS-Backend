@@ -43,6 +43,10 @@ public class ClientController extends UnicastRemoteObject implements IConference
         return server.getUserById(userId);
     }
 
+    public Conference getConferenceById(int userId) {
+        return server.getConferenceById(userId);
+    }
+
 
     public Edition getEditionById(int editionId) {
         return server.getEditionById(editionId);

@@ -4,6 +4,7 @@ import com.ubb.cms.Conference;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
+import com.ubb.cms.utils.UserTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import server.crud.ConferenceService;
@@ -14,6 +15,9 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +48,49 @@ public class ConferenceServerImplementation implements IConferenceServer {
         this.paperService = paperService;
 
         loggedClients = new ConcurrentHashMap<>();
+        /*
+        Populating DataBase with Users, Confrences and Editions
+        Decommentate to populate DB
+         */
+        /*try {
+            addUser(new User(1, "admin", "admin", "admin@gmail.com", "admin", "admin", UserTag.Admin));
+            addUser(new User(2, "autor", "autor", "autor@gmail.com", "autor", "autor", UserTag.Author));
+            addUser(new User(3, "chair", "chair", "sc@gmail.com", "sc", "sc", UserTag.SessionChair));
+            addUser(new User(4, "reviewer", "reviewer", "reviewer@gmail.com", "reviewer", "reviewer", UserTag.Reviewer));
+
+            addConference(new Conference(1, "conference1"));
+            addConference(new Conference(1, "conference2"));
+            addConference(new Conference(1, "conference3"));
+
+
+            String startDateString = "2017-08-01";
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = null;
+            try {
+                startDate = df.parse(startDateString);
+                //String newDateString = df.format(startDate);
+                //System.out.println(newDateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+           //System.out.println(startDate);
+
+
+            addEdition(new Edition(getConferenceById(1), startDate, startDate, "edition1", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(1), startDate, startDate, "edition2", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(1), startDate, startDate, "edition3", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(2), startDate, startDate, "edition4", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(3), startDate, startDate, "edition5", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(3), startDate, startDate, "edition6", startDate, startDate ));
+
+        }
+        catch (ServiceException exception)
+        {
+            System.out.println(exception);
+        }
+        */
+
+
     }
 
     @Override
@@ -124,6 +171,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     @Override
     public synchronized Edition getEditionById(int editionId) {
         return editionService.findById(editionId);
+    }
+
+    @Override
+    public Conference getConferenceById(int conferenceId) {
+        return conferenceService.findById(conferenceId);
     }
 
     @Override

@@ -36,6 +36,8 @@ public interface IConferenceServer {
 
     Edition getEditionById(int editionId);
 
+    Conference getConferenceById(int conferenceId);
+
     void addConference(Conference conference) throws ServiceException;
 
     void addEdition(Edition edition) throws ServiceException;
