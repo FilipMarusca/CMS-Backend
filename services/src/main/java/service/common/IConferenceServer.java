@@ -4,6 +4,7 @@ import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import service.exception.ServiceException;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,4 +40,7 @@ public interface IConferenceServer {
 
     void addEdition(Edition edition) throws ServiceException;
     List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status);
+
+    Conference getConferenceById(int userId);
+    List<Edition> getEditionAfterDate(Date date);
 }
