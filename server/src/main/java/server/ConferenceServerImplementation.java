@@ -9,6 +9,7 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -81,6 +82,17 @@ public class ConferenceServerImplementation implements IConferenceServer {
         // after the reviewer gets the accept to review a paper
         return reviewService.getReviewByReviewerAndStatus(user,status);
     }
+
+    @Override
+    public Conference getConferenceById(int userId) {
+        return null;
+    }
+
+    @Override
+    public List<Edition> getEditionAfterDate(Date date) {
+        return null;
+    }
+
     @Override
     public void logout(String username) throws ServiceException {
         loggedClients.remove(username);
