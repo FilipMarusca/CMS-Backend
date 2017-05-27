@@ -6,25 +6,18 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MyPapersView">
-   <top>
-      <HBox id="logo" prefHeight="137.0" prefWidth="669.0" BorderPane.alignment="CENTER" />
-   </top>
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MyPapersView">
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="backBtn" mnemonicParsing="false" onAction="#goBackHandler" prefHeight="25.0" prefWidth="84.0" text="Back">
-               <HBox.margin>
-                  <Insets left="30.0" top="150.0" />
-               </HBox.margin>
-            </Button>
-            <TableView prefHeight="322.0" prefWidth="585.0">
+            <TableView fx:id="table" prefHeight="322.0" prefWidth="585.0">
               <columns>
-                <TableColumn prefWidth="136.0" text="Paper Name" />
-                <TableColumn prefWidth="140.0" text="Topic" />
-                  <TableColumn prefWidth="170.0" text="Edition" />
-                  <TableColumn prefWidth="138.0" text="Status" />
+                <TableColumn fx:id="paperNameColumn" prefWidth="136.0" text="Paper Name" />
+                <TableColumn fx:id="topicColumn" prefWidth="140.0" text="Topic" />
+                  <TableColumn fx:id="editionColumn" prefWidth="170.0" text="Edition" />
+                  <TableColumn fx:id="statusColumn" prefWidth="138.0" text="Status" />
               </columns>
                <HBox.margin>
                   <Insets bottom="10.0" left="35.0" />
@@ -33,4 +26,20 @@
          </children>
       </HBox>
    </center>
+   <left>
+      <VBox prefHeight="451.0" prefWidth="85.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#downloadHandler" prefHeight="27.0" prefWidth="121.0" text="Download">
+               <VBox.margin>
+                  <Insets top="200.0" />
+               </VBox.margin>
+            </Button>
+            <Button id="backBtn" mnemonicParsing="false" onAction="#goBackHandler" prefHeight="25.0" prefWidth="84.0" text="Back">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
