@@ -2,6 +2,7 @@ package client;
 
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
+import com.ubb.cms.utils.UserPaperEmb;
 import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.common.Observer;
@@ -140,5 +141,13 @@ public class ClientController extends UnicastRemoteObject implements IConference
         );
 
         server.addEdition(edition);
+    }
+    public void addReview(User user,Paper paper,ReviewStatus status,String comment) throws ServiceException{
+        Review review=new Review(new UserPaperEmb(user,paper),status,comment);
+        server.addReview(review);
+
+    }
+    public Paper getPaperById(int id)throws ServiceException{
+        return server.getPaperById(id);
     }
 }

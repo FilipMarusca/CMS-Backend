@@ -53,6 +53,12 @@ public class LoginView extends BaseView{
                     ) {
                         System.out.println(r.toString());
                     }*/
+                   // controller.addReview(controller.getUserById(4),controller.getPaperById(5),ReviewStatus.WaitingForConfirmation,null);
+                    for (Review r:
+                            controller.getReviewByReviewerAndStatus(currentUser, ReviewStatus.WaitingForConfirmation)
+                            ) {
+                        System.out.println(r.toString());
+                    }
                     switchToView("reviewer_main.fxml","reviewer_main.css","Reviewer: "+currentUser.getUsername(),currentUser);
                     break;
                 case Author:
