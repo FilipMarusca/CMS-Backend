@@ -10,7 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,6 +34,8 @@ public class MyPapersView extends BaseView {
     private TableColumn<Paper, PaperStatus> statusColumn;
     @FXML
     private ObservableList<Paper> model;
+
+    private Stage currentStage;
 
     @Override
     public void update() {
@@ -55,16 +60,36 @@ public class MyPapersView extends BaseView {
     }
 
     @FXML
-    public void goBackHandler(){
-        try{
+    public void goBackHandler() {
+        try {
             switchToView("author.fxml", "author.css", "Author");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ShowAlert.showAlert(ex.getMessage());
         }
     }
 
     @FXML
     public void downloadHandler() {
+        if (table.getSelectionModel().getSelectedItem() == null) {
+            ShowAlert.showAlert("Select a paper first");
+            return;
+        }
 
+        showSaveFileDialog();
+    }
+
+    private void showSaveFileDialog() {
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(currentStage);
+
+        if(file != null){
+            System.out.println("SAVE FILE!!!");
+        }
     }
 }
