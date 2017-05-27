@@ -1,8 +1,10 @@
 package gui;
 
+import com.ubb.cms.Paper;
 import com.ubb.cms.utils.ReviewStatus;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +16,7 @@ public class ReviewerAssignmentsView extends BaseView{
 
     @FXML
     private ComboBox<String> reviewCombo;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         for(ReviewStatus status : ReviewStatus.values()){

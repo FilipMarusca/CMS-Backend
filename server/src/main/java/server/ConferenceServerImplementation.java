@@ -76,6 +76,23 @@ public class ConferenceServerImplementation implements IConferenceServer {
         return existsUser;
 
     }
+
+    @Override
+    public List<Review> getReviewsByReviewer(User user)
+    {
+        return reviewService.getReviewsByReviewer(user);
+    }
+
+    public void changeReviewToConfirmedToBeReviewed(Review review)
+    {
+        reviewService.changeReviewToConfirmedToBeReviewed(review);
+    }
+
+    public void changeReviewToRefusedToBeReviewed(Review review)
+    {
+        reviewService.changeReviewToRefusedToBeReviewed(review);
+    }
+
     @Override
     public synchronized List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status){
         //get papers(status=ConfirmedToBeReviewed) to be reviewed for a reviewer,

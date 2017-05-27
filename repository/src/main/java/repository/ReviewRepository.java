@@ -34,4 +34,34 @@ public class ReviewRepository extends AbstractRepository<Review>{
             return lista;
 
     }
+
+    public List<Review> getReviewsByReviewer(User user)
+    {
+        List<Review> lista = new ArrayList<>();
+        for(Review r : getAll())
+        {
+            if(r.getUserPaper().getUser().getId() == user.getId())
+            {
+                lista.add(r);
+            }
+        }
+
+        return lista;
+    }
+
+    private void changeReviewStatus(Review review, ReviewStatus newStatus)
+    {
+        review.setStatus(newStatus);
+        update(review);
+    }
+
+    public void changeReviewToConfirmedToBeReviewed(Review review)
+    {
+        changeReviewStatus(review, ReviewStatus.ConfirmedToBeReviewed);
+    }
+
+    public void changeReviewToRefusedToBeReviewed(Review review)
+    {
+        changeReviewStatus(review, ReviewStatus.RefusedToBeReviewed);
+    }
 }

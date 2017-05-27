@@ -47,7 +47,7 @@
                         <Insets top="3.0" />
                      </HBox.margin>
                   </Label>
-                  <Hyperlink onAction="#changeToSignUp" prefHeight="3.0" prefWidth="72.0" text="Click here!">
+                  <Hyperlink onAction="#changeToSignUp" prefHeight="25.0" prefWidth="107.0" text="Click here!">
                      <HBox.margin>
                         <Insets left="5.0" />
                      </HBox.margin>
