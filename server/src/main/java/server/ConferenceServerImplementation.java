@@ -144,6 +144,15 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public void addEdition(Edition edition) throws ServiceException {
         editionService.add(edition);
     }
+    @Override
+    public synchronized void addReview(Review review) throws ServiceException{
+
+        reviewService.add(review);
+    }
+    @Override
+    public synchronized Paper getPaperById(int id){
+        return paperService.findById(id);
+    }
 
     private void notifyAllViewers() {
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);
