@@ -1,32 +1,67 @@
-#createBtn {
+#logOutBtn {
     -fx-background: #3498db;
     -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
     -fx-border-radius: 28px;
     -fx-text-fill: #ffffff;
-    -fx-font-size: 20px;
-    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 15px;
+    -fx-padding: 5px 8px 5px 8px;
     -fx-font-family: "Lucida";
     -fx-text-decoration: none;
 }
 
-#createBtn:hover {
+#logOutBtn:hover {
   -fx-background: #3cb0fd;
   -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
   -fx-text-decoration: none;
 }
 
-#gotoBtn {
+
+#addBtn {
     -fx-background: #3498db;
     -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
     -fx-border-radius: 28px;
     -fx-text-fill: #ffffff;
-    -fx-font-size: 20px;
-    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-size: 15px;
+    -fx-padding: 5px 8px 5px 8px;
     -fx-font-family: "Lucida";
     -fx-text-decoration: none;
 }
 
-#gotoBtn:hover {
+#addBtn:hover {
+  -fx-background: #3cb0fd;
+  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
+  -fx-text-decoration: none;
+}
+
+#removeBtn {
+    -fx-background: #3498db;
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+    -fx-border-radius: 28px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-padding: 5px 8px 5px 8px;
+    -fx-font-family: "Lucida";
+    -fx-text-decoration: none;
+}
+
+#removeBtn:hover {
+  -fx-background: #3cb0fd;
+  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
+  -fx-text-decoration: none;
+}
+
+#myAsignBtn {
+    -fx-background: #3498db;
+    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
+    -fx-border-radius: 28px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 15px;
+    -fx-padding: 5px 8px 5px 8px;
+    -fx-font-family: "Lucida";
+    -fx-text-decoration: none;
+}
+
+#myAsignBtn:hover {
   -fx-background: #3cb0fd;
   -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
   -fx-text-decoration: none;
@@ -42,38 +77,4 @@
    -fx-background-repeat: no-repeat;
    -fx-background-position: center;
    -fx-padding-top:40px;
-}
-
-#logOutBtn {
-    -fx-background: #3498db;
-    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
-    -fx-border-radius: 28px;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 15px;
-    -fx-padding: 3px 6px 3px 6px;
-    -fx-font-family: "Lucida";
-    -fx-text-decoration: none;
-}
-
-#logOutBtn:hover {
-  -fx-background: #3cb0fd;
-  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
-  -fx-text-decoration: none;
-}
-
-#backBtn {
-    -fx-background: #3498db;
-    -fx-background-color: linear-gradient(to bottom, #3498db, #2980b9);
-    -fx-border-radius: 28px;
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 15px;
-    -fx-padding: 3px 6px 3px 6px;
-    -fx-font-family: "Lucida";
-    -fx-text-decoration: none;
-}
-
-#backBtn:hover {
-  -fx-background: #3cb0fd;
-  -fx-background-color: linear-gradient(to bottom, #3cb0fd, #3498db);
-  -fx-text-decoration: none;
 }

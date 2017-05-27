@@ -38,4 +38,15 @@ public class CreateConferenceView extends BaseView {
             ShowAlert.showAlert(e.getMessage());
         }
     }
+
+    @FXML
+    public void backBtnHandler(){
+        try{
+            switchToView("create.fxml","create.css","Session chair"+loggedUser.getUsername());
+        }catch(Exception ex){
+            ShowAlert.showAlert(ex.getMessage());
+        }
+    }
+
+
 }

@@ -48,11 +48,12 @@ public class LoginView extends BaseView{
                     switchToView("UserView.fxml", "userView.css", "Admin", currentUser);
                     break;
                 case Reviewer:
-                    for (Review r:
+                    /*for (Review r:
                     controller.getReviewByReviewerAndStatus(currentUser, ReviewStatus.ConfirmedToBeReviewed)
                     ) {
                         System.out.println(r.toString());
-                    }
+                    }*/
+                    switchToView("reviewer_main.fxml","reviewer_main.css","Reviewer: "+currentUser.getUsername(),currentUser);
                     break;
                 case Author:
                     String title = "Author: " + currentUser.getUsername();
@@ -63,6 +64,7 @@ public class LoginView extends BaseView{
                     switchToView("create.fxml", "create.css", chairTitle, currentUser);
                     break;
                 case Participant:
+                    switchToView("participant.fxml","participant.css","Participant: "+currentUser.getUsername(),currentUser);
                     break;
             }
         } catch (ServiceException ex) {

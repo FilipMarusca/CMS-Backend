@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CreateView">
-   <top>
-      <VBox id="logo" prefHeight="196.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-   </top>
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CreateView">
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,4 +22,15 @@
          </children>
       </HBox>
    </center>
+   <top>
+      <HBox id="logo" prefHeight="184.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button id="logOutBtn" mnemonicParsing="false" onAction="#logOutBtnHandler" prefHeight="25.0" prefWidth="95.0" text="Log Out">
+               <HBox.margin>
+                  <Insets left="15.0" top="25.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

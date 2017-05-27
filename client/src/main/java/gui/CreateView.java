@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,4 +31,17 @@ public class CreateView extends BaseView {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void logOutBtnHandler(){
+
+        try{
+            controller.logout(loggedUser.getUsername());
+            switchToView("login.fxml","login.css","Conference Management System");
+        }catch(Exception ex){
+            ShowAlert.showAlert(ex.getMessage());
+        }
+    }
+
+
 }
