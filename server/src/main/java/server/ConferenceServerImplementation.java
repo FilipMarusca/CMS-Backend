@@ -90,7 +90,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public List<Edition> getEditionAfterDate(Date date) {
-        return null;
+        return editionService.getEditionAfterDate(date);
     }
 
     @Override
