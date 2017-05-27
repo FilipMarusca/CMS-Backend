@@ -2,6 +2,9 @@ package gui;
 
 import client.ClientController;
 import com.ubb.cms.Edition;
+import com.ubb.cms.Paper;
+import com.ubb.cms.User;
+import com.ubb.cms.utils.PaperStatus;
 import com.ubb.cms.utils.PaperTopics;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -100,14 +104,14 @@ public class AuthorView extends BaseView {
             //logger.info(bais);
             //logger.info(bais.toString());
 
-            /*User author = controller.getUserById(authorId);
-            logger.info(author);
+            User author = controller.getUserById(loggedUser.getId());
+            //logger.info(author);
             Blob blob = new javax.sql.rowset.serial.SerialBlob(pdfData);
             Paper paper = new Paper(author, null, PaperStatus.InReview, title, topic, blob );
             controller.addPaper(paper);
             logger.info("trece de add");
 
-            */
+
 
         } catch (Exception exception) {
             logger.info("intra la exceptie");
