@@ -35,7 +35,19 @@ public class ReviewService extends BaseService<Review> {
     }
 
 
+    public List<Review> getReviewsByReviewer(User user)
+    {
+        return reviewRepository.getReviewsByReviewer(user);
+    }
 
+    public void changeReviewToConfirmedToBeReviewed(Review review)
+    {
+        reviewRepository.changeReviewToConfirmedToBeReviewed(review);
+    }
 
+    public void changeReviewToRefusedToBeReviewed(Review review)
+    {
+        reviewRepository.changeReviewToRefusedToBeReviewed(review);
+    }
 
 }

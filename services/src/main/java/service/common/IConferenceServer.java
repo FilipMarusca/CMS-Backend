@@ -43,6 +43,11 @@ public interface IConferenceServer {
     void addEdition(Edition edition) throws ServiceException;
     List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status);
 
+    List<Review> getReviewsByReviewer(User user);
+
     Conference getConferenceById(int userId);
     List<Edition> getEditionAfterDate(Date date);
+
+    void changeReviewToConfirmedToBeReviewed(Review review);
+    void changeReviewToRefusedToBeReviewed(Review review);
 }
