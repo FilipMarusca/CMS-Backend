@@ -40,9 +40,9 @@ public class Paper implements Serializable{
     private String topic;
 
     @Column(name = "pdf")
-    private Blob paperPDF;
+    private byte[] paperPDF;
 
-    public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic, Blob paperPDF) {
+    public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF) {
         this.id = id;
         this.session = session;
         this.author = author;
@@ -53,7 +53,7 @@ public class Paper implements Serializable{
         this.paperPDF = paperPDF;
     }
 
-    public Paper(User author, Edition edition, PaperStatus status, String title, String topic, Blob paperPDF) {
+    public Paper(User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF) {
         this.author = author;
         this.edition = edition;
         this.status = status;
@@ -120,6 +120,14 @@ public class Paper implements Serializable{
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public byte[] getPaperPDF() {
+        return paperPDF;
+    }
+
+    public void setPaperPDF(byte[] paperPDF) {
+        this.paperPDF = paperPDF;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package gui;
 
-import client.ClientController;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
@@ -13,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.hibernate.Hibernate;
 
 import java.io.*;
 import java.net.URL;
@@ -27,13 +27,13 @@ public class AuthorView extends BaseView {
     private static final String DEFAULTPAPERSTATUS = "WaitingForReview";
 
     @FXML
-    private TextField                            titleText;
+    private TextField titleText;
     @FXML
-    private Button                               uploadBtn;
+    private Button uploadBtn;
     @FXML
-    private TableView<Edition>                   table;
+    private TableView<Edition> table;
     @FXML
-    private TableColumn<Edition, String>         nameColumn;
+    private TableColumn<Edition, String> nameColumn;
     @FXML
     private TableColumn<Edition, java.util.Date> submissionDeadlineColumn;
     @FXML
@@ -41,14 +41,14 @@ public class AuthorView extends BaseView {
     @FXML
     private TableColumn<Edition, java.util.Date> endingDateColumn;
     @FXML
-    private ObservableList<Edition>              model;
+    private ObservableList<Edition> model;
     @FXML
-    private ComboBox<String>                     topicComboBox;
+    private ComboBox<String> topicComboBox;
     @FXML
-    private Button                               logOutBtn;
+    private Button logOutBtn;
 
     //private ClientController controller;
-    private Stage            currentStage;
+    private Stage currentStage;
 
 
     @Override
@@ -106,21 +106,17 @@ public class AuthorView extends BaseView {
 
             User author = controller.getUserById(loggedUser.getId());
             //logger.info(author);
-            Blob blob = new javax.sql.rowset.serial.SerialBlob(pdfData);
-            Paper paper = new Paper(author, null, PaperStatus.InReview, title, topic, blob );
+
+            Paper paper = new Paper(author, null, PaperStatus.InReview, title, topic, pdfData);
             controller.addPaper(paper);
             logger.info("trece de add");
-
 
 
         } catch (Exception exception) {
             logger.info("intra la exceptie");
             logger.warning(exception.getMessage());
         }
-
-
     }
-
 
     /*private byte[] getByteArrayFromFile(final Document handledDocument) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -136,18 +132,14 @@ public class AuthorView extends BaseView {
 
     @Override
     public void update() {
-        try
-        {
+        try {
             //System.out.println("nr editii" + controller.getAllEdition().size());
             model.clear();
             model.addAll(controller.getEditionAfterDate(new Date()));
 
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             ShowAlert.showAlert("Failed to load editions");
             ShowAlert.showAlert(exception.getMessage());
-
         }
 
     }
