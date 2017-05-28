@@ -69,6 +69,10 @@ public class ClientController extends UnicastRemoteObject implements IConference
         return server.getAllPapers();
     }
 
+    public List<Paper> getPapersFromAuthor(User author) {
+        return server.getPapersFromAuthor(author);
+    }
+
 
     public void updateUser(User newUser) throws ServiceException {
         server.updateUser(newUser);

@@ -41,7 +41,7 @@ public class MyPapersView extends BaseView {
     public void update() {
         try {
             model.clear();
-            model.addAll(controller.getAllPapers());
+            model.addAll(controller.getPapersFromAuthor(loggedUser));
         } catch (Exception exception) {
             ShowAlert.showAlert("Failed to load papers");
             ShowAlert.showAlert(exception.getMessage());
