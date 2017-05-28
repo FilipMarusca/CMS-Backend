@@ -14,6 +14,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -35,13 +37,11 @@ public class MyPapersView extends BaseView {
     @FXML
     private ObservableList<Paper> model;
 
-    private Stage currentStage;
-
     @Override
     public void update() {
         try {
             model.clear();
-            model.addAll(controller.getAllPapers());
+            model.addAll(controller.getPapersFromAuthor(loggedUser));
         } catch (Exception exception) {
             ShowAlert.showAlert("Failed to load papers");
             ShowAlert.showAlert(exception.getMessage());
@@ -75,10 +75,10 @@ public class MyPapersView extends BaseView {
             return;
         }
 
-        showSaveFileDialog();
+        showSaveFileDialog(table.getSelectionModel().getSelectedItem().getPaperPDF());
     }
 
-    private void showSaveFileDialog() {
+    private void showSaveFileDialog(byte[] pdfData) {
         FileChooser fileChooser = new FileChooser();
 
         //Set extension filter
@@ -88,8 +88,22 @@ public class MyPapersView extends BaseView {
         //Show save file dialog
         File file = fileChooser.showSaveDialog(currentStage);
 
-        if(file != null){
-            System.out.println("SAVE FILE!!!");
+        if (file != null) {
+            saveFile(pdfData, file);
+        }
+    }
+
+    private void saveFile(byte[] pdfData, File file) {
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            fileOutputStream.write(pdfData);
+            fileOutputStream.close();
+
+            System.out.println("SAVE SUCCESFUL");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("SAVE FAILED");
         }
     }
 }

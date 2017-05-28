@@ -123,6 +123,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
+    public List<Paper> getPapersFromAuthor(User author) {
+        return paperService.getPapersFromAuthor(author);
+    }
+
+    @Override
     public void addPaper(Paper paper) throws ServiceException {
         paperService.add(paper);
     }

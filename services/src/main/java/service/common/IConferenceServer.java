@@ -39,6 +39,7 @@ public interface IConferenceServer {
 
     Edition getEditionById(int editionId);
     Paper getPaperById(int paperId);
+    List<Paper> getPapersFromAuthor(User author);
     void addConference(Conference conference) throws ServiceException;
 
     void addEdition(Edition edition) throws ServiceException;
