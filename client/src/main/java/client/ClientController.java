@@ -129,7 +129,12 @@ public class ClientController extends UnicastRemoteObject implements IConference
     public void addConference(String conferenceName) throws ServiceException {
         server.addConference(new Conference(conferenceName));
     }
-
+    public List<Paper> getPapersToBeReviewed(User u,ReviewStatus s){
+        return server.getPapersToBeReviewed(u,s);
+    }
+    public List<Paper> getPapersNotReviewed(User u){
+        return server.getPapersNotReviewed(u);
+    }
     public void addEdition(Conference conference, LocalDate beginningDate, LocalDate endingDate, String name, LocalDate paperSubmissionDeadline, LocalDate finalDeadline) throws ServiceException {
         Edition edition = new Edition(
                 conference,
@@ -149,5 +154,16 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
     public Paper getPaperById(int id)throws ServiceException{
         return server.getPaperById(id);
+
+    }
+    public void deleteReview(Review r){
+        server.deleteReview(r);
+    }
+    public Review getReviewByReviewerAndPaper(User u,Paper p){
+        return server.getReviewByReviewerAndPaper(u,p);
+    }
+    public void updateReview(User user,Paper paper,ReviewStatus status,String comment) throws ServiceException{
+        Review review=new Review(new UserPaperEmb(user,paper),status,comment);
+        server.updateReview(review);
     }
 }

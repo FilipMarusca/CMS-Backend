@@ -10,6 +10,7 @@ import repository.IRepository;
 import repository.ReviewRepository;
 import server.validator.ValidatorInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,8 +34,18 @@ public class ReviewService extends BaseService<Review> {
     public List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status){
         return reviewRepository.getReviewByReviewerAndStatus(user,status);
     }
+    public List<Paper> getPaperToBeReviewed(User u ,ReviewStatus s){
+        List<Paper> lista=new ArrayList<>();
+        for (Review r:
+            getReviewByReviewerAndStatus(u,s)) {
+            lista.add(r.getUserPaper().getPaper());
+        }
+        return lista;
+    }
 
-
+    public void delete(Review r){
+        reviewRepository.delete(r);
+    }
     public List<Review> getReviewsByReviewer(User user)
     {
         return reviewRepository.getReviewsByReviewer(user);
@@ -48,6 +59,9 @@ public class ReviewService extends BaseService<Review> {
     public void changeReviewToRefusedToBeReviewed(Review review)
     {
         reviewRepository.changeReviewToRefusedToBeReviewed(review);
+    }
+    public Review getReviewByReviewerAndPaper(User u,Paper p){
+        return reviewRepository.getReviewByReviewerAndPaper(u,p);
     }
 
 }

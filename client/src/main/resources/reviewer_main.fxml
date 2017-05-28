@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerView">
+<BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerView">
    <top>
       <HBox id="logo" prefHeight="124.0" prefWidth="783.0" BorderPane.alignment="CENTER">
          <children>
@@ -42,8 +42,8 @@
                   </Label>
                   <TableView fx:id="availablePapers" prefHeight="298.0" prefWidth="319.0">
                     <columns>
-                      <TableColumn prefWidth="156.0" text="Paper Name" />
-                      <TableColumn prefWidth="160.0" text="Topic" />
+                      <TableColumn fx:id="namePaperColumnAvailable" prefWidth="156.0" text="Paper Name" />
+                      <TableColumn fx:id="topicPaperColumnAvailable" prefWidth="160.0" text="Topic" />
                     </columns>
                      <VBox.margin>
                         <Insets left="20.0" top="5.0" />
@@ -53,12 +53,12 @@
             </VBox>
             <VBox prefHeight="352.0" prefWidth="118.0">
                <children>
-                  <Button id="addBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="&gt;&gt;">
+                  <Button id="addBtn" mnemonicParsing="false" onAction="#addBtnHandler" prefHeight="25.0" prefWidth="48.0" text="&gt;&gt;">
                      <VBox.margin>
                         <Insets left="35.0" top="110.0" />
                      </VBox.margin>
                   </Button>
-                  <Button id="removeBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="48.0" text="&lt;&lt;">
+                  <Button id="removeBtn" mnemonicParsing="false" onAction="#deleteBtnHandler" prefHeight="25.0" prefWidth="48.0" text="&lt;&lt;">
                      <VBox.margin>
                         <Insets left="35.0" top="20.0" />
                      </VBox.margin>
@@ -74,8 +74,8 @@
                   </Label>
                   <TableView fx:id="chosenPapers" prefHeight="298.0" prefWidth="309.0">
                     <columns>
-                      <TableColumn prefWidth="154.0" text="Paper Name" />
-                      <TableColumn prefWidth="154.0" text="Topic" />
+                      <TableColumn fx:id="namePaperColumnChosen" prefWidth="154.0" text="Paper Name" />
+                      <TableColumn fx:id="topicPaperColumnChosen" prefWidth="154.0" text="Topic" />
                     </columns>
                      <VBox.margin>
                         <Insets right="20.0" />

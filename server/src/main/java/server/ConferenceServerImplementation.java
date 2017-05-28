@@ -9,6 +9,7 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -167,10 +168,56 @@ public class ConferenceServerImplementation implements IConferenceServer {
         reviewService.add(review);
     }
     @Override
+    public synchronized void updateReview(Review review) throws ServiceException{
+
+        reviewService.update(review);
+    }
+    @Override
     public synchronized Paper getPaperById(int id){
         return paperService.findById(id);
     }
 
+    @Override
+    public synchronized List<Paper> getPapersToBeReviewed(User u,ReviewStatus s){
+        return reviewService.getPaperToBeReviewed(u,s);
+    }
+    @Override
+    public synchronized List<Paper> getPapersReviewer(User u){
+        List<Paper> lista=new ArrayList<Paper>();
+        for (Review r:getAllReviews()
+             ) {
+            if(r.getUserPaper().getUser().getId()==u.getId())
+                lista.add(r.getUserPaper().getPaper());
+        }
+        return lista;
+    }
+    @Override
+    public synchronized List<Paper> getPapersNotReviewed(User u){
+        List<Paper> lista2=new ArrayList<>();
+        //List<Paper> lista=paperService.getAll();
+        for (Paper p:paperService.getAll()
+             ) {
+            boolean t=false;
+            for (Paper p2:getPapersReviewer(u)
+                 ) {
+                if(p.getId()==p2.getId()){
+                    t=true;
+                }
+            }
+            if(!t){
+                lista2.add(p);
+            }
+        }
+        return lista2;
+    }
+    @Override
+    public synchronized Review getReviewByReviewerAndPaper(User u,Paper p){
+        return reviewService.getReviewByReviewerAndPaper(u,p);
+    }
+    @Override
+    public synchronized void deleteReview(Review r){
+        reviewService.delete(r);
+    }
     private void notifyAllViewers() {
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);
         logger.info("Started executor on " + THREADS_NUMBER + " threads");

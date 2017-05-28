@@ -1,9 +1,12 @@
 package repository;
 
+import com.ubb.cms.Paper;
 import com.ubb.cms.Review;
 import com.ubb.cms.User;
 import com.ubb.cms.utils.ReviewStatus;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +38,12 @@ public class ReviewRepository extends AbstractRepository<Review>{
 
     }
 
+    public void delete(Review r){
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(r);
+        transaction.commit();
+    }
     public List<Review> getReviewsByReviewer(User user)
     {
         List<Review> lista = new ArrayList<>();
@@ -48,7 +57,14 @@ public class ReviewRepository extends AbstractRepository<Review>{
 
         return lista;
     }
-
+    public synchronized Review getReviewByReviewerAndPaper(User u,Paper p){
+        for(Review r:getAll()){
+            if(r.getUserPaper().getUser().getId()==u.getId()&&r.getUserPaper().getPaper().getId()==p.getId()){
+                return r;
+            }
+        }
+        throw null;
+    }
     private void changeReviewStatus(Review review, ReviewStatus newStatus)
     {
         review.setStatus(newStatus);

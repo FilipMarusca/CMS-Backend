@@ -18,6 +18,7 @@ public interface IConferenceServer {
 
     List<Review> getAllReviews();
 
+    List<Paper> getPapersToBeReviewed(User u,ReviewStatus s);
     User login(User user, IConferenceClient client) throws ServiceException;
 
     void logout(String username) throws ServiceException;
@@ -47,7 +48,15 @@ public interface IConferenceServer {
 
     Conference getConferenceById(int userId);
     List<Edition> getEditionAfterDate(Date date);
-
+    List<Paper> getPapersReviewer(User u);
     void changeReviewToConfirmedToBeReviewed(Review review);
     void changeReviewToRefusedToBeReviewed(Review review);
+
+    void updateReview(Review review) throws ServiceException;
+
+    Review getReviewByReviewerAndPaper(User u,Paper p);
+
+    List<Paper> getPapersNotReviewed(User u);
+
+    void deleteReview(Review r);
 }

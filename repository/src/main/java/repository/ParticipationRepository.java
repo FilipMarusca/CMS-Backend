@@ -14,5 +14,6 @@ public class ParticipationRepository extends AbstractRepository<Participation> {
     public ParticipationRepository(SessionFactory sessionFactory) {
         super(sessionFactory, Participation.class);
     }
+
 }
 
