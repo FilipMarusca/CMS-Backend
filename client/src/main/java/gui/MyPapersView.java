@@ -37,8 +37,6 @@ public class MyPapersView extends BaseView {
     @FXML
     private ObservableList<Paper> model;
 
-    private Stage currentStage;
-
     @Override
     public void update() {
         try {
@@ -91,7 +89,6 @@ public class MyPapersView extends BaseView {
         File file = fileChooser.showSaveDialog(currentStage);
 
         if (file != null) {
-            System.out.println("SAVE FILE!!!");
             saveFile(pdfData, file);
         }
     }
