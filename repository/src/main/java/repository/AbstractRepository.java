@@ -46,12 +46,16 @@ public class AbstractRepository<T> implements IRepository<T> {
     @Override
     @SuppressWarnings("unchecked")
     public T findById(Integer key) {
+
         Session session = sessionFactory.getCurrentSession();
         Transaction trans = session.beginTransaction();
-        Object obj = session.load(managedEntity, key);
+        //Object obj = session.load(managedEntity, key);
+        Object obj = session.get(managedEntity,key);
         trans.commit();
 
         return obj == null ? null : (T) obj;
+
+
     }
 
     @Override

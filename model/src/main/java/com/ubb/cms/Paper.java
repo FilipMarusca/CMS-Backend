@@ -40,6 +40,7 @@ public class Paper implements Serializable{
     private String topic;
 
     @Column(name = "pdf")
+    @Lob
     private byte[] paperPDF;
 
     public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF) {
