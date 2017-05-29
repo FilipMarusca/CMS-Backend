@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerAssignmentsView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerAssignmentsView">
    <top>
       <HBox prefHeight="87.0" prefWidth="681.0" BorderPane.alignment="CENTER">
          <children>
@@ -46,7 +46,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </TableView>
-                  <Button id="downloadBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" text="Download Selected">
+                  <Button id="downloadBtn" mnemonicParsing="false" onAction="#downloadBtnHandler" prefHeight="25.0" prefWidth="178.0" text="Download Selected">
                      <VBox.margin>
                         <Insets left="90.0" top="15.0" />
                      </VBox.margin>
