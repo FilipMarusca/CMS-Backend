@@ -60,6 +60,8 @@ public class Edition implements Serializable {
         this.finalDeadline = finalDeadline;
     }
 
+
+
     public Edition() {
 
     }

@@ -2,6 +2,7 @@ package server;
 
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
+import com.ubb.cms.utils.UserTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import server.crud.*;
@@ -9,6 +10,9 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,17 +35,60 @@ public class ConferenceServerImplementation implements IConferenceServer {
     private final EditionService                 editionService;
     private final PaperService                   paperService;
     private final ReviewService                  reviewService;
+    private final ParticipationService participationService;
     private       Map<String, IConferenceClient> loggedClients;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService) {
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService, ParticipationService participationService) {
         this.userService = userService;
         this.conferenceService = conferenceService;
         this.editionService = editionService;
         this.paperService = paperService;
         this.reviewService=reviewService;
+        this.participationService = participationService;
 
         loggedClients = new ConcurrentHashMap<>();
+
+        /*try {
+            addUser(new User(1, "admin", "admin", "admin@gmail.com", "admin", "admin", UserTag.Admin));
+            addUser(new User(2, "autor", "autor", "autor@gmail.com", "autor", "autor", UserTag.Author));
+            addUser(new User(3, "chair", "chair", "sc@gmail.com", "sc", "sc", UserTag.SessionChair));
+            addUser(new User(4, "reviewer", "reviewer", "reviewer@gmail.com", "reviewer", "reviewer", UserTag.Reviewer));
+            addUser(new User(5, "participant", "participant", "participant@gmail.com", "participant", "participant", UserTag.Participant));
+
+            addConference(new Conference(1, "conference1"));
+            addConference(new Conference(1, "conference2"));
+            addConference(new Conference(1, "conference3"));
+
+
+            String startDateString = "2017-08-01";
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = null;
+            try {
+                startDate = df.parse(startDateString);
+                //String newDateString = df.format(startDate);
+                //System.out.println(newDateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //System.out.println(startDate);
+
+            Conference conference = getConferenceById(1);
+            System.out.println(conference);
+            addEdition(new Edition(getConferenceById(1), startDate, startDate, "edition1", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(1), startDate, startDate, "edition2", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(2), startDate, startDate, "edition3", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(2), startDate, startDate, "edition4", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(3), startDate, startDate, "edition5", startDate, startDate ));
+            addEdition(new Edition(getConferenceById(3), startDate, startDate, "edition6", startDate, startDate ));
+
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception);
+        }*/
+
+
     }
 
     @Override
@@ -103,7 +150,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public Conference getConferenceById(int userId) {
-        return null;
+        return conferenceService.findById(userId);
     }
 
     @Override
@@ -128,7 +175,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public void addPaper(Paper paper) throws ServiceException {
+    public synchronized void addPaper(Paper paper) throws ServiceException {
         paperService.add(paper);
     }
 
@@ -223,6 +270,13 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized void deleteReview(Review r){
         reviewService.delete(r);
     }
+
+    @Override
+    public void addParticipation(Participation participation) throws ServiceException {
+        participationService.add(participation);
+    }
+
+
     private void notifyAllViewers() {
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);
         logger.info("Started executor on " + THREADS_NUMBER + " threads");

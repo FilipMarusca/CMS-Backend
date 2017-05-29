@@ -56,6 +56,11 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
 
 
+    public void addParticipation(Participation participation) throws ServiceException {
+        server.addParticipation(participation);
+    }
+
+
     public List<Conference> getAllConferences() {
         return server.getAllConferences();
     }

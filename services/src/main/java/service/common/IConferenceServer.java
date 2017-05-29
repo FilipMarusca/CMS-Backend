@@ -60,4 +60,7 @@ public interface IConferenceServer {
     List<Paper> getPapersNotReviewed(User u);
 
     void deleteReview(Review r);
+
+    void addParticipation(Participation participation) throws ServiceException;
+
 }

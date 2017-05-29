@@ -1,5 +1,6 @@
 package gui;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMessages_zh_CN;
 import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
@@ -11,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
+import org.springframework.stereotype.Service;
+import service.exception.ServiceException;
 
 import java.io.*;
 import java.net.URL;
@@ -44,6 +47,9 @@ public class AuthorView extends BaseView {
     @FXML
     private Button logOutBtn;
 
+    byte[] pdfData;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger.info("intra la initialize");
@@ -61,9 +67,9 @@ public class AuthorView extends BaseView {
 
     @FXML
     public void uploadHandler() {
-        String topic = topicComboBox.getSelectionModel().getSelectedItem();
-        logger.info(topic);
-        String title = titleText.getText();
+
+        //logger.info(topic);
+
 
 
         //TODO fix the bug where the application crashes when no file is selected
@@ -88,20 +94,65 @@ public class AuthorView extends BaseView {
 
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
-            byte[] pdfData = new byte[(int) file.length()];
+            pdfData = new byte[(int) file.length()];
             DataInputStream dis = new DataInputStream(new FileInputStream(file));
             dis.readFully(pdfData);  // read from file into byte[] array
             dis.close();
 
-            User author = controller.getUserById(loggedUser.getId());
 
-            Paper paper = new Paper(author, null, PaperStatus.InReview, title, topic, pdfData);
-            controller.addPaper(paper);
+
+
+           // Paper paper = new Paper(author, edition, PaperStatus.InReview, title, topic, pdfData);
+            //controller.addPaper(paper);
 
         } catch (Exception exception) {
             logger.warning(exception.getMessage());
         }
     }
+
+
+    @FXML
+    void submitPaper()
+    {
+        if(table.getSelectionModel().getSelectedItem() == null)
+        {
+            ShowAlert.showAlert("There is no selected Edition");
+            return;
+        }
+        if(pdfData == null || pdfData.length == 0)
+        {
+            ShowAlert.showAlert("No PDF uploaded");
+            return;
+        }
+        if(topicComboBox.getSelectionModel().getSelectedItem() == null)
+        {
+            ShowAlert.showAlert("No topic selected");
+            return;
+        }
+
+        if(titleText.getText() == null)
+        {
+            ShowAlert.showAlert("No title selected");
+            return;
+        }
+
+        try {
+            String title = titleText.getText();
+            String topic = topicComboBox.getSelectionModel().getSelectedItem();
+            Edition edition = table.getSelectionModel().getSelectedItem();
+            User author = controller.getUserById(loggedUser.getId());
+            Paper paper = new Paper(author, edition, PaperStatus.InReview, title, topic, pdfData);
+            controller.addPaper(paper);
+            ShowAlert.showOnSucces("Paper Succesfully added");
+        }
+        catch (ServiceException exception)
+        {
+            ShowAlert.showAlert("Paper could not be added");
+        }
+
+    }
+
+
 
     @Override
     public void update() {
