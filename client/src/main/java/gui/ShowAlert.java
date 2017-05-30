@@ -3,7 +3,7 @@ package gui;
 import javafx.scene.control.Alert;
 
 /**
- * Created by Raul on 02/05/2017.
+ * Created by Alexandra Muresan on 5/30/2017.
  */
 public class ShowAlert {
 
@@ -22,7 +22,4 @@ public class ShowAlert {
         alert.setContentText(message);
         alert.show();
     }
-
-
-
 }

@@ -109,4 +109,13 @@ public class ReviewerView extends BaseView {
         availablePapersModel.addAll(controller.getPapersNotReviewed(loggedUser));
 
     }
+
+    @FXML
+    public void myRevBtnHandler(){
+        try{
+            switchToView("reviewer_reviews.fxml","reviewer_reviews.css","My Reviews",loggedUser);
+        }catch(Exception ex){
+            ShowAlert.showAlert(ex.getMessage());
+        }
+    }
 }
