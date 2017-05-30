@@ -85,4 +85,8 @@ public class Review implements Serializable {
     public int hashCode() {
         return getUserPaper() != null ? getUserPaper().hashCode() : 0;
     }
+
+
+
+
 }

@@ -156,6 +156,15 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
         server.addEdition(edition);
     }
+
+
+
+    public List<Review> getAllReviews()
+    {
+        return server.getAllReviews();
+    }
+
+
     public void addReview(User user,Paper paper,ReviewStatus status,String comment) throws ServiceException{
         Review review=new Review(new UserPaperEmb(user,paper),status,comment);
         server.addReview(review);
@@ -173,6 +182,12 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
     public void updateReview(User user,Paper paper,ReviewStatus status,String comment) throws ServiceException{
         Review review=new Review(new UserPaperEmb(user,paper),status,comment);
+        server.updateReview(review);
+    }
+
+
+    public void updateReview(Review review) throws ServiceException{
+
         server.updateReview(review);
     }
 }

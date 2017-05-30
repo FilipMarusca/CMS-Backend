@@ -142,6 +142,12 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
+    public void updateReview(Review review) throws ServiceException {
+        reviewService.update(review);
+        this.notifyAllViewers();
+    }
+
+    @Override
     public synchronized List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status){
         //get papers(status=ConfirmedToBeReviewed) to be reviewed for a reviewer,
         // after the reviewer gets the accept to review a paper
@@ -219,11 +225,8 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
         reviewService.add(review);
     }
-    @Override
-    public synchronized void updateReview(Review review) throws ServiceException{
 
-        reviewService.update(review);
-    }
+
     @Override
     public synchronized Paper getPaperById(int id){
         return paperService.findById(id);

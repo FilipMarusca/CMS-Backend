@@ -43,5 +43,16 @@ public class CreateView extends BaseView {
         }
     }
 
+    @FXML
+    public void reviewBtnHandler()
+    {
+        try {
+            switchToView("session_requests.fxml", "session_requests.css", "ReviewRequest");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

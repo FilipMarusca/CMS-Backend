@@ -5,6 +5,7 @@ import com.ubb.cms.utils.PaperStatus;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Arrays;
 
 /**
  * Created by Alexandra Muresan on 4/11/2017.
@@ -131,6 +132,14 @@ public class Paper implements Serializable{
         this.paperPDF = paperPDF;
     }
 
+
+    @Override
+    public String toString() {
+        return id+title+topic;
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -149,4 +158,8 @@ public class Paper implements Serializable{
     public int hashCode() {
         return getId();
     }
+
+
+
+
 }

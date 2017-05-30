@@ -47,7 +47,7 @@ public class AuthorView extends BaseView {
     @FXML
     private Button logOutBtn;
 
-    byte[] pdfData;
+    private byte[] pdfData;
 
 
     @Override

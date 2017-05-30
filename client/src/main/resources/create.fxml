@@ -30,6 +30,11 @@
                   <Insets left="15.0" top="25.0" />
                </HBox.margin>
             </Button>
+            <Button id="reviewBtn" mnemonicParsing="false" onAction="#reviewBtnHandler" prefHeight="27.0" prefWidth="112.0" text="Review Requests">
+               <HBox.margin>
+                  <Insets left="350.0" top="25.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </top>
