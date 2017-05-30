@@ -72,15 +72,6 @@ public class SessionRequestsView extends BaseView {
             }
         });
 
-
-
-
-
-
-
-
-
-
         model = FXCollections.observableArrayList();
         table.setItems(model);
     }
@@ -96,6 +87,7 @@ public class SessionRequestsView extends BaseView {
 
     @FXML
     public void assignBtnHandler(){
+        //System.out.println("intra la assign");
         try{
             switchToView("session_assign.fxml","session_assign.css","Assign Reviewers",loggedUser);
         }catch(Exception ex){
@@ -139,7 +131,7 @@ public class SessionRequestsView extends BaseView {
                 editionIds.add(idEdition);
             }
         }
-        System.out.println(editionIds);
+        //System.out.println(editionIds);
         model.clear();
         for(Review review: controller.getAllReviews())
         {
@@ -147,7 +139,7 @@ public class SessionRequestsView extends BaseView {
             if(review.getStatus().equals(ReviewStatus.WaitingForConfirmation))
             {
                 int editionId = review.getUserPaper().getPaper().getEdition().getId();
-                System.out.println(editionId);
+                //System.out.println(editionId);
                 if(editionIds.contains(editionId))
                 {
                     model.add(review);
