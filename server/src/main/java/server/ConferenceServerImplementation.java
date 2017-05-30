@@ -36,16 +36,18 @@ public class ConferenceServerImplementation implements IConferenceServer {
     private final PaperService                   paperService;
     private final ReviewService                  reviewService;
     private final ParticipationService participationService;
+    private final SessionChairService sessionChairService;
     private       Map<String, IConferenceClient> loggedClients;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService, ParticipationService participationService) {
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService, ParticipationService participationService, SessionChairService sessionChairService) {
         this.userService = userService;
         this.conferenceService = conferenceService;
         this.editionService = editionService;
         this.paperService = paperService;
         this.reviewService=reviewService;
         this.participationService = participationService;
+        this.sessionChairService = sessionChairService;
 
         loggedClients = new ConcurrentHashMap<>();
 
@@ -103,6 +105,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public synchronized  List<Review> getAllReviews(){ return reviewService.getAll();}
+
+    @Override
+    public synchronized List<SessionChair> getAllSessionChairs() {
+        return sessionChairService.getAll();
+    }
 
     //@Override
     public synchronized User login(User user, IConferenceClient client) throws ServiceException {
@@ -224,6 +231,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized void addReview(Review review) throws ServiceException{
 
         reviewService.add(review);
+    }
+
+    @Override
+    public void addSessionChair(SessionChair sessionChair) throws ServiceException {
+        sessionChairService.add(sessionChair);
     }
 
     @Override

@@ -198,4 +198,15 @@ public class ClientController extends UnicastRemoteObject implements IConference
     }
 
 
+    public synchronized List<SessionChair> getAllSessionChairs() {
+        return server.getAllSessionChairs();
+    }
+
+
+
+    public void addSessionChair(SessionChair sessionChair) throws ServiceException {
+        server.addSessionChair(sessionChair);
+    }
+
+
 }

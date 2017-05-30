@@ -2,6 +2,7 @@ package gui;
 
 import com.ubb.cms.Paper;
 import com.ubb.cms.Review;
+import com.ubb.cms.SessionChair;
 import com.ubb.cms.User;
 import com.ubb.cms.utils.PaperStatus;
 import com.ubb.cms.utils.ReviewStatus;
@@ -19,6 +20,8 @@ import service.exception.ServiceException;
 
 
 import java.net.URL;
+import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -109,7 +112,6 @@ public class SessionRequestsView extends BaseView {
         }
         try {
             Review review = table.getSelectionModel().getSelectedItem();
-            //System.out.println(review);
             System.out.println("initial: " + review);
             review.setStatus(ReviewStatus.ConfirmedToBeReviewed);
             System.out.println("after: " + review);
@@ -127,18 +129,32 @@ public class SessionRequestsView extends BaseView {
 
     @Override
     public void update() {
+        List<SessionChair> sessionChairs = controller.getAllSessionChairs();
+        HashSet<Integer> editionIds = new HashSet<>();
+        for(SessionChair sessionChair: sessionChairs)
+        {
+            if(sessionChair.getChair().getUser().getId() == loggedUser.getId())
+            {
+                int idEdition = sessionChair.getChair().getEdition().getId();
+                editionIds.add(idEdition);
+            }
+        }
+        System.out.println(editionIds);
         model.clear();
         for(Review review: controller.getAllReviews())
         {
-            //System.out.println(review);
-            //model.add(review.getUserPaper());
+
             if(review.getStatus().equals(ReviewStatus.WaitingForConfirmation))
             {
-                model.add(review);
-            }
+                int editionId = review.getUserPaper().getPaper().getEdition().getId();
+                System.out.println(editionId);
+                if(editionIds.contains(editionId))
+                {
+                    model.add(review);
+                }
 
+            }
         }
-        //model.addAll(controller.getAllReviews());
     }
 
 

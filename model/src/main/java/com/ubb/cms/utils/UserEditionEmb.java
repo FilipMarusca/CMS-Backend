@@ -30,6 +30,15 @@ public class UserEditionEmb implements Serializable {
     public UserEditionEmb() {
     }
 
+
+    public User getUser() {
+        return user;
+    }
+
+    public Edition getEdition() {
+        return edition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

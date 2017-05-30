@@ -1,6 +1,9 @@
 package gui;
 
 import com.ubb.cms.Conference;
+import com.ubb.cms.Edition;
+import com.ubb.cms.SessionChair;
+import com.ubb.cms.utils.UserEditionEmb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,6 +54,18 @@ public class CreateEditionView extends BaseView {
                     submissionDeadlineField.getValue(),
                     finalDeadlineField.getValue()
             );
+            Edition newEdition = new Edition();
+            for(Edition edition:controller.getAllEdition())
+            {
+                if(edition.getName().equals(editionNameField.getText()))
+                {
+                    newEdition = edition;
+                    break;
+                }
+            }
+            SessionChair sessionChair = new SessionChair(new UserEditionEmb(loggedUser, newEdition));
+            controller.addSessionChair(sessionChair);
+
         } catch (Exception e) {
             ShowAlert.showAlert(e.getMessage());
         }

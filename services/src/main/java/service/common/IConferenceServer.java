@@ -18,6 +18,8 @@ public interface IConferenceServer {
 
     List<Review> getAllReviews();
 
+    List<SessionChair> getAllSessionChairs();
+
     List<Paper> getPapersToBeReviewed(User u,ReviewStatus s);
     User login(User user, IConferenceClient client) throws ServiceException;
 
@@ -30,6 +32,8 @@ public interface IConferenceServer {
     void updateUser(User newUser) throws ServiceException;
 
     void addReview(Review review) throws ServiceException;
+
+    void addSessionChair(SessionChair sessionChair) throws ServiceException;
 
     void updatePaper(Paper newPaper) throws ServiceException;
 
