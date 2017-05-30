@@ -31,6 +31,8 @@ public interface IConferenceServer {
 
     void addReview(Review review) throws ServiceException;
 
+    void updatePaper(Paper newPaper) throws ServiceException;
+
     List<Conference> getAllConferences();
 
     List<Paper> getAllPapers();

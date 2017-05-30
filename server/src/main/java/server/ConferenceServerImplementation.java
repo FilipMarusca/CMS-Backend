@@ -52,7 +52,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
         /*try {
             addUser(new User(1, "admin", "admin", "admin@gmail.com", "admin", "admin", UserTag.Admin));
             addUser(new User(2, "autor", "autor", "autor@gmail.com", "autor", "autor", UserTag.Author));
-            addUser(new User(3, "chair", "chair", "sc@gmail.com", "sc", "sc", UserTag.SessionChair));
+            addUser(new User(3, "chair", "chair", "sc@gmail.com", "sc", "sc", UserTag.SessionChairRepository));
             addUser(new User(4, "reviewer", "reviewer", "reviewer@gmail.com", "reviewer", "reviewer", UserTag.Reviewer));
             addUser(new User(5, "participant", "participant", "participant@gmail.com", "participant", "participant", UserTag.Participant));
 
@@ -224,6 +224,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public synchronized void addReview(Review review) throws ServiceException{
 
         reviewService.add(review);
+    }
+
+    @Override
+    public void updatePaper(Paper newPaper) throws ServiceException {
+        paperService.update(newPaper);
     }
 
 

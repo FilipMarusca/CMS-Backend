@@ -141,6 +141,19 @@ public class AuthorView extends BaseView {
             String topic = topicComboBox.getSelectionModel().getSelectedItem();
             Edition edition = table.getSelectionModel().getSelectedItem();
             User author = controller.getUserById(loggedUser.getId());
+            for(Paper p: controller.getAllPapers() ) {
+                if(p.getTitle().equals(title) && p.getAuthor().getUsername().equals(loggedUser.getUsername()) && p.getEdition().getId() == edition.getId())
+                {
+                    //System.out.println("intra la update paper");
+                    Paper paper = new Paper(author, edition, PaperStatus.InReview, title, topic, pdfData);
+                    p.setTopic(topic);
+                    p.setPaperPDF(pdfData);
+                    controller.updatePaper(p);
+                    ShowAlert.showOnSucces("Paper Succesfully updated");
+                    return;
+                }
+            }
+
             Paper paper = new Paper(author, edition, PaperStatus.InReview, title, topic, pdfData);
             controller.addPaper(paper);
             ShowAlert.showOnSucces("Paper Succesfully added");

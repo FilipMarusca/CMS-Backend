@@ -118,7 +118,7 @@ public class SessionRequestsView extends BaseView {
         }
         catch (ServiceException exception)
         {
-            ShowAlert.showAlert("Review could nt be confirmed");
+            ShowAlert.showAlert("Review could not be confirmed");
         }
 
 

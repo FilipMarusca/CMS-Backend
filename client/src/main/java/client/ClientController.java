@@ -190,4 +190,12 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
         server.updateReview(review);
     }
+
+
+    public void updatePaper(Paper newPaper) throws ServiceException
+    {
+        server.updatePaper(newPaper);
+    }
+
+
 }
