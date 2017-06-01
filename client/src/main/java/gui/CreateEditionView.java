@@ -27,8 +27,9 @@ public class CreateEditionView extends BaseView {
     public DatePicker                      endDateField;
     public TextField                       editionNameField;
     public TableColumn<Conference, String> confNameColumn;
-    public ObservableList<Conference>      conferences;
     public TableView<Conference>           conferencesTable;
+
+    private ObservableList<Conference>      conferences;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,7 +47,7 @@ public class CreateEditionView extends BaseView {
             Conference selectedConference = conferencesTable
                     .getSelectionModel()
                     .getSelectedItem();
-            controller.addEdition(
+            Integer editionId = controller.addEdition(
                     selectedConference,
                     startDateField.getValue(),
                     endDateField.getValue(),
@@ -54,18 +55,10 @@ public class CreateEditionView extends BaseView {
                     submissionDeadlineField.getValue(),
                     finalDeadlineField.getValue()
             );
-            Edition newEdition = new Edition();
-            for(Edition edition:controller.getAllEdition())
-            {
-                if(edition.getName().equals(editionNameField.getText()))
-                {
-                    newEdition = edition;
-                    break;
-                }
-            }
-            SessionChair sessionChair = new SessionChair(new UserEditionEmb(loggedUser, newEdition));
-            controller.addSessionChair(sessionChair);
 
+            Edition addedEdition = controller.getEditionById(editionId);
+            SessionChair sessionChair = new SessionChair(new UserEditionEmb(loggedUser, addedEdition));
+            controller.addSessionChair(sessionChair);
         } catch (Exception e) {
             ShowAlert.showAlert(e.getMessage());
         }
@@ -76,7 +69,7 @@ public class CreateEditionView extends BaseView {
         loadConferences();
     }
 
-    protected void loadConferences() {
+    private void loadConferences() {
         try {
             conferences.clear();
             conferences.addAll(controller.getAllConferences());

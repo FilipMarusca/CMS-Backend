@@ -22,7 +22,7 @@ services/build/
 /.env
 /.data
 /out
-
+/classes
 .gradle
 /build/
 

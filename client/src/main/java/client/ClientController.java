@@ -83,8 +83,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
         server.updateUser(newUser);
     }
 
-    public List<Edition> getEditionAfterDate(Date date)
-    {
+    public List<Edition> getEditionAfterDate(Date date) {
         return server.getEditionAfterDate(date);
     }
 
@@ -131,20 +130,24 @@ public class ClientController extends UnicastRemoteObject implements IConference
             observer.update();
         }
     }
-    public List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status){
-        return server.getReviewByReviewerAndStatus(user,status);
+
+    public List<Review> getReviewByReviewerAndStatus(User user, ReviewStatus status) {
+        return server.getReviewByReviewerAndStatus(user, status);
     }
 
     public void addConference(String conferenceName) throws ServiceException {
         server.addConference(new Conference(conferenceName));
     }
-    public List<Paper> getPapersToBeReviewed(User u,ReviewStatus s){
-        return server.getPapersToBeReviewed(u,s);
+
+    public List<Paper> getPapersToBeReviewed(User u, ReviewStatus s) {
+        return server.getPapersToBeReviewed(u, s);
     }
-    public List<Paper> getPapersNotReviewed(User u){
+
+    public List<Paper> getPapersNotReviewed(User u) {
         return server.getPapersNotReviewed(u);
     }
-    public void addEdition(Conference conference, LocalDate beginningDate, LocalDate endingDate, String name, LocalDate paperSubmissionDeadline, LocalDate finalDeadline) throws ServiceException {
+
+    public Integer addEdition(Conference conference, LocalDate beginningDate, LocalDate endingDate, String name, LocalDate paperSubmissionDeadline, LocalDate finalDeadline) throws ServiceException {
         Edition edition = new Edition(
                 conference,
                 DateUtils.asDate(beginningDate),
@@ -154,46 +157,47 @@ public class ClientController extends UnicastRemoteObject implements IConference
                 DateUtils.asDate(finalDeadline)
         );
 
-        server.addEdition(edition);
+        return server.addEdition(edition);
     }
 
 
-
-    public List<Review> getAllReviews()
-    {
+    public List<Review> getAllReviews() {
         return server.getAllReviews();
     }
 
 
-    public void addReview(User user,Paper paper,ReviewStatus status,String comment) throws ServiceException{
-        Review review=new Review(new UserPaperEmb(user,paper),status,comment);
+    public void addReview(User user, Paper paper, ReviewStatus status, String comment) throws ServiceException {
+        Review review = new Review(new UserPaperEmb(user, paper), status, comment);
         server.addReview(review);
 
     }
-    public Paper getPaperById(int id)throws ServiceException{
+
+    public Paper getPaperById(int id) throws ServiceException {
         return server.getPaperById(id);
 
     }
-    public void deleteReview(Review r){
+
+    public void deleteReview(Review r) {
         server.deleteReview(r);
     }
-    public Review getReviewByReviewerAndPaper(User u,Paper p){
-        return server.getReviewByReviewerAndPaper(u,p);
+
+    public Review getReviewByReviewerAndPaper(User u, Paper p) {
+        return server.getReviewByReviewerAndPaper(u, p);
     }
-    public void updateReview(User user,Paper paper,ReviewStatus status,String comment) throws ServiceException{
-        Review review=new Review(new UserPaperEmb(user,paper),status,comment);
+
+    public void updateReview(User user, Paper paper, ReviewStatus status, String comment) throws ServiceException {
+        Review review = new Review(new UserPaperEmb(user, paper), status, comment);
         server.updateReview(review);
     }
 
 
-    public void updateReview(Review review) throws ServiceException{
+    public void updateReview(Review review) throws ServiceException {
 
         server.updateReview(review);
     }
 
 
-    public void updatePaper(Paper newPaper) throws ServiceException
-    {
+    public void updatePaper(Paper newPaper) throws ServiceException {
         server.updatePaper(newPaper);
     }
 
@@ -201,7 +205,6 @@ public class ClientController extends UnicastRemoteObject implements IConference
     public synchronized List<SessionChair> getAllSessionChairs() {
         return server.getAllSessionChairs();
     }
-
 
 
     public void addSessionChair(SessionChair sessionChair) throws ServiceException {

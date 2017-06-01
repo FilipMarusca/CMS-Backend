@@ -18,7 +18,7 @@ public class EditionService extends BaseService<Edition> {
     private EditionRepository editionRepository;
 
     @Autowired
-    public EditionService(ValidatorInterface validator, EditionRepository editionRepository) {
+    public EditionService(ValidatorInterface validator, EditionRepository editionRepository, SessionChairService sessionChairService) {
         super(validator);
         this.editionRepository = editionRepository;
     }

@@ -2,7 +2,6 @@ package server;
 
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
-import com.ubb.cms.utils.UserTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import server.crud.*;
@@ -10,9 +9,6 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -224,8 +220,8 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public void addEdition(Edition edition) throws ServiceException {
-        editionService.add(edition);
+    public Integer addEdition(Edition edition) throws ServiceException {
+       return (Integer) editionService.save(edition);
     }
     @Override
     public synchronized void addReview(Review review) throws ServiceException{

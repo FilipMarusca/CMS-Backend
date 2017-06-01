@@ -1,5 +1,7 @@
 package com.ubb.cms;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -16,28 +18,28 @@ public class Edition implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
+    @NotNull(message = "The edition must be assigned to a conference")
     @ManyToOne
     @JoinColumn(name = "conference_id", referencedColumnName = "id")
     private Conference conference;
 
-    @NotNull
+    @NotEmpty(message = "Name cannot be empty")
     @Column(name = "name")
     private String name;
 
-    @NotNull
+    @NotNull(message = "The edition must have a submission date assigned")
     @Column(name = "paperSubmissionDeadline")
     private Date   paperSubmissionDeadline;
 
-    @NotNull
+    @NotNull(message = "The edition must have a final deadline")
     @Column(name = "finalDeadline")
     private Date   finalDeadline;
 
-    @NotNull
+    @NotNull(message = "The edition must have a beginning date")
     @Column(name = "beginningDate")
     private Date   beginningDate;
 
-    @NotNull
+    @NotNull(message = "The edition must have an end date")
     @Column(name = "endingDate")
     private Date   endingDate;
 

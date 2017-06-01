@@ -48,7 +48,7 @@ public interface IConferenceServer {
     List<Paper> getPapersFromAuthor(User author);
     void addConference(Conference conference) throws ServiceException;
 
-    void addEdition(Edition edition) throws ServiceException;
+    Integer addEdition(Edition edition) throws ServiceException;
     List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status);
 
     List<Review> getReviewsByReviewer(User user);
