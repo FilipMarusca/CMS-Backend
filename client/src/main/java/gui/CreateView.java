@@ -47,11 +47,20 @@ public class CreateView extends BaseView {
     public void reviewBtnHandler()
     {
         try {
-            switchToView("session_requests.fxml", "session_requests.css", "ReviewRequest");
+            switchToView("session_requests.fxml", "session_requests.css", "ReviewRequest",loggedUser);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void manageBtnHandler(){
+        try{
+            switchToView("session_edition.fxml","session_edition.css","Manage Editions",loggedUser);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
     }
 
 

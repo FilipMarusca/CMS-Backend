@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CreateView">
    <center>
@@ -30,11 +31,23 @@
                   <Insets left="15.0" top="25.0" />
                </HBox.margin>
             </Button>
-            <Button id="reviewBtn" mnemonicParsing="false" onAction="#reviewBtnHandler" prefHeight="27.0" prefWidth="112.0" text="Review Requests">
+            <VBox prefHeight="184.0" prefWidth="155.0">
+               <children>
+                  <Button id="reviewBtn" mnemonicParsing="false" onAction="#reviewBtnHandler" prefHeight="27.0" prefWidth="137.0" text="Review Requests">
+                     <VBox.margin>
+                        <Insets top="25.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button id="manageBtn" mnemonicParsing="false" onAction="#manageBtnHandler" prefHeight="29.0" prefWidth="136.0" text="Managed Editions">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
                <HBox.margin>
-                  <Insets left="350.0" top="25.0" />
+                  <Insets left="350.0" />
                </HBox.margin>
-            </Button>
+            </VBox>
          </children>
       </HBox>
    </top>
