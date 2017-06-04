@@ -94,7 +94,7 @@
             </HBox>
             <HBox prefHeight="88.0" prefWidth="314.0">
                <children>
-                  <Button id="uploadBtn" fx:id="uploadBtn" mnemonicParsing="false" onAction="#uploadHandler" prefHeight="50.0" prefWidth="236.0" text="Upload Paper Document">
+                  <Button id="uploadBtn" fx:id="uploadBtn" mnemonicParsing="false" onAction="#uploadHandler" prefHeight="50.0" prefWidth="236.0" text="Upload Paper">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
