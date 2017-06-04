@@ -90,6 +90,15 @@ public class ReviewerAssignmentsView extends BaseView {
         }
     }
 
+    @FXML
+    public void downloadSummaryHandler() {
+        if (tabel.getSelectionModel().getSelectedItem() == null) {
+            ShowAlert.showAlert("Select a summary first");
+            return;
+        }
+
+        showSaveFileDialog(tabel.getSelectionModel().getSelectedItem().getSummaryPDF());
+    }
 
     @FXML
     public void downloadBtnHandler() {
