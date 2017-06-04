@@ -4,7 +4,6 @@ import repository.IRepository;
 import server.validator.ValidatorInterface;
 import service.exception.ServiceException;
 
-import javax.validation.ValidationException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -53,11 +52,7 @@ public abstract class BaseService<T> {
 
 
     void validate(T obj) throws ServiceException {
-        try {
-            validator.validate(obj);
-        } catch (ValidationException e) {
-            throw new ServiceException(e);
-        }
+        validator.validate(obj);
     }
 
     abstract IRepository<T> getRepository();

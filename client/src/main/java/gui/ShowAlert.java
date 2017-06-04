@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.scene.control.Alert;
+import service.exception.ValidationException;
 
 /**
  * Created by Alexandra Muresan on 5/30/2017.
@@ -22,5 +23,16 @@ public class ShowAlert {
         alert.setContentText(message);
         alert.setWidth(800);
         alert.show();
+    }
+
+    public static void handle(Exception e) {
+        if (e instanceof ValidationException) {
+            ValidationException validationException = (ValidationException) e;
+            String title = "Validation error";
+            String header = String.format("The %s is invalid.", validationException.getValidatedEntityName());
+            show(Alert.AlertType.ERROR, title, header, validationException.getMessagesAsString());
+        } else {
+            showAlert(e.getMessage());
+        }
     }
 }

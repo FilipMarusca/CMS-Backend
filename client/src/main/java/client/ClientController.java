@@ -1,5 +1,6 @@
 package client;
 
+import com.sun.javafx.stage.StageHelper;
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import com.ubb.cms.utils.UserPaperEmb;
@@ -115,6 +116,16 @@ public class ClientController extends UnicastRemoteObject implements IConference
     public void showUpdated() throws RemoteException {
         //logger.info(updateType);
         this.notifyObservers();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void ping() throws RemoteException {
+        if (StageHelper.getStages().size() == 0) {
+            System.exit(0);
+        }
     }
 
     public void addObserver(Observer observer) {

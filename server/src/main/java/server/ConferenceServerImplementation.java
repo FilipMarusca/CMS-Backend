@@ -3,11 +3,13 @@ package server;
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import server.crud.*;
 import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
+import service.exception.ValidationException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +38,16 @@ public class ConferenceServerImplementation implements IConferenceServer {
     private       Map<String, IConferenceClient> loggedClients;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService, ParticipationService participationService, SessionChairService sessionChairService) {
+    public ConferenceServerImplementation(
+            UserService userService,
+            ConferenceService conferenceService,
+            EditionService editionService,
+            PaperService paperService,
+            ReviewService reviewService,
+            ParticipationService participationService,
+            SessionChairService sessionChairService,
+            @Value("${client_check_interval}") int seconds
+    ) {
         this.userService = userService;
         this.conferenceService = conferenceService;
         this.editionService = editionService;
@@ -46,6 +57,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
         this.sessionChairService = sessionChairService;
 
         loggedClients = new ConcurrentHashMap<>();
+        Threading.getConnectionChecker(loggedClients, seconds).start();
 
         /*try {
             addUser(new User(1, "admin", "admin", "admin@gmail.com", "admin", "admin", UserTag.Admin));

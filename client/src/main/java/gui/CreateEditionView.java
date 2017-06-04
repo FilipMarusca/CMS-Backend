@@ -29,7 +29,7 @@ public class CreateEditionView extends BaseView {
     public TableColumn<Conference, String> confNameColumn;
     public TableView<Conference>           conferencesTable;
 
-    private ObservableList<Conference>      conferences;
+    private ObservableList<Conference> conferences;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,9 +44,7 @@ public class CreateEditionView extends BaseView {
 
     public void onCreateBtn_clicked(ActionEvent actionEvent) {
         try {
-            Conference selectedConference = conferencesTable
-                    .getSelectionModel()
-                    .getSelectedItem();
+            Conference selectedConference = conferencesTable.getSelectionModel().getSelectedItem();
             Integer editionId = controller.addEdition(
                     selectedConference,
                     startDateField.getValue(),
@@ -59,8 +57,13 @@ public class CreateEditionView extends BaseView {
             Edition addedEdition = controller.getEditionById(editionId);
             SessionChair sessionChair = new SessionChair(new UserEditionEmb(loggedUser, addedEdition));
             controller.addSessionChair(sessionChair);
+            ShowAlert.showOnSucces(String.format(
+                    "Edition %s for conference %s, was created.",
+                    addedEdition.getName(),
+                    addedEdition.getConference().getName()
+            ));
         } catch (Exception e) {
-            ShowAlert.showAlert(e.getMessage());
+            ShowAlert.handle(e);
         }
     }
 
@@ -74,8 +77,7 @@ public class CreateEditionView extends BaseView {
             conferences.clear();
             conferences.addAll(controller.getAllConferences());
         } catch (Exception e) {
-            ShowAlert.showOnSucces("Failed to load conferences." + System.lineSeparator());
-            ShowAlert.showOnSucces(e.getMessage());
+            ShowAlert.showAlert("Failed to load conferences." + System.lineSeparator() + e.getMessage());
             e.printStackTrace();
         }
     }

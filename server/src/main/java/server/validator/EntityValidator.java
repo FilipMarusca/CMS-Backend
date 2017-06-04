@@ -2,10 +2,10 @@ package server.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import service.exception.ValidationException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.util.Set;
 
@@ -22,15 +22,16 @@ public class EntityValidator implements ValidatorInterface {
     }
 
     @Override
-    public <T> void validate(T obj) {
+    public <T> void validate(T obj) throws ValidationException {
         Set<ConstraintViolation<T>> constraintViolations = javaxValidator.validate(obj);
-        StringBuilder sb = new StringBuilder();
-        constraintViolations.forEach(tConstraintViolation -> sb
-                .append(tConstraintViolation.getMessage())
-                .append(System.lineSeparator()));
+        ValidationException.Builder exceptionBuilder = ValidationException.newBuilder();
+        constraintViolations.forEach(tConstraintViolation -> {
+            String property = tConstraintViolation.getPropertyPath().toString();
+            exceptionBuilder.addMessage(property, tConstraintViolation.getMessage());
+        });
 
-        if (sb.length() > 0) {
-            throw new ValidationException(System.lineSeparator() + sb.toString());
+        if (exceptionBuilder.hasErrors()) {
+            throw exceptionBuilder.build(obj.getClass().getSimpleName());
         }
     }
 }

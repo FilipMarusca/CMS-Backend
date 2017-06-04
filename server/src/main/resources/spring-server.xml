@@ -10,6 +10,7 @@
 
 
 
+    <context:property-placeholder location="classpath*:server.properties" order="10"/>
     <context:component-scan base-package="server"/>
     <import resource="spring-services.xml" />
     <import resource="spring-repository.xml" />
