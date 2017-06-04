@@ -44,7 +44,11 @@ public class Paper implements Serializable{
     @Lob
     private byte[] paperPDF;
 
-    public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF) {
+    @Column(name = "pdf_summary")
+    @Lob
+    private byte[] summaryPDF;
+
+    public Paper(int id, ConferenceSession session, User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF, byte[] summaryPDF) {
         this.id = id;
         this.session = session;
         this.author = author;
@@ -53,15 +57,17 @@ public class Paper implements Serializable{
         this.title = title;
         this.topic = topic;
         this.paperPDF = paperPDF;
+        this.summaryPDF = summaryPDF;
     }
 
-    public Paper(User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF) {
+    public Paper(User author, Edition edition, PaperStatus status, String title, String topic, byte[] paperPDF, byte[] summaryPDF) {
         this.author = author;
         this.edition = edition;
         this.status = status;
         this.title = title;
         this.topic = topic;
         this.paperPDF = paperPDF;
+        this.summaryPDF = summaryPDF;
     }
 
 
@@ -132,6 +138,13 @@ public class Paper implements Serializable{
         this.paperPDF = paperPDF;
     }
 
+    public byte[] getSummaryPDF() {
+        return summaryPDF;
+    }
+
+    public void setSummaryPDF(byte[] summaryPDF) {
+        this.summaryPDF = summaryPDF;
+    }
 
     @Override
     public String toString() {

@@ -69,6 +69,16 @@ public class MyPapersView extends BaseView {
     }
 
     @FXML
+    public void downloadSummaryHandler() {
+        if (table.getSelectionModel().getSelectedItem() == null) {
+            ShowAlert.showAlert("Select a review first");
+            return;
+        }
+
+        showSaveFileDialog(table.getSelectionModel().getSelectedItem().getSummaryPDF());
+    }
+
+    @FXML
     public void downloadHandler() {
         if (table.getSelectionModel().getSelectedItem() == null) {
             ShowAlert.showAlert("Select a paper first");

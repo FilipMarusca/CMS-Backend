@@ -20,23 +20,28 @@
                   <TableColumn fx:id="statusColumn" prefWidth="138.0" text="Status" />
               </columns>
                <HBox.margin>
-                  <Insets bottom="10.0" left="35.0" />
+                  <Insets bottom="10.0" />
                </HBox.margin>
             </TableView>
          </children>
       </HBox>
    </center>
    <left>
-      <VBox prefHeight="451.0" prefWidth="85.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="451.0" prefWidth="190.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#downloadHandler" prefHeight="27.0" prefWidth="121.0" text="Download">
+            <Button id="downloadSummaryBtn" mnemonicParsing="false" onAction="#downloadSummaryHandler" prefHeight="27.0" prefWidth="180.0" text="Download Summary">
                <VBox.margin>
-                  <Insets top="200.0" />
+                  <Insets left="4.0" top="200.0" />
                </VBox.margin>
             </Button>
-            <Button id="backBtn" mnemonicParsing="false" onAction="#goBackHandler" prefHeight="25.0" prefWidth="84.0" text="Back">
+            <Button id="downloadPaperBtn" mnemonicParsing="false" onAction="#downloadHandler" prefHeight="27.0" prefWidth="180.0" text="Download Paper" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets left="4.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+            <Button id="backBtn" mnemonicParsing="false" onAction="#goBackHandler" prefHeight="27.0" prefWidth="180.0" text="Back">
+               <VBox.margin>
+                  <Insets left="4.0" top="20.0" />
                </VBox.margin>
             </Button>
          </children>
