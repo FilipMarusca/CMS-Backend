@@ -210,6 +210,6 @@ public class AuthorView extends BaseView {
 
     @FXML
     public void myPapersBtnHandler() throws IOException {
-        switchToView("myPapers.fxml", "create.css", "Author");
+        switchToView("myPapers.fxml", "myPapers.css", "Author");
     }
 }
