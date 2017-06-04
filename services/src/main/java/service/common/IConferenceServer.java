@@ -11,11 +11,11 @@ import java.util.List;
  * Created by Raul on 25/04/2017.
  */
 public interface IConferenceServer {
-
+    void addSession(ConferenceSession s) throws ServiceException;
     List<User> getAllUser();
-
+    List<Edition> getEditionForChair(User u);
     List<Edition> getAllEditions();
-
+    List<ConferenceSession> getAllSessions();
     List<Review> getAllReviews();
 
     List<SessionChair> getAllSessionChairs();
@@ -32,7 +32,6 @@ public interface IConferenceServer {
     void updateUser(User newUser) throws ServiceException;
 
     void addReview(Review review) throws ServiceException;
-
     void addSessionChair(SessionChair sessionChair) throws ServiceException;
 
     void updatePaper(Paper newPaper) throws ServiceException;

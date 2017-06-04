@@ -2,6 +2,7 @@ package server;
 
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import server.crud.*;
@@ -9,10 +10,8 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,10 +32,11 @@ public class ConferenceServerImplementation implements IConferenceServer {
     private final ReviewService                  reviewService;
     private final ParticipationService participationService;
     private final SessionChairService sessionChairService;
+    private final SessionService sessionService;
     private       Map<String, IConferenceClient> loggedClients;
 
     @Autowired
-    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService, ParticipationService participationService, SessionChairService sessionChairService) {
+    public ConferenceServerImplementation(UserService userService, ConferenceService conferenceService, EditionService editionService, PaperService paperService,ReviewService reviewService, ParticipationService participationService, SessionChairService sessionChairService,SessionService sessionService) {
         this.userService = userService;
         this.conferenceService = conferenceService;
         this.editionService = editionService;
@@ -44,7 +44,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
         this.reviewService=reviewService;
         this.participationService = participationService;
         this.sessionChairService = sessionChairService;
-
+        this.sessionService=sessionService;
         loggedClients = new ConcurrentHashMap<>();
 
         /*try {
@@ -93,7 +93,28 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public List<User> getAllUser() {
         return userService.getAll();
     }
+    @Override
+    public synchronized List<Edition> getEditionForChair(User u){
+        List<Edition> l=new ArrayList<>();
+        List<Edition> lista=editionService.getAll();
+        List<SessionChair> sessionChairs=sessionChairService.getAll();
+        for (Edition e:lista
+             ) {
+            if(e.getEndingDate().before(new Date())){
+                for (SessionChair s:sessionChairs
+                     ) {
+                    if(u.getId()==s.getChair().getUser().getId()&&e.getId()==s.getChair().getEdition().getId()){
+                        l.add(e);
+                    }
 
+                }
+
+
+            }
+
+        }
+        return l;
+    }
     @Override
     public synchronized List<Edition> getAllEditions() {
         return editionService.getAll();
@@ -174,8 +195,14 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public void addUser(User user) throws ServiceException {
-        userService.add(user);
-
+        userService.add(user);}
+    @Override
+    public synchronized List<ConferenceSession> getAllSessions(){
+        return sessionService.getAll();
+    }
+    @Override
+    public synchronized void addSession(ConferenceSession s) throws ServiceException{
+        sessionService.add(s);
     }
 
     @Override

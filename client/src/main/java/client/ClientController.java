@@ -1,6 +1,7 @@
 package client;
 
 import com.ubb.cms.*;
+import com.ubb.cms.utils.PaperStatus;
 import com.ubb.cms.utils.ReviewStatus;
 import com.ubb.cms.utils.UserPaperEmb;
 import service.common.IConferenceClient;
@@ -32,7 +33,12 @@ public class ClientController extends UnicastRemoteObject implements IConference
     public void addUser(User user) throws ServiceException {
         server.addUser(user);
     }
-
+    public void addSession(ConferenceSession conf) throws ServiceException{
+        server.addSession(conf);
+    }
+    public List<ConferenceSession> getAllSessions(){
+        return server.getAllSessions();
+    }
 
     public List<User> getAllUsers() {
         return server.getAllUser();
@@ -101,7 +107,9 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
         //user = userL;
     }
-
+    public List<Edition> getEditionForChair(User u){
+        return server.getEditionForChair(u);
+    }
     public void logout(String username) throws ServiceException {
         try {
             server.logout(username);
@@ -209,6 +217,20 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
     public void addSessionChair(SessionChair sessionChair) throws ServiceException {
         server.addSessionChair(sessionChair);
+    }
+    public List<Paper> getAllPapersFromEndedConferenceByChair(User u){
+        List<Paper> lista=new ArrayList<>();
+        for (Paper p:server.getAllPapers()
+             ) {
+            for (Edition e:
+                 server.getEditionForChair(u)) {
+                if(p.getEdition().getId()==e.getId()&&p.getStatus()== PaperStatus.Accepted &&p.getSession()==null){
+                    lista.add(p);
+                }
+            }
+
+        }
+        return lista;
     }
 
 
