@@ -258,7 +258,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public Integer addEdition(Edition edition, User editionCreator) throws ServiceException {
+    public synchronized Integer addEdition(Edition edition, User editionCreator) throws ServiceException {
         Integer id = (Integer) editionService.save(edition);
         SessionChair sessionChair = new SessionChair(new UserEditionEmb(editionCreator, getEditionById(id)));
         addSessionChair(sessionChair);
@@ -273,7 +273,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public void addSessionChair(SessionChair sessionChair) throws ServiceException {
+    public synchronized void addSessionChair(SessionChair sessionChair) throws ServiceException {
         sessionChairService.add(sessionChair);
     }
 

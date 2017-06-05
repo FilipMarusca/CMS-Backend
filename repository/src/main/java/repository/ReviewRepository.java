@@ -67,7 +67,11 @@ public class ReviewRepository extends AbstractRepository<Review>{
         throw null;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     *
+     * @param paper The paper
+     * @return The reviews for the given paper
+     */
     public Collection<Review> findBy(Paper paper) {
         return findBy("userPaper.paper", paper);
     }

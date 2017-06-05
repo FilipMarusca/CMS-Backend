@@ -21,8 +21,9 @@ public class ShowAlert {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(message);
-//        alert.setWidth(1280D);
-        alert.show();
+        alert.setResizable(true);
+        alert.getDialogPane().setPrefSize(450, 350);
+        alert.showAndWait();
     }
 
     public static void handle(Exception e) {
@@ -34,7 +35,7 @@ public class ShowAlert {
             ValidationException validationException = (ValidationException) e;
             String title = "Validation error";
             String header = String.format("The %s is invalid.", validationException.getValidatedEntityName());
-            show(Alert.AlertType.ERROR, title, header, validationException.getMessagesAsString());
+            show(Alert.AlertType.ERROR, title, header, validationException.getMessage());
         } else {
             if (description.isEmpty()) {
                 showAlert(e.getMessage());

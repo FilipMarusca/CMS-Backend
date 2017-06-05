@@ -46,7 +46,6 @@ public class EditionRepository extends AbstractRepository<Edition> {
      * @param conference The conference for which to retrieve editions
      * @return The editions of the given conference
      */
-    @SuppressWarnings("unchecked")
     public Collection<Edition> findBy(Conference conference) {
         return findBy("conference", conference);
     }

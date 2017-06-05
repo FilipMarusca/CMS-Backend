@@ -19,8 +19,12 @@ public class SessionChairRepository extends AbstractRepository<SessionChair> {
         super(sessionFactory, SessionChair.class);
     }
 
-    @SuppressWarnings("unchecked")
-    public Collection<SessionChair> findBy(User sessionChair) {
-        return (Collection<SessionChair>) findBy("chair.user", sessionChair);
+    /**
+     *
+     * @param user The user
+     * @return The sessions for which the chair is the given user
+     */
+    public Collection<SessionChair> findBy(User user) {
+        return findBy("chair.user", user);
     }
 }
