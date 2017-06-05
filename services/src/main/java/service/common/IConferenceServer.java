@@ -4,7 +4,6 @@ import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import service.exception.ServiceException;
 
-import java.rmi.ServerException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -70,11 +69,31 @@ public interface IConferenceServer {
 
     void addParticipation(Participation participation) throws ServiceException;
 
-    Collection<? extends Edition> getEditions(Conference conference) throws ServerException;
+    /**
+     * @param conference The conference for which to retrieve editions
+     * @return The editions of the given conference
+     * @throws ServiceException .
+     */
+    Collection<Edition> getEditions(Conference conference) throws ServiceException;
 
-    Collection<Edition> getPastSubmissionEditions(User sessionChair);
+    /**
+     * @param sessionChair The session chair which created the editions
+     * @return The editions created by the given session chair
+     * for which the submission deadline has passed
+     */
+    Collection<Edition> getPastSubmissionEditions(User sessionChair) throws ServiceException;
 
-    Collection<Review> getReviews(Paper paper);
+    /**
+     *
+     * @param paper The paper
+     * @return The reviews for the given paper
+     */
+    Collection<Review> getReviews(Paper paper) throws ServiceException;
 
-    Collection<Paper> getPapers(Edition edition);
+    /**
+     *
+     * @param edition The edition for which to retrieve papers
+     * @return The papers for the given edition
+     */
+    Collection<Paper> getPapers(Edition edition) throws ServiceException;
 }

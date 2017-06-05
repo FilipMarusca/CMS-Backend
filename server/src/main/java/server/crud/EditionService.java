@@ -31,6 +31,11 @@ public class EditionService extends BaseService<Edition> {
         this.sessionChairService = sessionChairService;
     }
 
+    /**
+     *
+     * @param conference The conference for which to retrieve editions
+     * @return The editions of the given conference
+     */
     public Collection<Edition> findBy(Conference conference) {
         return editionRepository.findBy(conference);
     }

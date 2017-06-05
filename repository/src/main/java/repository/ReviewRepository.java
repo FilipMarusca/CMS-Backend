@@ -69,7 +69,7 @@ public class ReviewRepository extends AbstractRepository<Review>{
 
     @SuppressWarnings("unchecked")
     public Collection<Review> findBy(Paper paper) {
-        return (Collection<Review>) findBy("userPaper.paper", paper);
+        return findBy("userPaper.paper", paper);
     }
 
     private void changeReviewStatus(Review review, ReviewStatus newStatus)

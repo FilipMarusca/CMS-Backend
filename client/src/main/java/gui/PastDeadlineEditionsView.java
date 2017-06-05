@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import service.exception.ServiceException;
 import utils.DateUtils;
 
 import java.net.URL;
@@ -82,70 +83,6 @@ public class PastDeadlineEditionsView extends BaseView {
         searchEditions();
     }
 
-    public void searchPapersHandler(KeyEvent keyEvent) {
-        searchPapers();
-    }
-
-    public void searchReviewsHandler(KeyEvent keyEvent) {
-        searchReviews();
-    }
-
-    @Override
-    public void update() {
-        loadEditions();
-        loadPapers();
-        loadReviews();
-        searchEditions();
-        searchPapers();
-        searchReviews();
-    }
-
-    public void onReviewSelectedHandler(MouseEvent mouseEvent) {
-        System.out.println("entered onReviewSelectedHandler");
-        Review selected = reviewsTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            commentTextArea.setText(selected.getComment());
-        }
-    }
-
-    public void onPaperSelectedHandler(MouseEvent mouseEvent) {
-        System.out.println("entered onPaperSelectedHandler");
-        loadReviews();
-        searchReviews();
-    }
-
-    public void editionSelectedHandler(MouseEvent mouseEvent) {
-        System.out.println("entered editionSelectedHandler");
-        loadPapers();
-        searchPapers();
-    }
-
-    private void loadReviews() {
-        Paper selectedPaper = papersTable.getSelectionModel().getSelectedItem();
-        if (selectedPaper == null) {
-            return;
-        }
-
-        reviewList.clear();
-        reviewList.addAll(controller.getReviews(selectedPaper));
-
-    }
-
-    private void loadPapers() {
-        Edition selectedEdition = editionsTable.getSelectionModel().getSelectedItem();
-        if (selectedEdition == null) {
-            return;
-        }
-
-        paperList.clear();
-        paperList.addAll(controller.getPapers(selectedEdition));
-    }
-
-    private void loadEditions() {
-        editionList.clear();
-        editionList.addAll(controller.getPastSubmissionEditions(loggedUser));
-    }
-
     private void searchEditions() {
         String text = searchEditionsField.getText().toUpperCase().trim();
         Edition selected = editionsTable.getSelectionModel().getSelectedItem();
@@ -163,6 +100,10 @@ public class PastDeadlineEditionsView extends BaseView {
         }
 
         editionsTable.getSelectionModel().select(selected);
+    }
+
+    public void searchPapersHandler(KeyEvent keyEvent) {
+        searchPapers();
     }
 
     private void searchPapers() {
@@ -193,6 +134,10 @@ public class PastDeadlineEditionsView extends BaseView {
         papersTable.getSelectionModel().select(selected);
     }
 
+    public void searchReviewsHandler(KeyEvent keyEvent) {
+        searchReviews();
+    }
+
     private void searchReviews() {
         String text = searchReviewsField.getText().toUpperCase().trim();
         Review selected = reviewsTable.getSelectionModel().getSelectedItem();
@@ -215,5 +160,73 @@ public class PastDeadlineEditionsView extends BaseView {
         }
 
         reviewsTable.getSelectionModel().select(selected);
+    }
+
+    @Override
+    public void update() {
+        loadEditions();
+        loadPapers();
+        loadReviews();
+        searchEditions();
+        searchPapers();
+        searchReviews();
+    }
+
+    private void loadEditions() {
+        editionList.clear();
+        try {
+            editionList.addAll(controller.getPastSubmissionEditions(loggedUser));
+        } catch (ServiceException e) {
+            handle(e, "Failed to lad editions.");
+        }
+    }
+
+    private void loadPapers() {
+        Edition selectedEdition = editionsTable.getSelectionModel().getSelectedItem();
+        if (selectedEdition == null) {
+            return;
+        }
+
+        paperList.clear();
+        try {
+            paperList.addAll(controller.getPapers(selectedEdition));
+        } catch (ServiceException e) {
+            handle(e, "Failed to load papers.");
+        }
+    }
+
+    private void loadReviews() {
+        Paper selectedPaper = papersTable.getSelectionModel().getSelectedItem();
+        if (selectedPaper == null) {
+            return;
+        }
+
+        reviewList.clear();
+        try {
+            reviewList.addAll(controller.getReviews(selectedPaper));
+        } catch (ServiceException e) {
+            handle(e, "Failed to load reviews.");
+        }
+
+    }
+
+    public void onReviewSelectedHandler(MouseEvent mouseEvent) {
+        System.out.println("entered onReviewSelectedHandler");
+        Review selected = reviewsTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            commentTextArea.setText(selected.getComment());
+        }
+    }
+
+    public void onPaperSelectedHandler(MouseEvent mouseEvent) {
+        System.out.println("entered onPaperSelectedHandler");
+        loadReviews();
+        searchReviews();
+    }
+
+    public void editionSelectedHandler(MouseEvent mouseEvent) {
+        System.out.println("entered editionSelectedHandler");
+        loadPapers();
+        searchPapers();
     }
 }

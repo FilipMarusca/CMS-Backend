@@ -8,21 +8,41 @@ import java.util.List;
  */
 public interface IRepository<T> {
 
+    /**
+     * @param entity The entity to add to the repository
+     *               Note that if it has an id, an update will be performed
+     */
     void add(T entity);
 
-    default Serializable save(T entity) {
-        return null;
-    }
+    /**
+     *
+     * @param entity The entity to save
+     * @return The id of he entity
+     */
+    Serializable save(T entity);
 
-    void delete(Integer key);
+    /**
+     * Delete
+     *
+     * @param key The identifier of the object to delete
+     */
+    void delete(Serializable key);
 
+    /**
+     *
+     * @return All the objects managed by this DAO
+     */
     List<T> getAll();
 
-    T findById(Integer key);
+    /**
+     * @param id The id of the object to return
+     * @return The object with the given id
+     */
+    T findById(Serializable id);
 
-    void update(Integer key, T newEntity);
-
-    default void update(T entity) {
-
-    }
+    /**
+     *
+     * @param entity The entity to save
+     */
+    void update(T entity);
 }

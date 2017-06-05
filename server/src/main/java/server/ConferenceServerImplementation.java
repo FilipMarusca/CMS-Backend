@@ -3,7 +3,6 @@ package server;
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import com.ubb.cms.utils.UserEditionEmb;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,7 +11,6 @@ import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
 
-import java.rmi.ServerException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -338,7 +336,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public Collection<? extends Edition> getEditions(Conference conference) throws ServerException {
+    public Collection<Edition> getEditions(Conference conference) throws ServiceException {
         return editionService.findBy(conference);
     }
 

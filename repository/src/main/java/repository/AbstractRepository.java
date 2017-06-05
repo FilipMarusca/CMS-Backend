@@ -1,5 +1,6 @@
 package repository;
 
+import javafx.util.Callback;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -15,79 +16,112 @@ public class AbstractRepository<T> implements IRepository<T> {
     protected final Class<T>       managedEntity;
     protected       SessionFactory sessionFactory;
 
+    /**
+     * @param sessionFactory The session factory
+     * @param managedEntity  The entity runtime class for which this DAO is created
+     */
     public AbstractRepository(SessionFactory sessionFactory, Class<T> managedEntity) {
         this.sessionFactory = sessionFactory;
         this.managedEntity = managedEntity;
     }
 
+    /**
+     *
+     * @param entity The entity to add to the repository
+     *               Note that if it has an id, an update will be performed
+     */
     @Override
     public void add(T entity) {
         save(entity);
     }
 
+    /**
+     *
+     * @param entity The entity to save
+     * @return The id of he entity
+     */
     @Override
-    public void delete(Integer key) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.delete(findById(key));
-        transaction.commit();
+    public Serializable save(T entity) {
+        return executeWithRollback(session -> session.save(entity));
     }
 
+    /**
+     * Delete
+     *
+     * @param key The identifier of the object to delete
+     */
+    @Override
+    public void delete(Serializable key) {
+        executeWithRollback((Callback<Session, Void>) session -> {
+            session.delete(findById(key));
+            return null;
+        });
+    }
+
+    /**
+     *
+     * @return All the objects managed by this DAO
+     */
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getAll() {
         logger.info("intra in get all");
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        List<T> list = (List<T>) session.createCriteria(managedEntity).list();
-        transaction.commit();
-
-        return list;
+        return executeWithRollback(session -> session.createCriteria(managedEntity).list());
     }
 
+    /**
+     * @param id The id of the object to return
+     * @return The object with the given id
+     */
     @Override
     @SuppressWarnings("unchecked")
-    public T findById(Integer key) {
-
-        Session session = sessionFactory.getCurrentSession();
-        Transaction trans = session.beginTransaction();
-        //Object obj = session.load(managedEntity, key);
-        Object obj = session.get(managedEntity,key);
-        trans.commit();
-
-        return obj == null ? null : (T) obj;
-
-
+    public T findById(Serializable id) {
+        return executeWithRollback(session -> (T) session.get(managedEntity, id));
     }
 
+    /**
+     *
+     * @param entity The entity to save
+     */
     @Override
     public void update(T entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction trans = session.beginTransaction();
-        session.update(entity);
-        trans.commit();
+        save(entity);
     }
 
-    @Override
-    public void update(Integer key, T newEntity) {
-        update(newEntity);
+    /**
+     * Executes the given job in a transaction, with rollback
+     * if an exception occurs
+     *
+     * @param job The job to run in a transaction
+     * @param <R> The result type
+     * @return The callback result
+     */
+    protected <R> R executeWithRollback(Callback<Session, R> job) {
+        Transaction transaction = null;
+        try {
+            Session session = sessionFactory.getCurrentSession();
+            transaction = session.beginTransaction();
+            R result = job.call(session);
+            transaction.commit();
+            return result;
+        } catch (Throwable throwable) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw throwable;
+        }
     }
 
-    @Override
-    public Serializable save(T entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction trans = session.beginTransaction();
-        Serializable generatedId = session.save(entity);
-        trans.commit();
-        return generatedId;
-    }
-
-    public Collection<?> findBy(String property, Object value) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        List<?> list = session.createCriteria(managedEntity).add(Restrictions.eq(property, value)).list();
-        transaction.commit();
-
-        return list;
+    /**
+     * @param property A hibernate property path
+     * @param value    The value to compare to
+     * @return The matching objects of type T
+     */
+    @SuppressWarnings("unchecked")
+    public Collection<T> findBy(String property, Object value) {
+        return executeWithRollback(session -> session
+                .createCriteria(managedEntity)
+                .add(Restrictions.eq(property, value))
+                .list());
     }
 }

@@ -32,8 +32,13 @@ public class PaperRepository extends AbstractRepository<Paper> {
         return lista;
     }
 
+    /**
+     *
+     * @param edition The edition for which to find papers
+     * @return The papers submitted for given edition
+     */
     @SuppressWarnings("unchecked")
     public Collection<Paper> findBy(Edition edition) {
-        return (Collection<Paper>) findBy("edition", edition);
+        return findBy("edition", edition);
     }
 }

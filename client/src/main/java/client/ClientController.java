@@ -14,7 +14,6 @@ import utils.DateUtils;
 
 import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
-import java.rmi.ServerException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -259,9 +258,8 @@ public class ClientController extends UnicastRemoteObject implements IConference
     /**
      * @param conference The conference for which to retrieve editions
      * @return The editions of the given conference
-     * @throws ServerException .
      */
-    public Collection<? extends Edition> getEditions(Conference conference) throws ServerException {
+    public Collection<? extends Edition> getEditions(Conference conference) throws ServiceException {
         return server.getEditions(conference);
     }
 
@@ -276,7 +274,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
      * @return The editions created by the given session chair
      * for which the submission deadline has passed
      */
-    public Collection<Edition> getPastSubmissionEditions(User sessionChair) {
+    public Collection<Edition> getPastSubmissionEditions(User sessionChair) throws ServiceException {
         return server.getPastSubmissionEditions(sessionChair);
     }
 
@@ -285,11 +283,16 @@ public class ClientController extends UnicastRemoteObject implements IConference
      * @param paper The paper
      * @return The reviews for the given paper
      */
-    public Collection<Review> getReviews(Paper paper) {
+    public Collection<Review> getReviews(Paper paper) throws ServiceException {
         return server.getReviews(paper);
     }
 
-    public Collection<Paper> getPapers(Edition edition) {
+    /**
+     *
+     * @param edition The edition for which to retrieve papers
+     * @return The papers for the given edition
+     */
+    public Collection<Paper> getPapers(Edition edition) throws ServiceException {
         return server.getPapers(edition);
     }
 }
