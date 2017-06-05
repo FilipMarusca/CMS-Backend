@@ -1,4 +1,4 @@
-package repository;
+package repository.utils;
 
 import com.ubb.cms.*;
 import org.hibernate.SessionFactory;
@@ -8,9 +8,18 @@ import org.hibernate.service.ServiceRegistryBuilder;
 /**
  * Created by Mihai Zăvoian on 04.06.2017.
  */
-public class SessionFactoryUtil {
+public abstract class SessionFactoryCMSTest {
+    private static SessionFactory instance = null;
 
-    public static SessionFactory createSessionFactory()
+    protected SessionFactoryCMSTest(){}
+
+    public static SessionFactory getInstance(){
+        if(instance == null)
+            instance = createSessionFactory();
+        return instance;
+    }
+
+    private static SessionFactory createSessionFactory()
     {
         //add entity classes
         Configuration configuration = new Configuration();
