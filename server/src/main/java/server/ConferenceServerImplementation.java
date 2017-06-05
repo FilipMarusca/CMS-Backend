@@ -3,6 +3,7 @@ package server;
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import com.ubb.cms.utils.UserEditionEmb;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
     private final ReviewService                  reviewService;
     private final ParticipationService participationService;
     private final SessionChairService sessionChairService;
+    private final SessionService sessionService;
     private       Map<String, IConferenceClient> loggedClients;
 
     @Autowired
@@ -44,6 +46,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
             ReviewService reviewService,
             ParticipationService participationService,
             SessionChairService sessionChairService,
+            SessionService sessionService,
             @Value("${client_check_interval}") int seconds
     ) {
         this.userService = userService;
@@ -53,7 +56,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
         this.reviewService=reviewService;
         this.participationService = participationService;
         this.sessionChairService = sessionChairService;
-
+        this.sessionService=sessionService;
         loggedClients = new ConcurrentHashMap<>();
         Threading.getConnectionChecker(loggedClients, seconds).start();
 
@@ -103,7 +106,28 @@ public class ConferenceServerImplementation implements IConferenceServer {
     public List<User> getAllUser() {
         return userService.getAll();
     }
+    @Override
+    public synchronized List<Edition> getEditionForChair(User u){
+        List<Edition> l=new ArrayList<>();
+        List<Edition> lista=editionService.getAll();
+        List<SessionChair> sessionChairs=sessionChairService.getAll();
+        for (Edition e:lista
+             ) {
+            if(e.getEndingDate().before(new Date())){
+                for (SessionChair s:sessionChairs
+                     ) {
+                    if(u.getId()==s.getChair().getUser().getId()&&e.getId()==s.getChair().getEdition().getId()){
+                        l.add(e);
+                    }
 
+                }
+
+
+            }
+
+        }
+        return l;
+    }
     @Override
     public synchronized List<Edition> getAllEditions() {
         return editionService.getAll();
@@ -184,8 +208,14 @@ public class ConferenceServerImplementation implements IConferenceServer {
 
     @Override
     public void addUser(User user) throws ServiceException {
-        userService.add(user);
-
+        userService.add(user);}
+    @Override
+    public synchronized List<ConferenceSession> getAllSessions(){
+        return sessionService.getAll();
+    }
+    @Override
+    public synchronized void addSession(ConferenceSession s) throws ServiceException{
+        sessionService.add(s);
     }
 
     @Override
