@@ -23,7 +23,7 @@ public class User implements Serializable {
 
     @NotEmpty(message = "Username cannot be empty")
     @Size(min = 5, max = 32)
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String  username;
 
     @NotEmpty
