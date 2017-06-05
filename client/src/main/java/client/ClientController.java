@@ -4,16 +4,20 @@ import com.sun.javafx.stage.StageHelper;
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import com.ubb.cms.utils.UserPaperEmb;
+import javafx.application.Platform;
 import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.common.Observer;
 import service.exception.ServiceException;
 import utils.DateUtils;
 
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
+import java.rmi.ServerException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -115,7 +119,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
     @Override
     public void showUpdated() throws RemoteException {
         //logger.info(updateType);
-        this.notifyObservers();
+        Platform.runLater(this::notifyObservers);
     }
 
     /**
@@ -158,7 +162,15 @@ public class ClientController extends UnicastRemoteObject implements IConference
         return server.getPapersNotReviewed(u);
     }
 
-    public Integer addEdition(Conference conference, LocalDate beginningDate, LocalDate endingDate, String name, LocalDate paperSubmissionDeadline, LocalDate finalDeadline) throws ServiceException {
+    public Integer addEdition(
+            Conference conference,
+            LocalDate beginningDate,
+            LocalDate endingDate,
+            String name,
+            LocalDate paperSubmissionDeadline,
+            LocalDate finalDeadline,
+            User loggedUser
+    ) throws ServiceException {
         Edition edition = new Edition(
                 conference,
                 DateUtils.asDate(beginningDate),
@@ -168,7 +180,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
                 DateUtils.asDate(finalDeadline)
         );
 
-        return server.addEdition(edition);
+        return server.addEdition(edition, loggedUser);
     }
 
 
@@ -222,5 +234,40 @@ public class ClientController extends UnicastRemoteObject implements IConference
         server.addSessionChair(sessionChair);
     }
 
+    /**
+     * @param conference The conference for which to retrieve editions
+     * @return The editions of the given conference
+     * @throws ServerException .
+     */
+    public Collection<? extends Edition> getEditions(Conference conference) throws ServerException {
+        return server.getEditions(conference);
+    }
 
+    public void disconnect() throws NoSuchObjectException {
+        unexportObject(this, true);
+
+        System.out.println("Disconnecting from server");
+    }
+
+    /**
+     * @param sessionChair The session chair which created the editions
+     * @return The editions created by the given session chair
+     * for which the submission deadline has passed
+     */
+    public Collection<Edition> getPastSubmissionEditions(User sessionChair) {
+        return server.getPastSubmissionEditions(sessionChair);
+    }
+
+    /**
+     *
+     * @param paper The paper
+     * @return The reviews for the given paper
+     */
+    public Collection<Review> getReviews(Paper paper) {
+        return server.getReviews(paper);
+    }
+
+    public Collection<Paper> getPapers(Edition edition) {
+        return server.getPapers(edition);
+    }
 }

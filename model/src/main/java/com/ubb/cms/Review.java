@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,7 @@ public class Review implements Serializable {
     private ReviewStatus status;
 
     @Column(name = "comment")
+    @Size(min = 10, max = 255)
     private String comment;
 
     public Review(UserPaperEmb user_paper, ReviewStatus status, String comment) {

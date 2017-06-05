@@ -26,7 +26,7 @@ public class ReviewerAssignmentsView extends BaseView {
 
     public ObservableList<Paper> model;
     @FXML
-    private ComboBox<String> reviewCombo;
+    private ComboBox<ReviewStatus> reviewCombo;
     @FXML
     private TableView<Paper> tabel;
     @FXML
@@ -40,7 +40,7 @@ public class ReviewerAssignmentsView extends BaseView {
     public void initialize(URL location, ResourceBundle resources) {
         for (ReviewStatus status : ReviewStatus.values()) {
             if (!(status == ReviewStatus.ConfirmedToBeReviewed || status == ReviewStatus.WaitingForConfirmation))
-                reviewCombo.getItems().add(status.toString());
+                reviewCombo.getItems().add(status);
         }
         namePaperColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         topicPaperColumn.setCellValueFactory(new PropertyValueFactory<>("topic"));
@@ -73,7 +73,7 @@ public class ReviewerAssignmentsView extends BaseView {
             try {
 
 
-                ReviewStatus rs = ReviewStatus.valueOf(reviewCombo.getSelectionModel().getSelectedItem());
+                ReviewStatus rs = reviewCombo.getSelectionModel().getSelectedItem();
                 try {
                     controller.updateReview(loggedUser, p, rs, s);
                 } catch (ServiceException ex) {

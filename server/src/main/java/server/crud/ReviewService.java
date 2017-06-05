@@ -11,6 +11,7 @@ import repository.ReviewRepository;
 import server.validator.ValidatorInterface;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -24,6 +25,10 @@ public class ReviewService extends BaseService<Review> {
     ReviewService(ValidatorInterface validator,ReviewRepository reviewRepository) {
         super(validator);
         this.reviewRepository=reviewRepository;
+    }
+
+    public Collection<Review> findBy(Paper paper) {
+        return reviewRepository.findBy(paper);
     }
 
     @Override

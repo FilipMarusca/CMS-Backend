@@ -1,6 +1,8 @@
 package com.ubb.cms;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,8 +17,14 @@ public class ConferenceSession implements Serializable {
     private int     id;
     @ManyToOne
     @JoinColumn(name = "edition_id", referencedColumnName = "id")
+
+    @NotNull
     private Edition edition;
+
+    @NotNull
     private Date    date;
+
+    @Size(min = 3, max = 255)
     private String  location;
 
     public ConferenceSession(int id, Edition edition, Date date, String location) {

@@ -1,6 +1,9 @@
 package com.ubb.cms;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,8 @@ public class Conference implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int    id;
+
+    @Size(min = 3, max = 50)
     @Column(name = "name")
     private String name;
 
@@ -47,7 +52,7 @@ public class Conference implements Serializable {
 
     @Override
     public String toString() {
-        return "Conference{" + "id=" + id + ", name='" + name + '\'' + '}';
+        return name;
     }
 
     @Override

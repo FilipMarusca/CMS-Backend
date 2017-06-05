@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,6 +25,7 @@ public class Edition implements Serializable {
     private Conference conference;
 
     @NotEmpty(message = "Name cannot be empty")
+    @Size(min = 3, max = 50)
     @Column(name = "name")
     private String name;
 
@@ -61,8 +63,6 @@ public class Edition implements Serializable {
         this.paperSubmissionDeadline = paperSubmissionDeadline;
         this.finalDeadline = finalDeadline;
     }
-
-
 
     public Edition() {
 

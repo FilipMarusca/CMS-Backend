@@ -38,15 +38,15 @@ public abstract class BaseService<T> {
     }
 
     public List<T> getAll() {
-        List<T> all = getRepository().getAll();
-        return all;
+        return getRepository().getAll();
     }
 
     public T findById(int key) {
         return getRepository().findById(key);
     }
 
-    public void update(T entity) {
+    public void update(T entity) throws ServiceException {
+        validate(entity);
         getRepository().update(entity);
     }
 

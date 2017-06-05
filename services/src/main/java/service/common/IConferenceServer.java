@@ -4,6 +4,8 @@ import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
 import service.exception.ServiceException;
 
+import java.rmi.ServerException;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public interface IConferenceServer {
     List<Paper> getPapersFromAuthor(User author);
     void addConference(Conference conference) throws ServiceException;
 
-    Integer addEdition(Edition edition) throws ServiceException;
+    Integer addEdition(Edition edition, User editionCreator) throws ServiceException;
     List<Review> getReviewByReviewerAndStatus(User user,ReviewStatus status);
 
     List<Review> getReviewsByReviewer(User user);
@@ -69,4 +71,11 @@ public interface IConferenceServer {
 
     void addParticipation(Participation participation) throws ServiceException;
 
+    Collection<? extends Edition> getEditions(Conference conference) throws ServerException;
+
+    Collection<Edition> getPastSubmissionEditions(User sessionChair);
+
+    Collection<Review> getReviews(Paper paper);
+
+    Collection<Paper> getPapers(Edition edition);
 }

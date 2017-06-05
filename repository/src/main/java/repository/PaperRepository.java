@@ -1,5 +1,6 @@
 package repository;
 
+import com.ubb.cms.Edition;
 import com.ubb.cms.Paper;
 import com.ubb.cms.User;
 import org.hibernate.SessionFactory;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -28,5 +30,10 @@ public class PaperRepository extends AbstractRepository<Paper> {
             }
         }
         return lista;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Collection<Paper> findBy(Edition edition) {
+        return (Collection<Paper>) findBy("edition", edition);
     }
 }

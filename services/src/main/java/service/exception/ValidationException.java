@@ -9,15 +9,11 @@ import java.util.Map;
  * @author Marius Adam
  */
 public class ValidationException extends ServiceException {
-    private Map<String, List<String>> messages;
+    private Map<String, List<String>> messagesMap;
     private String                    validatedEntityName;
 
-    private ValidationException() {
-        this(null, "");
-    }
-
     private ValidationException(Map<String, List<String>> messages, String validatedEntity) {
-        this.messages = messages;
+        this.messagesMap = messages;
         this.validatedEntityName = validatedEntity;
     }
 
@@ -27,12 +23,23 @@ public class ValidationException extends ServiceException {
 
     public String getMessagesAsString() {
         StringBuilder sb = new StringBuilder();
-        messages.forEach((prop, messages) -> messages.forEach(msg -> sb.append(msg).append(System.lineSeparator())));
+        messagesMap.forEach((prop, messages) -> {
+            sb.append(prop).append(":").append(System.lineSeparator());
+            messages.forEach(msg -> sb.append("\t").append(msg).append(System.lineSeparator()));
+        });
         return sb.toString();
     }
 
-    public Map<String, List<String>> getMessages() {
-        return messages;
+    @Override
+    public String getMessage() {
+        return getMessagesAsString();
+    }
+
+    /**
+     * @return The error messagesMap for each of the properties
+     */
+    public Map<String, List<String>> getMessagesMap() {
+        return messagesMap;
     }
 
     public String getValidatedEntityName() {

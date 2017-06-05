@@ -2,6 +2,7 @@ package server;
 
 import com.ubb.cms.*;
 import com.ubb.cms.utils.ReviewStatus;
+import com.ubb.cms.utils.UserEditionEmb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,12 +10,9 @@ import server.crud.*;
 import service.common.IConferenceClient;
 import service.common.IConferenceServer;
 import service.exception.ServiceException;
-import service.exception.ValidationException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.rmi.ServerException;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -201,7 +199,7 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public synchronized void updateUser(User newUser) {
+    public synchronized void updateUser(User newUser) throws ServiceException {
         userService.update(newUser);
         this.notifyAllViewers();
     }
@@ -232,8 +230,13 @@ public class ConferenceServerImplementation implements IConferenceServer {
     }
 
     @Override
-    public Integer addEdition(Edition edition) throws ServiceException {
-       return (Integer) editionService.save(edition);
+    public Integer addEdition(Edition edition, User editionCreator) throws ServiceException {
+        Integer id = (Integer) editionService.save(edition);
+        SessionChair sessionChair = new SessionChair(new UserEditionEmb(editionCreator, getEditionById(id)));
+        addSessionChair(sessionChair);
+
+        notifyAllViewers();
+        return id;
     }
     @Override
     public synchronized void addReview(Review review) throws ServiceException{
@@ -304,6 +307,27 @@ public class ConferenceServerImplementation implements IConferenceServer {
         participationService.add(participation);
     }
 
+    @Override
+    public Collection<? extends Edition> getEditions(Conference conference) throws ServerException {
+        return editionService.findBy(conference);
+    }
+
+    @Override
+    public Collection<Edition> getPastSubmissionEditions(User sessionChair) {
+        return editionService.getPastSubmissionEditions(sessionChair);
+    }
+
+    @Override
+    public Collection<Review> getReviews(Paper paper) {
+        return reviewService.findBy(paper);
+    }
+
+    @Override
+    public Collection<Paper> getPapers(Edition edition) {
+        Collection<Paper> all = paperService.findBy(edition);
+        System.out.printf("Loaded %d papers for edition%s%n", all.size(), edition.toString());
+        return all;
+    }
 
     private void notifyAllViewers() {
         ExecutorService executor = Executors.newFixedThreadPool(THREADS_NUMBER);

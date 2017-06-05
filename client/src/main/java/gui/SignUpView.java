@@ -2,12 +2,11 @@ package gui;
 
 import com.ubb.cms.User;
 import com.ubb.cms.utils.UserTag;
-import service.exception.ServiceException;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import service.exception.ServiceException;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -50,13 +49,9 @@ public class SignUpView extends BaseView {
                     tag.getSelectionModel().getSelectedItem()
             ));
             ShowAlert.showOnSucces("UserSuccesfully added");
-            try {
-                switchToView("login.fxml", "login.css", "Login", null);
-            } catch (IOException exception) {
-                logger.info(exception.getMessage());
-            }
+            switchToView("login.fxml", "login.css", "Login", null);
         } catch (ServiceException exception) {
-            ShowAlert.showAlert(exception.getMessage());
+            handle(exception);
         }
     }
 }

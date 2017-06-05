@@ -3,15 +3,17 @@ package repository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class AbstractRepository<T> implements IRepository<T> {
     protected static final Logger logger = Logger.getLogger(AbstractRepository.class.getName());
-    protected SessionFactory sessionFactory;
-    private final Class<T> managedEntity;
+    protected final Class<T>       managedEntity;
+    protected       SessionFactory sessionFactory;
 
     public AbstractRepository(SessionFactory sessionFactory, Class<T> managedEntity) {
         this.sessionFactory = sessionFactory;
@@ -78,5 +80,14 @@ public class AbstractRepository<T> implements IRepository<T> {
         Serializable generatedId = session.save(entity);
         trans.commit();
         return generatedId;
+    }
+
+    public Collection<?> findBy(String property, Object value) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<?> list = session.createCriteria(managedEntity).add(Restrictions.eq(property, value)).list();
+        transaction.commit();
+
+        return list;
     }
 }

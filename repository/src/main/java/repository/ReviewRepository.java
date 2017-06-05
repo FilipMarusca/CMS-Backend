@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -65,6 +66,12 @@ public class ReviewRepository extends AbstractRepository<Review>{
         }
         throw null;
     }
+
+    @SuppressWarnings("unchecked")
+    public Collection<Review> findBy(Paper paper) {
+        return (Collection<Review>) findBy("userPaper.paper", paper);
+    }
+
     private void changeReviewStatus(Review review, ReviewStatus newStatus)
     {
         review.setStatus(newStatus);

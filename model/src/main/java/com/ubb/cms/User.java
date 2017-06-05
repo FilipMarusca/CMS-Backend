@@ -22,12 +22,12 @@ public class User implements Serializable {
     private int     id;
 
     @NotEmpty(message = "Username cannot be empty")
-    @Size(min = 5)
+    @Size(min = 5, max = 32)
     @Column(name = "username")
     private String  username;
 
     @NotEmpty
-    @Size(min = 5)
+    @Size(min = 5, max = 32)
     @Column(name = "password")
     private String  password;
 
@@ -37,10 +37,12 @@ public class User implements Serializable {
     private String  email;
 
     @NotEmpty
+    @Size(min = 3, max = 50)
     @Column(name = "name")
     private String  name;
 
     @NotEmpty
+    @Size(min = 3, max = 50)
     @Column(name = "surname")
     private String  surname;
 
@@ -136,10 +138,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                '}';
+        return String.format("%s %s", getName(), getSurname());
     }
 
     @Override

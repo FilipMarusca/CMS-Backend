@@ -21,18 +21,34 @@ public class ShowAlert {
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.setWidth(800);
+//        alert.setWidth(1280D);
         alert.show();
     }
 
     public static void handle(Exception e) {
+        handle(e, "");
+    }
+
+    public static void handle(Exception e, String description) {
         if (e instanceof ValidationException) {
             ValidationException validationException = (ValidationException) e;
             String title = "Validation error";
             String header = String.format("The %s is invalid.", validationException.getValidatedEntityName());
             show(Alert.AlertType.ERROR, title, header, validationException.getMessagesAsString());
         } else {
-            showAlert(e.getMessage());
+            if (description.isEmpty()) {
+                showAlert(e.getMessage());
+            } else {
+                String msg = String.format(
+                        "%s. Reason: %s%s",
+                        description,
+                        System.lineSeparator(),
+                        e.getMessage()
+                );
+                showAlert(msg);
+            }
+
+            e.printStackTrace();
         }
     }
 }

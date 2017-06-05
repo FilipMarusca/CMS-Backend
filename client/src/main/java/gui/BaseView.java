@@ -4,8 +4,8 @@ import client.ClientController;
 import com.ubb.cms.User;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import service.common.Observer;
 
@@ -40,30 +40,35 @@ public abstract class BaseView implements Initializable, Observer {
     @Override
     public void update() {}
 
-    void switchToView(String fxmlPath, String cssPath, String title) throws IOException {
+    void switchToView(String fxmlPath, String cssPath, String title) {
         switchToView(fxmlPath, cssPath, title, loggedUser);
     }
 
-    void switchToView(String fxmlPath, String cssPath, String title, User currentUser) throws IOException {
+    void switchToView(String fxmlPath, String cssPath, String title, User currentUser) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getClassLoader().getResource(fxmlPath));
-        BorderPane root = loader.load();
-        BaseView baseView = loader.getController();
-        baseView.setController(controller);
-        baseView.setCurrentStage(currentStage);
-        baseView.setLoggedUser(currentUser);
-        controller.addObserver(baseView);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toString());
-        logger.info("trece de css " + title);
-        currentStage.setScene(scene);
-        currentStage.setTitle(title);
-        currentStage.show();
-        currentStage.sizeToScene();
-        logger.info("trece de show " + title);
+        try {
+            Parent root = loader.load();
+            BaseView baseView = loader.getController();
+            baseView.setController(controller);
+            baseView.setCurrentStage(currentStage);
+            baseView.setLoggedUser(currentUser);
+            controller.addObserver(baseView);
+            Scene scene = new Scene(root);
+//        currentStage.setResizable(false);
+            scene.getStylesheets().add(getClass().getClassLoader().getResource(cssPath).toString());
+            logger.info("trece de css " + title);
+            currentStage.setScene(scene);
+            currentStage.setTitle(title);
+            currentStage.show();
+            currentStage.sizeToScene();
+            logger.info("trece de show " + title);
 
-        logger.info("Calling update on the controller");
-        baseView.update();
+            logger.info("Calling update on the controller");
+            baseView.update();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void defaultLogoutHandler() {
@@ -74,5 +79,18 @@ public abstract class BaseView implements Initializable, Observer {
         } catch (Exception ex) {
             ShowAlert.showAlert("User not logged in!");
         }
+    }
+
+    /**
+     * Default exception handler
+     *
+     * @param e The exception
+     */
+    void handle(Exception e) {
+        handle(e, "");
+    }
+
+    void handle(Exception e, String description) {
+        ShowAlert.handle(e, description);
     }
 }
