@@ -89,6 +89,19 @@ public class AbstractRepository<T> implements IRepository<T> {
     }
 
     /**
+     * @param property A hibernate property path
+     * @param value    The value to compare to
+     * @return The matching objects of type T
+     */
+    @SuppressWarnings("unchecked")
+    public Collection<T> findBy(String property, Object value) {
+        return executeWithRollback(session -> session
+                .createCriteria(managedEntity)
+                .add(Restrictions.eq(property, value))
+                .list());
+    }
+
+    /**
      * Executes the given job in a transaction, with rollback
      * if an exception occurs
      *
@@ -110,18 +123,5 @@ public class AbstractRepository<T> implements IRepository<T> {
             }
             throw throwable;
         }
-    }
-
-    /**
-     * @param property A hibernate property path
-     * @param value    The value to compare to
-     * @return The matching objects of type T
-     */
-    @SuppressWarnings("unchecked")
-    public Collection<T> findBy(String property, Object value) {
-        return executeWithRollback(session -> session
-                .createCriteria(managedEntity)
-                .add(Restrictions.eq(property, value))
-                .list());
     }
 }
