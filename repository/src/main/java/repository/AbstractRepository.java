@@ -53,7 +53,7 @@ public class AbstractRepository<T> implements IRepository<T> {
     @Override
     public void delete(Serializable key) {
         executeWithRollback((Callback<Session, Void>) session -> {
-            session.delete(findById(key));
+            session.delete(session.get(managedEntity, key));
             return null;
         });
     }
