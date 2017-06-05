@@ -77,8 +77,15 @@ public class AbstractRepository<T> implements IRepository<T> {
     public Serializable save(T entity) {
         Session session = sessionFactory.getCurrentSession();
         Transaction trans = session.beginTransaction();
-        Serializable generatedId = session.save(entity);
-        trans.commit();
+        Serializable generatedId = null;
+        try{
+            generatedId = session.save(entity);
+            trans.commit();
+        }
+        catch (Exception e){
+            trans.rollback();
+            throw e;
+        }
         return generatedId;
     }
 
