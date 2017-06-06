@@ -54,4 +54,13 @@ public class SignUpView extends BaseView {
             handle(exception);
         }
     }
+
+    @FXML
+    public void goBackHandler() {
+        try {
+            switchToView("login.fxml", "login.css", "Login", null);
+        } catch (Exception ex) {
+            ShowAlert.showAlert(ex.getMessage());
+        }
+    }
 }
