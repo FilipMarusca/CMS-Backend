@@ -8,7 +8,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PastDeadlineEditionsView">
    <top>
-      <Button mnemonicParsing="false" onAction="#backBtnHandler" prefHeight="20.0" prefWidth="63.0" text="Back" BorderPane.alignment="TOP_LEFT">
+      <Button mnemonicParsing="false" fx:id="backBtn" onAction="#backBtnHandler" prefHeight="20.0" prefWidth="63.0" text="Back" BorderPane.alignment="TOP_LEFT">
          <BorderPane.margin>
             <Insets left="10.0" top="10.0" />
          </BorderPane.margin>
