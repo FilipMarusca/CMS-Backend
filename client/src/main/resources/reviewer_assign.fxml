@@ -12,6 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerAssignmentsView">
    <top>
       <HBox prefHeight="87.0" prefWidth="681.0" BorderPane.alignment="CENTER">
@@ -68,24 +70,24 @@
                         <Font name="Myanmar Text Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="reviewCombo" prefWidth="150.0" promptText="Select an item..">
+                  <JFXComboBox fx:id="reviewCombo" prefWidth="150.0" promptText="Select an item..">
                      <VBox.margin>
                         <Insets left="85.0" top="10.0" />
                      </VBox.margin>
-                  </ComboBox>
+                  </JFXComboBox>
                   <Label text="Comment:">
                      <VBox.margin>
                         <Insets left="30.0" top="15.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea fx:id="commentText" prefHeight="138.0" prefWidth="276.0">
+                  <JFXTextArea fx:id="commentText" prefHeight="138.0" prefWidth="276.0">
                      <opaqueInsets>
                         <Insets left="50.0" right="15.0" top="5.0" />
                      </opaqueInsets>
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" top="5.0" />
                      </VBox.margin>
-                  </TextArea>
+                  </JFXTextArea>
                   <Button id="reviewBtn" mnemonicParsing="false" onAction="#addReviewBtnHandler" prefHeight="40.0" prefWidth="172.0" text="Review Item">
                      <VBox.margin>
                         <Insets left="70.0" top="5.0" />
