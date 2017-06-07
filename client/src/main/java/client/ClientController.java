@@ -30,8 +30,6 @@ public class ClientController extends UnicastRemoteObject implements IConference
 
     public ClientController(IConferenceServer server) throws RemoteException {
         this.server = server;
-
-
     }
 
     public void addUser(User user) throws ServiceException {

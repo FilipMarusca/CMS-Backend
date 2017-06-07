@@ -8,6 +8,7 @@ import com.ubb.cms.utils.UserTag;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import service.exception.ServiceException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,7 +29,7 @@ public class LoginView extends BaseView{
 
     }
 
-    public void buttonHandler() {
+    public void buttonHandler() throws ServiceException{
         //logger.info(username.getText());
         //logger.info(password.getText());
         for (Conference conference : controller.getAllConferences()) {
@@ -36,7 +37,7 @@ public class LoginView extends BaseView{
         }
 
         //logger.info("trece de getConferences");
-        try {
+       try {
             User currentUser = controller.login(username.getText(), password.getText());
             UserTag tag = currentUser.getTag();
             logger.info(tag.toString());

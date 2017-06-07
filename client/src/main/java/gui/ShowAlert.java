@@ -49,7 +49,7 @@ public class ShowAlert {
                 showAlert(msg);
             }
 
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 }

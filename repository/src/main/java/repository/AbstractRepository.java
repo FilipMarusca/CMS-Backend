@@ -85,7 +85,14 @@ public class AbstractRepository<T> implements IRepository<T> {
      */
     @Override
     public void update(T entity) {
-        save(entity);
+        //save(entity);
+        executeWithRollback(new Callback<Session, Void>() {
+            @Override
+            public Void call(Session param) {
+                param.update(entity);
+                return null;
+            }
+        });
     }
 
     /**
