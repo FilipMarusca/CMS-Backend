@@ -111,16 +111,13 @@ public class ConferenceServerImplementation implements IConferenceServer {
         List<SessionChair> sessionChairs=sessionChairService.getAll();
         for (Edition e:lista
              ) {
-            if(e.getEndingDate().before(new Date())){
+            if(e.getPaperSubmissionDeadline().before(new Date())){
                 for (SessionChair s:sessionChairs
                      ) {
                     if(u.getId()==s.getChair().getUser().getId()&&e.getId()==s.getChair().getEdition().getId()){
                         l.add(e);
                     }
-
                 }
-
-
             }
 
         }

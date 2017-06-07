@@ -244,7 +244,7 @@ public class ClientController extends UnicastRemoteObject implements IConference
              ) {
             for (Edition e:
                  server.getEditionForChair(u)) {
-                if(p.getEdition().getId()==e.getId()&&p.getStatus()== PaperStatus.Accepted &&p.getSession()==null){
+                if(p.getEdition().getId()==e.getId() && p.getSession()==null){
                     lista.add(p);
                 }
             }

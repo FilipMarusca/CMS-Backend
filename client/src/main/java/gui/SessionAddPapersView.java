@@ -1,6 +1,7 @@
 package gui;
 
 import com.ubb.cms.*;
+import com.ubb.cms.utils.ReviewStatus;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,9 +15,7 @@ import org.hibernate.Session;
 import service.exception.ServiceException;
 
 import java.net.URL;
-import java.util.List;
-import java.util.Observable;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by Alexandra Muresan on 6/3/2017.
@@ -89,10 +88,38 @@ public class SessionAddPapersView extends BaseView {
     public void getPapersByEdition(){
         ConferenceSession s=sessionTableView.getSelectionModel().getSelectedItem();
         modelPaper.clear();
+
         for (Paper p:
                 controller.getAllPapersFromEndedConferenceByChair(loggedUser)){
             if(p.getEdition().getId()==s.getEdition().getId()){
-                modelPaper.add(p);
+
+                Collection<Review> reviewList = new ArrayList<>();
+                int nrAccepts = 0;
+                try{
+                    reviewList = controller.getReviews(p);
+
+                }catch(ServiceException serviceException)
+                {
+
+                }
+                for(Review review: reviewList)
+                {
+                    if(review.getStatus() == ReviewStatus.Accept || review.getStatus() == ReviewStatus.StrongAccept || review.getStatus() == ReviewStatus.WeakAccept)
+                    {
+                        nrAccepts++;
+                    }
+                    else
+                    {
+                        nrAccepts--;
+                    }
+
+                }
+                if(nrAccepts > 0)
+                {
+                    modelPaper.add(p);
+                }
+
+
             }
         }
     }
@@ -100,6 +127,7 @@ public class SessionAddPapersView extends BaseView {
     public void update(){
         modelSession.clear();
         modelPaper.clear();
+        //getPapersByEdition();
         List<Edition> editions=controller.getEditionForChair(loggedUser);
         for (Edition e:
              editions) {
