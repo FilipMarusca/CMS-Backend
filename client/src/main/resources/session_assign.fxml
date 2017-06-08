@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <BorderPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SessionAssignView">
    <top>
       <HBox id="logo" prefHeight="138.0" prefWidth="612.0" BorderPane.alignment="CENTER">
@@ -49,11 +50,11 @@
             </VBox>
             <VBox prefHeight="283.0" prefWidth="318.0">
                <children>
-                  <ComboBox fx:id="combo" prefWidth="150.0" promptText="Select an item..">
+                  <JFXComboBox fx:id="combo" prefWidth="150.0" promptText="Select an item..">
                      <VBox.margin>
                         <Insets left="80.0" top="80.0" />
                      </VBox.margin>
-                  </ComboBox>
+                  </JFXComboBox>
                   <Button id="assignBtn" mnemonicParsing="false" onAction="#assignButtonHandler" prefHeight="52.0" prefWidth="154.0" text="Assign">
                      <VBox.margin>
                         <Insets left="80.0" top="50.0" />

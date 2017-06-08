@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.validation.RequiredFieldValidator?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerAssignmentsView">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ReviewerAssignmentsView">
    <top>
       <HBox prefHeight="87.0" prefWidth="681.0" BorderPane.alignment="CENTER">
          <children>
@@ -62,38 +61,35 @@
                <children>
                   <Label text="Select a review:">
                      <VBox.margin>
-                        <Insets left="30.0" top="80.0" />
+                        <Insets top="80.0" />
                      </VBox.margin>
                      <font>
                         <Font name="Myanmar Text Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="reviewCombo" prefWidth="150.0" promptText="Select an item..">
+                  <JFXComboBox fx:id="reviewCombo" prefWidth="150.0" promptText="Select an item..">
                      <VBox.margin>
-                        <Insets left="85.0" top="10.0" />
+                        <Insets top="10.0" />
                      </VBox.margin>
-                  </ComboBox>
-                  <Label text="Comment:">
-                     <VBox.margin>
-                        <Insets left="30.0" top="15.0" />
-                     </VBox.margin>
-                  </Label>
-                  <TextArea fx:id="commentText" prefHeight="138.0" prefWidth="276.0">
+                  </JFXComboBox>
+
+                  <JFXTextArea fx:id="commentText" labelFloat="true" prefHeight="138.0" prefWidth="276.0" promptText="Add your comment here">
                      <opaqueInsets>
                         <Insets left="50.0" right="15.0" top="5.0" />
                      </opaqueInsets>
                      <VBox.margin>
-                        <Insets left="20.0" right="20.0" top="5.0" />
+                        <Insets top="25.0" />
                      </VBox.margin>
-                  </TextArea>
+                  </JFXTextArea>
+
                   <Button id="reviewBtn" mnemonicParsing="false" onAction="#addReviewBtnHandler" prefHeight="40.0" prefWidth="172.0" text="Review Item">
                      <VBox.margin>
-                        <Insets left="70.0" top="5.0" />
+                        <Insets left="70.0" top="15.0" />
                      </VBox.margin>
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets />
+                  <Insets left="10.0" />
                </HBox.margin>
             </VBox>
          </children>
